@@ -27,7 +27,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        btnCadastrarCliente = new javax.swing.JButton();
+        btnCliente = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -45,21 +45,22 @@ public class TelaInicial extends javax.swing.JFrame {
         jButton15 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("JpMarket");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnCadastrarCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCadastrarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-cliente-48.png"))); // NOI18N
-        btnCadastrarCliente.setText("Cadastrar Cliente");
-        btnCadastrarCliente.setBorder(null);
-        btnCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
+        btnCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-cliente-48.png"))); // NOI18N
+        btnCliente.setText("Cliente");
+        btnCliente.setBorder(null);
+        btnCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarClienteActionPerformed(evt);
+                btnClienteActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCadastrarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 220, 67));
+        jPanel1.add(btnCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 220, 67));
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-carro-48.png"))); // NOI18N
@@ -156,6 +157,7 @@ public class TelaInicial extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -166,9 +168,9 @@ public class TelaInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void btnCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarClienteActionPerformed
+    private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCadastrarClienteActionPerformed
+    }//GEN-LAST:event_btnClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,7 +208,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCadastrarCliente;
+    private javax.swing.JButton btnCliente;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
