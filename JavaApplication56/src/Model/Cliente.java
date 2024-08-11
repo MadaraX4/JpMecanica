@@ -4,7 +4,7 @@ package Model;
 import java.util.Date;
 
 
-public class Clientes {
+public class Cliente {
    private int id_cliente;
    private String nome;
    private String rg;
@@ -14,7 +14,7 @@ public class Clientes {
    private Date dataNascimento;
    private String telefone;
 
-    public Clientes(int id_cliente, String nome, String rg, String cpf, String endereco, String email, Date dataNascimento, String telefone) {
+    public Cliente() {
         this.id_cliente = id_cliente;
         this.nome = nome;
         this.rg = rg;
