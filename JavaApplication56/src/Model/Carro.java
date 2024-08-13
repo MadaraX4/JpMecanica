@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.Date;
+
 public class Carro {
 
     private String placa;
@@ -9,8 +11,9 @@ public class Carro {
     private String motor;
     private int num_valvulas;
     private int num_cilindros;
+    private Date data_manutencao;
 
-    public Carro(String placa, String cpf_proprietario, String modelo, String montadora, String motor, int num_valvulas, int num_cilindros) {
+    public Carro() {
         this.placa = placa;
         this.cpf_proprietario = cpf_proprietario;
         this.modelo = modelo;
@@ -18,6 +21,7 @@ public class Carro {
         this.motor = motor;
         this.num_valvulas = num_valvulas;
         this.num_cilindros = num_cilindros;
+        this.data_manutencao = data_manutencao;
     }
 
     public String getPlaca() {
@@ -75,5 +79,14 @@ public class Carro {
     public void setNum_cilindros(int num_cilindros) {
         this.num_cilindros = num_cilindros;
     }
+
+    public Date getData_manutencao() {
+        return data_manutencao;
+    }
+
+    public void setData_manutencao(Date data_manutencao) {
+        this.data_manutencao = data_manutencao;
+    }
+    
 
 }

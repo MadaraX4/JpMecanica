@@ -1,6 +1,7 @@
 package Model.DAO;
 
 import ConnectionFactory.ConexaoBanco;
+import Model.Carro;
 import Model.Cliente;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
@@ -11,6 +12,8 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClienteDAO {
 
@@ -61,8 +64,7 @@ public class ClienteDAO {
                 clienteBusca.setDataNascimento(rs.getDate("dataNascimento"));
                 clienteBusca.setTelefone(rs.getString("telefone"));
                 clienteBusca.setEndereco(rs.getString("endereco"));
-               
-              
+
                 return clienteBusca;
             } else {
                 return null;
@@ -76,5 +78,43 @@ public class ClienteDAO {
         return null;
 
     }
+
+    public List<Carro> read(String proprietario) {
+
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+       Carro listaCarro = new Carro();
+       List<Carro> carro = new ArrayList<>();
+
+        try {
+
+            stmt = con.prepareStatement("SELECT placa,modelo,montadora,data_manutencao from carro where proprietario = ?");
+            stmt.setString(1, proprietario);
+            rs = stmt.executeQuery();
+            
+            
+            while (rs.next()) {                
+             listaCarro.setPlaca(rs.getString("placa"));
+             listaCarro.setModelo(rs.getString("modelo"));
+             listaCarro.setMontadora(rs.getString("montadora"));
+             listaCarro.setData_manutencao(rs.getDate("data_manutencao"));
+             
+            carro.add(listaCarro);
+             
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+        ConexaoBanco.closeConnection(con, stmt, rs);
+        
+        }
+        
+        return carro;
+
+    }
+    
+    
 
 }
