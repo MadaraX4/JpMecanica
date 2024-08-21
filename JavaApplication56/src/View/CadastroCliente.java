@@ -9,9 +9,9 @@ import Model.Cliente;
 import Model.DAO.ClienteDAO;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -26,35 +26,57 @@ public class CadastroCliente extends javax.swing.JFrame {
         initComponents();
 
         DefaultTableModel modelo = (DefaultTableModel) jtCarros.getModel();
-        jtCarros.setRowSorter(new TableRowSorter(modelo));
-       
+        //jtCarros.setRowSorter(new TableRowSorter(modelo));
+        modelo.setRowCount(0);
+
         jScrollPane3.getViewport().setBackground(new java.awt.Color(255, 255, 204));
-         jtCarros.setBackground(new java.awt.Color(187, 187, 187));
+        jtCarros.setBackground(new java.awt.Color(187, 187, 187));
     }
+
+    public void limparCampos() {
+        txtNome.setText("");
+        txtCpf.setText("");
+        txtRg.setText("");
+        txtDataNascimento.setText("");
+        txtEmail.setText("");
+        txtTelefone.setText("");
+        txtEndereco.setText("");
+    }
+
 
     public void readJTable() {
         DefaultTableModel modelo = (DefaultTableModel) jtCarros.getModel();
         String proprietario = txtCpf.getText();
-        
+
         ClienteDAO dao = new ClienteDAO();
-        
-        for (Carro c: dao.read(proprietario)) {
-           modelo.addRow(new Object[]{
-               c.getPlaca(),
-               c.getModelo(),
-               c.getMontadora(),
-               c.getData_manutencao()
-           });
+        List<Carro> listaCarro = dao.read(proprietario);
+
+        for (Carro c : listaCarro) {
+            Object[] objeto = new Object[4];
+            objeto[0] = c.getPlaca();
+            objeto[1] = c.getModelo();
+            objeto[2] = c.getMontadora();
+            objeto[3] = c.getData_manutencao();
+            modelo.addRow(objeto);
+
         }
     }
-
+ /*modelo.addRow(new Object[]{
+                c.getPlaca(),
+                c.getModelo(),
+                c.getMontadora(),
+                c.getData_manutencao()
+            });*/
     public Date dataMysql(String data) {
-        String[] dataFormatada = txtDataNascimento.getText().split("/");
+        String[] dataFormatada = txtDataNascimento.getText().split("-");
 
         Date dataMysql = new Date(Integer.parseInt(dataFormatada[0]), Integer.parseInt(dataFormatada[1]), Integer.parseInt(dataFormatada[2]));
 
         return dataMysql;
     }
+
+   
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,11 +91,11 @@ public class CadastroCliente extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnCadastrar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        btnAlterar = new javax.swing.JButton();
+        btnDeletar = new javax.swing.JButton();
+        btnSair = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jtCarros = new javax.swing.JTable();
@@ -108,41 +130,54 @@ public class CadastroCliente extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Cliente");
+        setUndecorated(true);
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 153));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/new_add_user_16734.png"))); // NOI18N
-        jButton1.setText("Cadastrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/new_add_user_16734.png"))); // NOI18N
+        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCadastrarActionPerformed(evt);
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search_find_user_16727.png"))); // NOI18N
-        jButton2.setText("Buscar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search_find_user_16727.png"))); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/configure_user_16726.png"))); // NOI18N
-        jButton3.setText("Alterar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/configure_user_16726.png"))); // NOI18N
+        btnAlterar.setText("Alterar");
+        btnAlterar.setEnabled(false);
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnAlterarActionPerformed(evt);
             }
         });
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/delete_remove_user_16732.png"))); // NOI18N
-        jButton4.setText("Deletar");
+        btnDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/delete_remove_user_16732.png"))); // NOI18N
+        btnDeletar.setText("Deletar");
+        btnDeletar.setEnabled(false);
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
+            }
+        });
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/previous_left_document_page_16679.png"))); // NOI18N
-        jButton5.setText("sair");
+        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/previous_left_document_page_16679.png"))); // NOI18N
+        btnSair.setText("sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 204));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Carros do Cliente"));
@@ -202,6 +237,8 @@ public class CadastroCliente extends javax.swing.JFrame {
             }
         });
 
+        txtRg.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
         try {
             txtDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-####")));
         } catch (java.text.ParseException ex) {
@@ -232,6 +269,8 @@ public class CadastroCliente extends javax.swing.JFrame {
         jlbRg.setText("RG");
 
         txtTelefone.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        txtEndereco.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -279,11 +318,12 @@ public class CadastroCliente extends javax.swing.JFrame {
                     .addComponent(jlbNome)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtRg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlbCpf)
-                    .addComponent(jlbRg))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtRg, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jlbCpf)
+                        .addComponent(jlbRg)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -296,11 +336,11 @@ public class CadastroCliente extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbTelefone)
                     .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlbEndereco))
-                .addGap(202, 202, 202))
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -314,31 +354,31 @@ public class CadastroCliente extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnCadastrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(btnBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4)
+                        .addComponent(btnDeletar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(9, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCadastrar)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 20, Short.MAX_VALUE))
         );
 
@@ -361,7 +401,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCpfActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         // TODO add your handling code here:
         Cliente cliente = new Cliente();
         ClienteDAO dao = new ClienteDAO();
@@ -375,38 +415,107 @@ public class CadastroCliente extends javax.swing.JFrame {
         cliente.setTelefone(txtTelefone.getText());
 
         dao.create(cliente);
+        limparCampos();
 
-    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         String cpf;
-        cpf = txtCpf.getText();
+        cpf = txtCpf.getText().trim();
         ClienteDAO dao = new ClienteDAO();
+        int comprimento = cpf.length();
 
         try {
-            Cliente cliente = dao.select(cpf);
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-            String formattedDate = sdf.format(cliente.getDataNascimento());
-            txtNome.setText(cliente.getNome());
-            txtRg.setText(cliente.getRg());
-            txtEmail.setText(cliente.getEmail());
-            txtDataNascimento.setText(formattedDate);
-            txtTelefone.setText(cliente.getTelefone());
-            txtEndereco.setText(cliente.getEndereco());
+            if (cpf.isEmpty() && comprimento < 14 || comprimento > 14) {
+                //JOptionPane.showMessageDialog(null, "Campo Vazio!");
 
+            } else {
+                Cliente cliente = dao.select(cpf);
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                String formattedDate = sdf.format(cliente.getDataNascimento());
+                txtNome.setText(cliente.getNome());
+                txtRg.setText(cliente.getRg());
+                txtEmail.setText(cliente.getEmail());
+                txtDataNascimento.setText(formattedDate);
+                txtTelefone.setText(cliente.getTelefone());
+                txtEndereco.setText(cliente.getEndereco());
+
+            }
         } catch (Exception e) {
+
             JOptionPane.showMessageDialog(null, "Cliente não encontrado!" + e);
         }
-        
+
         readJTable();
+        btnDeletar.setEnabled(true);
+        btnAlterar.setEnabled(true);
 
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel) jtCarros.getModel();
+        Cliente cliente = new Cliente();
+        ClienteDAO dao = new ClienteDAO();
+
+        cliente.setNome(txtNome.getText());
+        cliente.setRg(txtRg.getText());
+        cliente.setEmail(txtEmail.getText());
+        cliente.setDataNascimento(dataMysql(txtDataNascimento.getText()));
+        cliente.setEndereco(txtEndereco.getText());
+        cliente.setTelefone(txtTelefone.getText());
+        cliente.setCpf(txtCpf.getText());
+
+        int confirm = JOptionPane.showConfirmDialog(null, "Deseja auterar este úsuario?", "Confirmação", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (cliente.getCpf().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Favor digitar um CPF válido!");
+        } else {
+            if (confirm == JOptionPane.YES_OPTION) {
+                dao.alterarCliente(cliente);
+                JOptionPane.showMessageDialog(null, "Usuario Aterado com Sucesso!");
+                limparCampos();
+                btnAlterar.setEnabled(false);
+                btnDeletar.setEnabled(false);
+                modelo.setRowCount(0);
+            } else if (confirm == JOptionPane.NO_OPTION) {
+                JOptionPane.showMessageDialog(null, "Operação Cancelada");
+
+            }
+
+        }
+
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel modelo = (DefaultTableModel) jtCarros.getModel();
+        String cpf = txtCpf.getText().trim();
+        ClienteDAO dao = new ClienteDAO();
+
+        int confirm = JOptionPane.showConfirmDialog(null, "Deseja excluir esse cliente?", "Confirmação", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (confirm == JOptionPane.YES_OPTION) {
+            dao.delete(cpf);
+            limparCampos();
+            modelo.setRowCount(0);
+            btnDeletar.setEnabled(false);
+        } else if (confirm == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "Cancelado!");
+            limparCampos();
+            modelo.setRowCount(0);
+
+        }
+
+
+    }//GEN-LAST:event_btnDeletarActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -444,11 +553,11 @@ public class CadastroCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btnAlterar;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnDeletar;
+    private javax.swing.JButton btnSair;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

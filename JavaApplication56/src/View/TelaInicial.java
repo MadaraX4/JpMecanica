@@ -3,6 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package View;
+import View.CadastroCliente;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
+
 
 /**
  *
@@ -15,6 +20,7 @@ public class TelaInicial extends javax.swing.JFrame {
      */
     public TelaInicial() {
         initComponents();
+        
     }
 
     /**
@@ -168,6 +174,8 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void btnCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarClienteActionPerformed
         // TODO add your handling code here:
+        CadastroCliente cadastroCliente = new CadastroCliente();
+        cadastroCliente.setVisible(true);
     }//GEN-LAST:event_btnCadastrarClienteActionPerformed
 
     /**
