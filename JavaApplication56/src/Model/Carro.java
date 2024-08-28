@@ -1,5 +1,6 @@
 package Model;
 
+
 import java.util.Date;
 
 public class Carro {
@@ -12,6 +13,7 @@ public class Carro {
     private int num_valvulas;
     private int num_cilindros;
     private Date data_manutencao;
+    private Date manutencao_agendada;
 
     public Carro() {
         this.placa = placa;
@@ -22,6 +24,15 @@ public class Carro {
         this.num_valvulas = num_valvulas;
         this.num_cilindros = num_cilindros;
         this.data_manutencao = data_manutencao;
+        this.manutencao_agendada = manutencao_agendada;
+    }
+
+    public Date getManutencao_agendada() {
+        return manutencao_agendada;
+    }
+
+    public void setManutencao_agendada(Date manutencao_agendada) {
+        this.manutencao_agendada = manutencao_agendada;
     }
 
     public String getPlaca() {

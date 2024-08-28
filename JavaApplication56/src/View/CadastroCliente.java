@@ -43,7 +43,6 @@ public class CadastroCliente extends javax.swing.JFrame {
         txtEndereco.setText("");
     }
 
-
     public void readJTable() {
         DefaultTableModel modelo = (DefaultTableModel) jtCarros.getModel();
         String proprietario = txtCpf.getText();
@@ -61,12 +60,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         }
     }
- /*modelo.addRow(new Object[]{
-                c.getPlaca(),
-                c.getModelo(),
-                c.getMontadora(),
-                c.getData_manutencao()
-            });*/
+
     public Date dataMysql(String data) {
         String[] dataFormatada = txtDataNascimento.getText().split("-");
 
@@ -74,9 +68,6 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         return dataMysql;
     }
-
-   
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
