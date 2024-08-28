@@ -417,10 +417,11 @@ public class CadastroCliente extends javax.swing.JFrame {
         cpf = txtCpf.getText().trim();
         ClienteDAO dao = new ClienteDAO();
         int comprimento = cpf.length();
+        boolean validacao = cpf.isEmpty();
 
         try {
-            if (cpf.isEmpty() && comprimento < 14 || comprimento > 14) {
-                //JOptionPane.showMessageDialog(null, "Campo Vazio!");
+            if (validacao==false && comprimento < 14 || comprimento > 14) {
+                JOptionPane.showMessageDialog(null, "Campo Vazio\n"+"Ou CPF invalido!");
 
             } else {
                 Cliente cliente = dao.select(cpf);
@@ -436,7 +437,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             }
         } catch (Exception e) {
 
-            JOptionPane.showMessageDialog(null, "Cliente não encontrado!" + e);
+            JOptionPane.showMessageDialog(null, "Cliente não encontrado!\n" + e);
         }
 
         readJTable();
@@ -451,6 +452,8 @@ public class CadastroCliente extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) jtCarros.getModel();
         Cliente cliente = new Cliente();
         ClienteDAO dao = new ClienteDAO();
+        String cpf = txtCpf.getText().trim();
+        boolean validacao = cpf.isEmpty();
 
         cliente.setNome(txtNome.getText());
         cliente.setRg(txtRg.getText());
@@ -462,8 +465,8 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         int confirm = JOptionPane.showConfirmDialog(null, "Deseja auterar este úsuario?", "Confirmação", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-        if (cliente.getCpf().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Favor digitar um CPF válido!");
+        if (validacao == true) {
+            JOptionPane.showMessageDialog(null, "Campo CPF vazio!");
         } else {
             if (confirm == JOptionPane.YES_OPTION) {
                 dao.alterarCliente(cliente);
