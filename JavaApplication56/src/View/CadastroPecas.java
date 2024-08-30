@@ -34,6 +34,7 @@ public class CadastroPecas extends javax.swing.JFrame {
         txtPrecoVenda.setText("");
         txtQuantidade.setText("");
         txtReferencia.setText("");
+        txtFornecedor.setText("");
     }
 
     /**
@@ -100,10 +101,20 @@ public class CadastroPecas extends javax.swing.JFrame {
         btnAlterar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/papel.png"))); // NOI18N
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnDeletar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bin.png"))); // NOI18N
         btnDeletar.setText("Deletar");
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
+            }
+        });
 
         btnSair.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sair.png"))); // NOI18N
@@ -336,11 +347,11 @@ public class CadastroPecas extends javax.swing.JFrame {
         // TODO add your handling code here:
         String cod_identificacao;
         cod_identificacao = txtCod_identificacao.getText().trim();
-        boolean validação = cod_identificacao.isEmpty();
+        boolean validacao = cod_identificacao.isEmpty();
 
         PecasDAO dao = new PecasDAO();
 
-        if (validação == false) {
+        if (validacao == false) {
             Pecas peca = dao.select(cod_identificacao);
 
             jlbId.setText(Integer.toString(peca.getId()));
@@ -349,13 +360,14 @@ public class CadastroPecas extends javax.swing.JFrame {
             txtNome.setText(peca.getNome());
             txtPrecoCompra.setText(Double.toString(peca.getPreco_compra()));
             txtPrecoVenda.setText(Double.toString(peca.getPreco_venda()));
-            txtQuantidade.setText(Integer.toString(peca.getId()));
+            txtQuantidade.setText(Integer.toString(peca.getQuantidade()));
             txtReferencia.setText(peca.getReferencia());
-            
+
             //habilitando botões
             btnCadastrar.setEnabled(false);
             btnAlterar.setEnabled(true);
             btnDeletar.setEnabled(true);
+            txtCod_identificacao.setEditable(false);
 
         } else {
             JOptionPane.showMessageDialog(null, "Campo código está vazio!");
@@ -363,6 +375,69 @@ public class CadastroPecas extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        // TODO add your handling code here:
+
+        String cod_identificacao;
+        cod_identificacao = txtCod_identificacao.getText().trim();
+        boolean validacao = cod_identificacao.isEmpty();
+
+        Pecas peca = new Pecas();
+        PecasDAO dao = new PecasDAO();
+
+        peca.setCarro(txtCarro.getText());
+        peca.setFornecedor(txtFornecedor.getText());
+        peca.setNome(txtNome.getText());
+        peca.setPreco_compra(Double.parseDouble(txtPrecoCompra.getText()));
+        peca.setPreco_venda(Double.parseDouble(txtPrecoVenda.getText()));
+        peca.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
+        peca.setReferencia(txtReferencia.getText());
+        peca.setId(Integer.parseInt(jlbId.getText()));
+        peca.setCod_identificacao(Integer.parseInt(cod_identificacao));
+
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Deseja alterar este produto?", "Confirmação", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (validacao == false) {
+            if (confirmacao == JOptionPane.YES_OPTION) {
+                dao.update(peca);
+                JOptionPane.showMessageDialog(null, "Produto alterado com sucesso!");
+                limparCampos();
+                btnAlterar.setEnabled(false);
+                btnDeletar.setEnabled(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "Operação cancelada!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "<html><p>Campo Código está em branco!</p></html>");
+        }
+
+
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
+        // TODO add your handling code here:
+        String cod_identificacao;
+        cod_identificacao = txtCod_identificacao.getText().trim();
+        boolean validacao = cod_identificacao.isEmpty();
+
+        PecasDAO dao = new PecasDAO();
+
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Deseja excluir este produto da base de dados?", "Confirmação", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            if (validacao == false) {
+                dao.delete(cod_identificacao);
+                JOptionPane.showMessageDialog(null, "Produto deletado da base de dados!");
+                limparCampos();
+                btnAlterar.setEnabled(false);
+                btnDeletar.setEnabled(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "<html><p>Campo Código está em branco!</p></html>"); 
+            }
+        }else{
+         JOptionPane.showMessageDialog(null, "Operação cancelada!");
+        }
+    }//GEN-LAST:event_btnDeletarActionPerformed
 
     /**
      * @param args the command line arguments

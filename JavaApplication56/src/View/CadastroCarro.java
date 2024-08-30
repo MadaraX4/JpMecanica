@@ -454,6 +454,7 @@ public class CadastroCarro extends javax.swing.JFrame {
                 txtCilindro.setText(Integer.toString(carro.getNum_cilindros()));
                 jblDtAgendada.setText(agendaFormatada);
                 jblDtManutencao.setText(manutencaoFormatada);
+                txtPlaca.setEditable(false);
 
             } else {
 
@@ -470,6 +471,7 @@ public class CadastroCarro extends javax.swing.JFrame {
                 btnCadastrar.setEnabled(false);
                 btnAlterar.setEnabled(true);
                 btnDeletar.setEnabled(true);
+                txtPlaca.setEditable(false);
 
             }
 

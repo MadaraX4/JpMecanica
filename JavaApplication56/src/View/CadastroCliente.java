@@ -433,6 +433,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                 txtDataNascimento.setText(formattedDate);
                 txtTelefone.setText(cliente.getTelefone());
                 txtEndereco.setText(cliente.getEndereco());
+                txtCpf.setEditable(false);
 
             }
         } catch (Exception e) {
