@@ -1,18 +1,19 @@
-
 package Model;
 
-
 public class Pecas {
-   private int cod_identificacao;
-   private String nome;
-   private String carro;
-   private String referencia;
-   private int quantidade;
-   private double preco_compra;
-   private double preco_venda;
-   private String fornecedor;
 
-    public Pecas(int cod_identificacao, String nome, String carro, String referencia, int quantidade, double preco_compra, double preco_venda, String fornecedor) {
+    private int id;
+    private int cod_identificacao;
+    private String nome;
+    private String carro;
+    private String referencia;
+    private int quantidade;
+    private double preco_compra;
+    private double preco_venda;
+    private String fornecedor;
+
+    public Pecas() {
+        this.id = id;
         this.cod_identificacao = cod_identificacao;
         this.nome = nome;
         this.carro = carro;
@@ -22,6 +23,16 @@ public class Pecas {
         this.preco_venda = preco_venda;
         this.fornecedor = fornecedor;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
 
     public int getCod_identificacao() {
         return cod_identificacao;
@@ -86,6 +97,5 @@ public class Pecas {
     public void setFornecedor(String fornecedor) {
         this.fornecedor = fornecedor;
     }
-   
-   
+
 }
