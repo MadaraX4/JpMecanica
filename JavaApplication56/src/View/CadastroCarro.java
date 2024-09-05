@@ -439,6 +439,7 @@ public class CadastroCarro extends javax.swing.JFrame {
 
         if (validacao == false) {
             Carro carro = dao.select(placa);
+            
 
             if (carro.getData_manutencao() != null && carro.getManutencao_agendada() != null) {
 
@@ -477,7 +478,7 @@ public class CadastroCarro extends javax.swing.JFrame {
 
         } else {
             JOptionPane.showMessageDialog(null, "<html><p>Campo Placa Vazio!</p></html>");
-
+            
         }
 
 

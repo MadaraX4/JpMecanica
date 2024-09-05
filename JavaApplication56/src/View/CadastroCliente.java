@@ -422,7 +422,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         try {
             if (validacao==false && comprimento < 14 || comprimento > 14) {
                 JOptionPane.showMessageDialog(null, "Campo Vazio\n"+"Ou CPF invalido!");
-
+               
             } else {
                 Cliente cliente = dao.select(cpf);
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");

@@ -1,26 +1,39 @@
-
 package Model;
 
+import java.util.Date;
 
 public class Mecanico {
-   private String nome;
-   private String rg;
-   private String cpf;
-   private String categoria;
-   private String email;
-   private String endereco;
-   private String referencia;
 
-    public Mecanico(String nome, String rg, String cpf, String categoria, String email, String endereco, String referencia) {
-        this.nome = nome;
-        this.rg = rg;
-        this.cpf = cpf;
-        this.categoria = categoria;
-        this.email = email;
-        this.endereco = endereco;
-        this.referencia = referencia;
+    private String nome;
+    private String rg;
+    private String cpf;
+    private String categoria;
+    private String email;
+    private String endereco;
+    private String referencia;
+    private String telefone;
+    private Date data_nascimento;
+
+    public Mecanico() {
+       
     }
 
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public Date getData_nascimento() {
+        return data_nascimento;
+    }
+
+    public void setData_nascimento(Date data_nascimento) {
+        this.data_nascimento = data_nascimento;
+    }
+    
     public String getNome() {
         return nome;
     }
@@ -76,6 +89,5 @@ public class Mecanico {
     public void setReferencia(String referencia) {
         this.referencia = referencia;
     }
-   
-   
+
 }
