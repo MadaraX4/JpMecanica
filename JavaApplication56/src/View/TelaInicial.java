@@ -34,9 +34,9 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         btnCadastrarCliente = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnCadastrarCarro = new javax.swing.JButton();
+        btnCadastrarPecas = new javax.swing.JButton();
+        btnCadastrarMecanico = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -44,7 +44,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        btnContas = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
@@ -66,30 +66,35 @@ public class TelaInicial extends javax.swing.JFrame {
         });
         jPanel1.add(btnCadastrarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 220, 67));
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-carro-48.png"))); // NOI18N
-        jButton2.setText("Cadastrar Carro");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrarCarro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCadastrarCarro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-carro-48.png"))); // NOI18N
+        btnCadastrarCarro.setText("Cadastrar Carro");
+        btnCadastrarCarro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnCadastrarCarroActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 220, 70));
+        jPanel1.add(btnCadastrarCarro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 220, 70));
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pecas-de-reposicao.png"))); // NOI18N
-        jButton3.setText("Cadastrar Peças");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrarPecas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCadastrarPecas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pecas-de-reposicao.png"))); // NOI18N
+        btnCadastrarPecas.setText("Cadastrar Peças");
+        btnCadastrarPecas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnCadastrarPecasActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 220, 70));
+        jPanel1.add(btnCadastrarPecas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 220, 70));
 
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/mecanico.png"))); // NOI18N
-        jButton4.setText("Cadastrar Mecânico");
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 220, 70));
+        btnCadastrarMecanico.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCadastrarMecanico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/mecanico.png"))); // NOI18N
+        btnCadastrarMecanico.setText("Cadastrar Mecânico");
+        btnCadastrarMecanico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarMecanicoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnCadastrarMecanico, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 220, 70));
 
         jButton5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/caixa-eletronico.png"))); // NOI18N
@@ -129,10 +134,10 @@ public class TelaInicial extends javax.swing.JFrame {
         jButton10.setText("Notificações");
         jPanel1.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 344, 220, 60));
 
-        jButton11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pago.png"))); // NOI18N
-        jButton11.setText("Contas a pagar");
-        jPanel1.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 270, 220, 70));
+        btnContas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnContas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pago.png"))); // NOI18N
+        btnContas.setText("Contas a pagar");
+        jPanel1.add(btnContas, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 270, 220, 70));
 
         jButton12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-carrinho-de-compras-carregado-48.png"))); // NOI18N
@@ -169,11 +174,11 @@ public class TelaInicial extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnCadastrarPecasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarPecasActionPerformed
         // TODO add your handling code here:
         CadastroPecas cadastroPecas = new CadastroPecas();
         cadastroPecas.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnCadastrarPecasActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
@@ -185,11 +190,17 @@ public class TelaInicial extends javax.swing.JFrame {
         cadastroCliente.setVisible(true);
     }//GEN-LAST:event_btnCadastrarClienteActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnCadastrarCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCarroActionPerformed
         // TODO add your handling code here:
         CadastroCarro cadastroCarro = new CadastroCarro();
         cadastroCarro.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnCadastrarCarroActionPerformed
+
+    private void btnCadastrarMecanicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarMecanicoActionPerformed
+        // TODO add your handling code here:
+        CadastroMecanico cadastroMecanico = new CadastroMecanico();
+        cadastroMecanico.setVisible(true);
+    }//GEN-LAST:event_btnCadastrarMecanicoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -227,16 +238,16 @@ public class TelaInicial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCadastrarCarro;
     private javax.swing.JButton btnCadastrarCliente;
+    private javax.swing.JButton btnCadastrarMecanico;
+    private javax.swing.JButton btnCadastrarPecas;
+    private javax.swing.JButton btnContas;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;

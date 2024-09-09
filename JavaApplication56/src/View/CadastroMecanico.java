@@ -261,14 +261,29 @@ public class CadastroMecanico extends javax.swing.JFrame {
         btnAlterar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/configure_user_16726.png"))); // NOI18N
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnDeletar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/delete_remove_user_16732.png"))); // NOI18N
         btnDeletar.setText("Deletar");
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
+            }
+        });
 
         btnFechar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/previous_left_document_page_16679.png"))); // NOI18N
         btnFechar.setText("Fechar");
+        btnFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -382,6 +397,63 @@ public class CadastroMecanico extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        // TODO add your handling code here:
+        Mecanico mecanico = new Mecanico();
+        MecanicoDAO dao = new MecanicoDAO();
+        
+        mecanico.setTelefone(txtTelefone.getText());
+        mecanico.setCpf(txtCpf.getText());
+        mecanico.setData_nascimento(dataMysql(txtDataNascimento.getText()));
+        mecanico.setEmail(txtEmail.getText());
+        mecanico.setEndereco(txtEndereco.getText());
+        mecanico.setNome(txtNome.getText());
+        mecanico.setReferencia(txtReferencia.getText());
+        mecanico.setRg(txtRg.getText());
+        mecanico.setTelefone(txtTelefone.getText());
+        mecanico.setCategoria(txtCategoria.getText());
+        
+        int confirm = JOptionPane.showConfirmDialog(null, "Deseja Alterar este mecânico?", "Confirmaçao", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        
+        if (confirm == JOptionPane.YES_OPTION) {
+            dao.update(mecanico);
+            JOptionPane.showMessageDialog(null, "Mecânico Aterado com Sucesso!");
+            btnCadastrar.setEnabled(true);
+            btnAlterar.setEnabled(false);
+            btnDeletar.setEnabled(false);
+            limparCampos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Operação Cancelada");
+        }
+        
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
+        // TODO add your handling code here
+        MecanicoDAO dao = new MecanicoDAO();
+        
+        String cpf = txtCpf.getText().trim();
+        
+        int confirm = JOptionPane.showConfirmDialog(null, "Deseja excluir este mecanico?", "Confirmação",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        
+        if (confirm == JOptionPane.YES_OPTION) {
+            dao.delete(cpf);
+            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
+            limparCampos();
+            btnDeletar.setEnabled(false);
+            btnAlterar.setEnabled(false);
+            btnCadastrar.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Cancelado!");
+        }
+        
+    }//GEN-LAST:event_btnDeletarActionPerformed
+
+    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnFecharActionPerformed
 
     /**
      * @param args the command line arguments

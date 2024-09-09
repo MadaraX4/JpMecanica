@@ -68,4 +68,42 @@ public class MecanicoDAO {
 
         return mecanico;
     }
+    
+    public void update(Mecanico mecanico){
+        
+        try {
+            stmt=con.prepareStatement("UPDATE mecanico SET nome=?,rg=?,telefone=?,data_nascimento=?,categoria=?,email=?,endereco=?,referencia=? WHERE cpf=?");
+            stmt.setString(1, mecanico.getNome());
+            stmt.setString(2, mecanico.getRg());
+            stmt.setString(3, mecanico.getTelefone());
+            stmt.setDate(4, (Date) mecanico.getData_nascimento());
+            stmt.setString(5, mecanico.getCategoria());
+            stmt.setString(6, mecanico.getEmail());
+            stmt.setString(7, mecanico.getEndereco());
+            stmt.setString(8, mecanico.getReferencia());
+            stmt.setString(9, mecanico.getCpf());
+            
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao aterar mecanico!\n" + ex);
+        }finally{
+        ConexaoBanco.closeConnection(con, stmt);
+        }
+    }
+    
+    public boolean delete(String cpf){
+    
+        try {
+            stmt=con.prepareStatement("DELETE FROM mecanico WHERE cpf=?");
+            stmt.setString(1, cpf);
+            stmt.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir!\n"+ex);
+            return false;
+        }finally{
+        ConexaoBanco.closeConnection(con, stmt);
+        }
+    
+    }
 }
