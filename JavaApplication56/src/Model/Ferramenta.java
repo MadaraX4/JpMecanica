@@ -1,16 +1,24 @@
-
 package Model;
 
-
 public class Ferramenta {
-  private String nome; 
-  private int quantidade;
-  private String usuario;
 
-    public Ferramenta(String nome, int quantidade, String usuario) {
+    private int id;
+    private String nome;
+    private int quantidade;
+    private String usuario;
+
+    public Ferramenta() {
         this.nome = nome;
         this.quantidade = quantidade;
         this.usuario = usuario;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -36,6 +44,5 @@ public class Ferramenta {
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
-  
-  
+
 }
