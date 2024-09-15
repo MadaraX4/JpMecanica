@@ -60,4 +60,40 @@ public class FerramentaDAO {
 
         return ferramentas;
     }
+    
+    public void update(Ferramenta ferramenta){
+    
+        try {
+            stmt=con.prepareStatement("UPDATE ferramenta SET nome=?,quantidade=?,usuario=? WHERE id=?");
+            stmt.setString(1, ferramenta.getNome());
+            stmt.setInt(2, ferramenta.getQuantidade());
+            stmt.setString(3, ferramenta.getUsuario());
+            stmt.setInt(4, ferramenta.getId());
+            
+            stmt.executeUpdate();
+            
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null, "Erro a alterar ferramenta cadastrada!\n" + ex);
+        }finally{
+        ConexaoBanco.closeConnection(con, stmt);
+        }
+    
+    }
+    
+    public boolean delete(String id){
+    
+        try {
+            stmt=con.prepareStatement("DELETE FROM ferramenta WHERE id=?");
+            stmt.setString(1, id);
+            
+            stmt.executeUpdate();
+            
+            return true;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao deletar!" + ex);
+            return false;
+        }finally{
+        ConexaoBanco.closeConnection(con, stmt);
+        }
+    }
 }

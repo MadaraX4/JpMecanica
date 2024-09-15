@@ -9,6 +9,7 @@ import Model.DAO.FerramentaDAO;
 import Model.Ferramenta;
 import RenderTabelas.Cabecalho;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
@@ -21,35 +22,55 @@ public class CadastroFerramenta extends javax.swing.JFrame {
     /**
      * Creates new form CadastroFerramenta
      */
+    private int index;
+
     public CadastroFerramenta() {
         initComponents();
+
         DefaultTableModel modelo = (DefaultTableModel) jtFerramenta.getModel();
-         
+
         jScrollPane2.getViewport().setBackground(new java.awt.Color(255, 255, 204));
         jtFerramenta.setBackground(new java.awt.Color(187, 187, 187));
         jtFerramenta.setDefaultRenderer(Object.class, new Render());
 
         JTableHeader header = jtFerramenta.getTableHeader();
         header.setDefaultRenderer(new Cabecalho());
-        
+
         readTabela();
-       
+
+        btnLimpar.setEnabled(false);
+        btnDeletar.setEnabled(false);
+        btnAterar.setEnabled(false);
+
     }
-    
-    public void limparCampos(){
-    jlId.setText("ID da Ferramenta");
-    txtNome.setText("");
-    txtQuantidade.setText("");
-    txtUsuario.setText("");
-    
+
+    public void listarCampos(Ferramenta ferramenta) {
+
+        jlId.setText(String.valueOf(ferramenta.getId()));
+        txtNome.setText(ferramenta.getNome());
+        txtQuantidade.setText(Integer.toString(ferramenta.getQuantidade()));
+        txtUsuario.setText(ferramenta.getUsuario());
+    }
+
+    public void limparCampos() {
+        jlId.setText("ID da Ferramenta");
+        txtNome.setText("");
+        txtQuantidade.setText("");
+        txtUsuario.setText("");
+
+        btnCadastrar.setEnabled(true);
+        btnLimpar.setEnabled(false);
+        btnDeletar.setEnabled(false);
+        btnAterar.setEnabled(false);
+
     }
 
     public void readTabela() {
         DefaultTableModel modelo = (DefaultTableModel) jtFerramenta.getModel();
         modelo.setNumRows(0);
         FerramentaDAO dao = new FerramentaDAO();
-        
-        for (Ferramenta ferramenta: dao.read()) {
+
+        for (Ferramenta ferramenta : dao.read()) {
             modelo.addRow(new Object[]{
                 ferramenta.getId(),
                 ferramenta.getNome(),
@@ -87,6 +108,10 @@ public class CadastroFerramenta extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtFerramenta = new javax.swing.JTable();
+        btnInicio = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
+        btnFinal = new javax.swing.JButton();
+        btnAvancar = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -102,6 +127,7 @@ public class CadastroFerramenta extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 153));
 
@@ -140,14 +166,29 @@ public class CadastroFerramenta extends javax.swing.JFrame {
         btnAterar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnAterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/papel.png"))); // NOI18N
         btnAterar.setText("Alterar");
+        btnAterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAterarActionPerformed(evt);
+            }
+        });
 
         btnDeletar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bin.png"))); // NOI18N
         btnDeletar.setText("Deletar");
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
+            }
+        });
 
         btnSair.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sair.png"))); // NOI18N
         btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
 
         btnLimpar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/limpar-limpo.png"))); // NOI18N
@@ -182,14 +223,14 @@ public class CadastroFerramenta extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(btnAterar))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(48, 48, 48)
+                                .addGap(46, 46, 46)
                                 .addComponent(btnDeletar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnSair)
@@ -210,20 +251,20 @@ public class CadastroFerramenta extends javax.swing.JFrame {
                     .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
+                    .addComponent(btnLimpar)
                     .addComponent(btnAterar)
                     .addComponent(btnDeletar)
-                    .addComponent(btnSair)
-                    .addComponent(btnLimpar))
-                .addGap(29, 29, 29))
+                    .addComponent(btnSair))
+                .addGap(15, 15, 15))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 204));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lista de Ferramentas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
 
-        jtFerramenta.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jtFerramenta.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jtFerramenta.setForeground(new java.awt.Color(0, 0, 0));
         jtFerramenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -249,8 +290,36 @@ public class CadastroFerramenta extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
         );
+
+        btnInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-seta-dupla-48.png"))); // NOI18N
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInicioActionPerformed(evt);
+            }
+        });
+
+        btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-voltar-48.png"))); // NOI18N
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
+
+        btnFinal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-seta-dupla-48 (1).png"))); // NOI18N
+        btnFinal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinalActionPerformed(evt);
+            }
+        });
+
+        btnAvancar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-avançar-48.png"))); // NOI18N
+        btnAvancar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAvancarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -258,16 +327,33 @@ public class CadastroFerramenta extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(207, 207, 207)
+                        .addComponent(btnInicio)
+                        .addGap(47, 47, 47)
+                        .addComponent(btnVoltar)
+                        .addGap(43, 43, 43)
+                        .addComponent(btnAvancar)
+                        .addGap(36, 36, 36)
+                        .addComponent(btnFinal)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(15, 15, 15)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFinal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAvancar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -305,22 +391,117 @@ public class CadastroFerramenta extends javax.swing.JFrame {
         // TODO add your handling code here:
         Ferramenta ferramenta = new Ferramenta();
         FerramentaDAO dao = new FerramentaDAO();
-        
+
         int index = jtFerramenta.getSelectedRow();
-        
+
         ferramenta = dao.read().get(index);
-        
+
         jlId.setText(String.valueOf(ferramenta.getId()));
         txtNome.setText(ferramenta.getNome());
         txtQuantidade.setText(String.valueOf(ferramenta.getQuantidade()));
         txtUsuario.setText(ferramenta.getUsuario());
-        
+
+        btnCadastrar.setEnabled(false);
+        btnLimpar.setEnabled(true);
+        btnDeletar.setEnabled(true);
+        btnAterar.setEnabled(true);
+
+
     }//GEN-LAST:event_jtFerramentaMouseClicked
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         // TODO add your handling code here:
         limparCampos();
     }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void btnAterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAterarActionPerformed
+        // TODO add your handling code here:
+        Ferramenta ferramenta = new Ferramenta();
+        FerramentaDAO dao = new FerramentaDAO();
+
+        ferramenta.setId(Integer.parseInt(jlId.getText()));
+        ferramenta.setNome(txtNome.getText());
+        ferramenta.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
+        ferramenta.setUsuario(txtUsuario.getText());
+
+        int confirm = JOptionPane.showConfirmDialog(null, "Deseja alterar está ferramenta?", "Confirmação", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (confirm == JOptionPane.YES_OPTION) {
+            dao.update(ferramenta);
+            JOptionPane.showMessageDialog(null, "Alterado com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Operação cancelada!");
+        }
+        readTabela();
+    }//GEN-LAST:event_btnAterarActionPerformed
+
+    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
+        // TODO add your handling code here:
+
+        String id = jlId.getText();
+
+        FerramentaDAO dao = new FerramentaDAO();
+
+        int confirm = JOptionPane.showConfirmDialog(null, "Deseja excluir essa peça?", "Confirmação", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            if (id != "ID da Ferramenta") {
+                dao.delete(id);
+                JOptionPane.showMessageDialog(null, "Deletado com sucesso!");
+                limparCampos();
+            } else {
+                JOptionPane.showMessageDialog(null, "Ferramenta não encontrada!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Operação cancelada!");
+        }
+        readTabela();
+    }//GEN-LAST:event_btnDeletarActionPerformed
+
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        // TODO add your handling code here:
+        FerramentaDAO dao = new FerramentaDAO();
+        index = 0;
+        listarCampos(dao.read().get(index));
+
+    }//GEN-LAST:event_btnInicioActionPerformed
+
+    private void btnFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalActionPerformed
+        // TODO add your handling code here:
+        FerramentaDAO dao = new FerramentaDAO();
+        index = jtFerramenta.getRowCount() - 1;
+        listarCampos(dao.read().get(index));
+    }//GEN-LAST:event_btnFinalActionPerformed
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        // TODO add your handling code here:
+        FerramentaDAO dao = new FerramentaDAO();
+        index--;
+        if (index >= 0) {
+            listarCampos(dao.read().get(index));
+        } else {
+            index = 0;
+            listarCampos(dao.read().get(index));
+        }
+
+    }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void btnAvancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvancarActionPerformed
+        // TODO add your handling code here:
+        FerramentaDAO dao = new FerramentaDAO();
+        index++;
+
+        if (index < jtFerramenta.getRowCount()) {
+            listarCampos(dao.read().get(index));
+        } else {
+            index = jtFerramenta.getRowCount() - 1;
+            listarCampos(dao.read().get(index));
+        }
+    }//GEN-LAST:event_btnAvancarActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -359,10 +540,14 @@ public class CadastroFerramenta extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAterar;
+    private javax.swing.JButton btnAvancar;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnDeletar;
+    private javax.swing.JButton btnFinal;
+    private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnSair;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
