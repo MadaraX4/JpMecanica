@@ -1,20 +1,36 @@
 package Model;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 public class Conta {
 
+    private int id;
     private String referencia;
     private String tipo;
     private double valor;
-    private String data_vencimento;
-    private boolean paga;
+    private Date data_vencimento;
+    private String estatus;
+    private Date data_pagamento;
+   
 
-    public Conta(String referencia, String tipo, double valor, String data_vencimento, boolean paga) {
-        this.referencia = referencia;
-        this.tipo = tipo;
-        this.valor = valor;
-        this.data_vencimento = data_vencimento;
-        this.paga = paga;
+    public Conta() {
+        
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
 
     public String getReferencia() {
         return referencia;
@@ -37,24 +53,41 @@ public class Conta {
     }
 
     public void setValor(double valor) {
+
         this.valor = valor;
+
     }
 
-    public String getData_vencimento() {
+    public Date getData_vencimento() {
         return data_vencimento;
     }
 
-    public void setData_vencimento(String data_vencimento) {
+    public void setData_vencimento(Date data_vencimento) {
         this.data_vencimento = data_vencimento;
     }
 
-    public boolean isPaga() {
-        return paga;
+    public String getEstatus() {
+        return estatus;
     }
 
-    public void setPaga(boolean paga) {
-        this.paga = paga;
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
     }
 
+    public Date getData_pagamento() {
+        return data_pagamento;
+    }
+
+    public void setData_pagamento(Date data_pagamento) {
+        this.data_pagamento = data_pagamento;
+    }
+
+  
+    }
+
+ 
     
-}
+   
+
+
+

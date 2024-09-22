@@ -53,9 +53,6 @@
               <Image iconType="3" name="/img/icons8-cliente-48.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Cadastrar Cliente"/>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="null"/>
-            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCadastrarClienteActionPerformed"/>

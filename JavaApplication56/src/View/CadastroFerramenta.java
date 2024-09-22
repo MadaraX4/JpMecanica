@@ -4,10 +4,10 @@
  */
 package View;
 
-import RenderTabelas.Render;
+import Style.table.Render;
 import Model.DAO.FerramentaDAO;
 import Model.Ferramenta;
-import RenderTabelas.Cabecalho;
+import Style.table.Cabecalho;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;

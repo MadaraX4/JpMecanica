@@ -1,5 +1,5 @@
 
-package RenderTabelas;
+package Style.table;
 
 import java.awt.Color;
 import java.awt.Component;

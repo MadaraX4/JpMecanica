@@ -4,6 +4,8 @@
  */
 package View;
 import View.CadastroCliente;
+import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -20,6 +22,7 @@ public class TelaInicial extends javax.swing.JFrame {
      */
     public TelaInicial() {
         initComponents();
+        btnCadastrarCliente.setBackground(Color.WHITE);
         
     }
 
@@ -58,7 +61,6 @@ public class TelaInicial extends javax.swing.JFrame {
         btnCadastrarCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCadastrarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-cliente-48.png"))); // NOI18N
         btnCadastrarCliente.setText("Cadastrar Cliente");
-        btnCadastrarCliente.setBorder(null);
         btnCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarClienteActionPerformed(evt);
@@ -228,6 +230,12 @@ public class TelaInicial extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(TelaInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize LaF");
+        }
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
