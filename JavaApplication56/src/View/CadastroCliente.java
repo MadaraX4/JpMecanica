@@ -4,14 +4,22 @@
  */
 package View;
 
+import Estilo.BordaCantoArredondado;
 import Model.Carro;
 import Model.Cliente;
 import Model.DAO.ClienteDAO;
+import Style.table.Render;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import Estilo.BotaoRedondo;
+import Estilo.TextoMaisculo;
+import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Color;
+import javax.swing.UIManager;
+import javax.swing.text.AbstractDocument;
 
 /**
  *
@@ -30,7 +38,38 @@ public class CadastroCliente extends javax.swing.JFrame {
         modelo.setRowCount(0);
 
         jScrollPane3.getViewport().setBackground(new java.awt.Color(255, 255, 204));
-        jtCarros.setBackground(new java.awt.Color(187, 187, 187));
+        jtCarros.setBackground(new java.awt.Color(255,255,204));
+      
+        Render render = new Render();
+        for (int i = 0; i < jtCarros.getColumnCount(); i++) {
+            jtCarros.getColumnModel().getColumn(i).setCellRenderer(render);
+        }
+
+        txtBorda();
+        textoMaiusculo();
+    }
+
+    public void txtBorda() {
+        BordaCantoArredondado bad = new BordaCantoArredondado(Color.GRAY);
+
+        txtCpf.setBorder(bad);
+        txtDataNascimento.setBorder(bad);
+        txtNome.setBorder(bad);
+        txtEmail.setBorder(bad);
+        txtEndereco.setBorder(bad);
+        txtRg.setBorder(bad);
+        txtTelefone.setBorder(bad);
+    }
+
+    public void textoMaiusculo() {
+        ((AbstractDocument) txtCpf.getDocument()).setDocumentFilter(new TextoMaisculo());
+        ((AbstractDocument) txtDataNascimento.getDocument()).setDocumentFilter(new TextoMaisculo());
+        ((AbstractDocument) txtNome.getDocument()).setDocumentFilter(new TextoMaisculo());
+        ((AbstractDocument) txtEmail.getDocument()).setDocumentFilter(new TextoMaisculo());
+        ((AbstractDocument) txtEndereco.getDocument()).setDocumentFilter(new TextoMaisculo());
+        ((AbstractDocument) txtRg.getDocument()).setDocumentFilter(new TextoMaisculo());
+        ((AbstractDocument) txtTelefone.getDocument()).setDocumentFilter(new TextoMaisculo());
+
     }
 
     public void limparCampos() {
@@ -51,11 +90,19 @@ public class CadastroCliente extends javax.swing.JFrame {
         List<Carro> listaCarro = dao.read(proprietario);
 
         for (Carro c : listaCarro) {
+
             Object[] objeto = new Object[4];
             objeto[0] = c.getPlaca();
             objeto[1] = c.getModelo();
             objeto[2] = c.getMontadora();
-            objeto[3] = c.getData_manutencao();
+            if (c.getData_manutencao() != null) {
+                SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+                String dataString = formato.format(c.getData_manutencao());
+                objeto[3] = dataString;
+            } else {
+                objeto[3] = c.getData_manutencao();
+            }
+
             modelo.addRow(objeto);
 
         }
@@ -82,11 +129,11 @@ public class CadastroCliente extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        btnCadastrar = new javax.swing.JButton();
-        btnBuscar = new javax.swing.JButton();
-        btnAlterar = new javax.swing.JButton();
-        btnDeletar = new javax.swing.JButton();
-        btnSair = new javax.swing.JButton();
+        btnCadastrar = new BotaoRedondo();
+        btnBuscar = new BotaoRedondo();
+        btnAlterar = new BotaoRedondo();
+        btnDeletar = new BotaoRedondo();
+        btnSair = new BotaoRedondo();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jtCarros = new javax.swing.JTable();
@@ -171,10 +218,10 @@ public class CadastroCliente extends javax.swing.JFrame {
         });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 204));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Carros do Cliente"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Carros do Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
 
         jtCarros.setBackground(new java.awt.Color(255, 255, 204));
-        jtCarros.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jtCarros.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         jtCarros.setForeground(new java.awt.Color(0, 0, 0));
         jtCarros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -193,23 +240,23 @@ public class CadastroCliente extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(311, 311, 311))
+                .addGap(0, 16, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 204));
 
-        jlbNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jlbNome.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jlbNome.setForeground(new java.awt.Color(0, 0, 0));
         jlbNome.setText("Nome ");
 
-        txtNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtNome.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtNome.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jlbEndereco.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jlbEndereco.setForeground(new java.awt.Color(0, 0, 0));
@@ -220,30 +267,34 @@ public class CadastroCliente extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtCpf.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCpf.setText("");
-        txtCpf.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtCpf.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtCpf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCpfActionPerformed(evt);
             }
         });
 
-        txtRg.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtRg.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtRg.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         try {
             txtDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtDataNascimento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtDataNascimento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtDataNascimento.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtEmail.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jlbEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jlbEmail.setForeground(new java.awt.Color(0, 0, 0));
         jlbEmail.setText("email");
 
-        jlbCpf.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jlbCpf.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jlbCpf.setForeground(new java.awt.Color(0, 0, 0));
         jlbCpf.setText("CPF");
 
@@ -259,9 +310,11 @@ public class CadastroCliente extends javax.swing.JFrame {
         jlbRg.setForeground(new java.awt.Color(0, 0, 0));
         jlbRg.setText("RG");
 
-        txtTelefone.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtTelefone.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtTelefone.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        txtEndereco.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtEndereco.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtEndereco.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -340,37 +393,39 @@ public class CadastroCliente extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnCadastrar)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDeletar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(9, Short.MAX_VALUE))
+                        .addComponent(btnDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(19, 19, 19)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 20, Short.MAX_VALUE))
+                    .addComponent(btnAlterar)
+                    .addComponent(btnDeletar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSair))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -381,7 +436,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -420,9 +475,9 @@ public class CadastroCliente extends javax.swing.JFrame {
         boolean validacao = cpf.isEmpty();
 
         try {
-            if (validacao==false && comprimento < 14 || comprimento > 14) {
-                JOptionPane.showMessageDialog(null, "Campo Vazio\n"+"Ou CPF invalido!");
-               
+            if (validacao == false && comprimento < 14 || comprimento > 14) {
+                JOptionPane.showMessageDialog(null, "Campo Vazio\n" + "Ou CPF invalido!");
+
             } else {
                 Cliente cliente = dao.select(cpf);
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -516,28 +571,13 @@ public class CadastroCliente extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize LaF");
         }
-        //</editor-fold>
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

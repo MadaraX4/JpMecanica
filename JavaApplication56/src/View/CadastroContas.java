@@ -7,33 +7,28 @@ package View;
 import Model.Conta;
 import Model.ContaTableModel;
 import Model.DAO.ContaDAO;
-import Stile.BordaCantoArredondado;
-import Stile.BordaSelecionada;
-import Stile.BotaoRedondo;
+import Estilo.BordaCantoArredondado;
+import Estilo.BotaoRedondo;
+import Estilo.TextoMaisculo;
 import Style.table.Cabecalho;
 import Style.table.FormatarTipos;
 import Style.table.Render;
 import Style.table.RenderLinha;
 import com.formdev.flatlaf.FlatLightLaf;
-import com.formdev.flatlaf.ui.FlatTextFieldUI;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.border.Border;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
+import javax.swing.text.AbstractDocument;
 
 /**
  *
@@ -45,10 +40,8 @@ public final class CadastroContas extends javax.swing.JFrame {
     private ContaDAO dao = new ContaDAO();
     ContaTableModel modelo = new ContaTableModel();
     FormatarTipos tipos = new FormatarTipos();
-   
-   
-  
-    private TableRowSorter<AbstractTableModel> sorter;
+
+    private final TableRowSorter<AbstractTableModel> sorter;
 
     public CadastroContas() {
         initComponents();
@@ -73,6 +66,7 @@ public final class CadastroContas extends javax.swing.JFrame {
 
         jtContas.getColumnModel().getColumn(2).setCellRenderer(new FormatarTipos()); // Para coluna de valor
         jtContas.getColumnModel().getColumn(3).setCellRenderer(new FormatarTipos());
+        jtContas.getColumnModel().getColumn(5).setCellRenderer(new FormatarTipos());
 
         formatarTabela();
         readJTAble();
@@ -80,18 +74,27 @@ public final class CadastroContas extends javax.swing.JFrame {
         btnAlterar.setEnabled(false);
         btnExcluir.setEnabled(false);
         btnMarcarComoPago.setEnabled(false);
-        
+
         txtReferencia.setEditable(true);
-        
+
         BordaCantoArredondado bad = new BordaCantoArredondado(Color.GRAY);
-        
+
         txtReferencia.setBorder(bad);
         txtDataVencimento.setBorder(bad);
         txtTipo.setBorder(bad);
         txtValor.setBorder(bad);
         
-      
-       
+        textoMaiusculo();
+        
+    }
+    
+    public void textoMaiusculo(){
+    
+    ((AbstractDocument) txtReferencia.getDocument()).setDocumentFilter(new TextoMaisculo());
+    ((AbstractDocument) txtDataVencimento.getDocument()).setDocumentFilter(new TextoMaisculo());
+    ((AbstractDocument) txtTipo.getDocument()).setDocumentFilter(new TextoMaisculo());
+    ((AbstractDocument) txtValor.getDocument()).setDocumentFilter(new TextoMaisculo());
+    
     }
 
     public void formatarTabela() {
@@ -137,12 +140,10 @@ public final class CadastroContas extends javax.swing.JFrame {
 
     }
 
- 
-
     public void readJTAble() {
 
         List<Conta> listaConta = dao.read();
-        DateTimeFormatter sdf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+      
 
         for (Conta conta : listaConta) {
 
@@ -183,11 +184,13 @@ public final class CadastroContas extends javax.swing.JFrame {
         jtContas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cadastro de Contas");
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 153));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 204));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro de Contas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastre susa Contas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 1, 18), new java.awt.Color(0, 0, 0))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
@@ -241,15 +244,35 @@ public final class CadastroContas extends javax.swing.JFrame {
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/papel.png"))); // NOI18N
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bin.png"))); // NOI18N
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sair.png"))); // NOI18N
         btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
 
         btnMarcarComoPago.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/dinheiro.png"))); // NOI18N
         btnMarcarComoPago.setText("Macar como pago");
+        btnMarcarComoPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMarcarComoPagoActionPerformed(evt);
+            }
+        });
 
         jlId.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jlId.setForeground(new java.awt.Color(0, 0, 0));
@@ -257,7 +280,7 @@ public final class CadastroContas extends javax.swing.JFrame {
 
         jlEstatus.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlEstatus.setForeground(new java.awt.Color(0, 0, 0));
-        jlEstatus.setText("Estado da Conta");
+        jlEstatus.setText("Estatus da Conta");
 
         txtReferencia.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtReferencia.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -268,48 +291,47 @@ public final class CadastroContas extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtReferencia)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlEstatus)
+                        .addGap(12, 12, 12))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtDataVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtTipo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3)
+                        .addGap(12, 12, 12)
+                        .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(225, 225, 225))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jlId)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtReferencia)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jlEstatus)
-                                .addGap(12, 12, 12))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtDataVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtTipo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel3)
-                                .addGap(12, 12, 12)
-                                .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(225, 225, 225))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(btnNovaConta, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 12, Short.MAX_VALUE)
-                                .addComponent(btnMarcarComoPago, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(btnNovaConta, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 15, Short.MAX_VALUE)
+                        .addComponent(btnMarcarComoPago, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(26, 26, 26))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jlId)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -365,11 +387,11 @@ public final class CadastroContas extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 973, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+            .addComponent(jScrollPane1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(27, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(32, 32, 32))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -390,7 +412,7 @@ public final class CadastroContas extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -404,7 +426,9 @@ public final class CadastroContas extends javax.swing.JFrame {
         txtDataVencimento.setText("");
         txtValor.setText("");
         jlEstatus.setText("Estado da Conta");
+        jlEstatus.setForeground(Color.BLACK);
         jlId.setText("ID da Conta");
+        jlId.setForeground(Color.BLACK);
 
     }//GEN-LAST:event_btnNovaContaActionPerformed
 
@@ -419,10 +443,9 @@ public final class CadastroContas extends javax.swing.JFrame {
 
         dao.create(conta);
         modelo.addLinha(conta);
-        
+
         limparCampos();
-        
-     
+
 
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
@@ -461,24 +484,141 @@ public final class CadastroContas extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jtContasMouseClicked
 
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+
+        String id = jlId.getText().trim();
+
+        ContaDAO dao = new ContaDAO();
+
+        int confirm = JOptionPane.showConfirmDialog(null, "Deseja excluir esta conta?", "Confirmação!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            if (jtContas.getSelectedRow() != -1) {
+                modelo.removerLinha(jtContas.getSelectedRow());
+                dao.delete(id);
+                limparCampos();
+                JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
+                btnExcluir.setEnabled(false);
+                btnAlterar.setEnabled(false);
+                btnMarcarComoPago.setEnabled(false);
+                btnCadastrar.setEnabled(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione uma conta na tabela!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "CANCELADO!");
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        // TODO add your handling code here:
+        String id = jlId.getText().trim();
+
+        ContaDAO dao = new ContaDAO();
+        Conta conta = new Conta();
+
+        conta.setId(Integer.parseInt(jlId.getText()));
+        conta.setReferencia(txtReferencia.getText());
+        conta.setTipo(txtTipo.getText());
+        conta.setData_vencimento(dataMysql(txtDataVencimento.getText()));
+        try {
+            conta.setValor(Double.parseDouble(txtValor.getText().replace(",", ".")));
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+
+        }
+        int confirm = JOptionPane.showConfirmDialog(null, "Deseja alterar esta conta?", "Confirmação!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            if (jtContas.getSelectedRow() != -1) {
+                modelo.setValueAt(txtReferencia.getText(), jtContas.getSelectedRow(), 0);
+                modelo.setValueAt(txtTipo.getText(), jtContas.getSelectedRow(), 1);
+                modelo.setValueAt(txtValor.getText().replace(",", "."), jtContas.getSelectedRow(), 2);
+                modelo.setValueAt(txtDataVencimento.getText(), jtContas.getSelectedRow(), 3);
+
+                dao.update(conta);
+                limparCampos();
+                JOptionPane.showMessageDialog(null, "Alterado com sucesso!");
+
+                btnExcluir.setEnabled(false);
+                btnAlterar.setEnabled(false);
+                btnMarcarComoPago.setEnabled(false);
+                btnCadastrar.setEnabled(true);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "CANCELADO!");
+        }
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnMarcarComoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMarcarComoPagoActionPerformed
+        // TODO add your handling code here:
+        String id = jlId.getText().trim();
+
+        Conta conta = new Conta();
+        ContaDAO dao = new ContaDAO();
+
+        Date dataLocal = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String dataString = sdf.format(dataLocal);
+
+        conta.setId(Integer.parseInt(jlId.getText()));
+        conta.setReferencia(txtReferencia.getText());
+        conta.setData_pagamento(dataMysql(dataString));
+        conta.setEstatus("PAGO");
+
+        jlEstatus.setText("PAGO");
+
+        String message = "Deseja marcar " + conta.getReferencia() + " como pago?";
+
+        int confirm = JOptionPane.showConfirmDialog(null, message, "Confirmação!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            if (jtContas.getSelectedRow() != -1) {
+                modelo.setValueAt(jlEstatus.getText(), jtContas.getSelectedRow(), 4);
+                modelo.setValueAt(dataString, jtContas.getSelectedRow(), 5);
+
+                dao.updatePagamento(conta);
+                JOptionPane.showMessageDialog(null, "Estatus atualizado com sucesso!");
+                limparCampos();
+
+                btnExcluir.setEnabled(false);
+                btnAlterar.setEnabled(false);
+                btnMarcarComoPago.setEnabled(false);
+                btnCadastrar.setEnabled(true);
+                btnMarcarComoPago.setEnabled(false);
+                System.out.println(dataString);
+                System.out.println(dataLocal);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione uma conta!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "CANCELADO!");
+        }
+    }//GEN-LAST:event_btnMarcarComoPagoActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-    
+
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (Exception ex) {
             System.err.println("Failed to initialize LaF");
         }
-        
-           
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new CadastroContas().setVisible(true);
-                
+
             }
         });
     }

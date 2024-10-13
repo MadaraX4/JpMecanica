@@ -4,7 +4,16 @@
  */
 package View;
 
+import ConnectionFactory.ConexaoBanco;
+import Model.DAO.ContaDAO;
+import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import java.sql.Connection;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -17,6 +26,41 @@ public class Loading extends javax.swing.JFrame {
      */
     public Loading() {
         initComponents();
+
+        statusConexao();
+        jblDataAtual.setText(dataAtual());
+    }
+
+    private void statusConexao() {
+        try {
+            Connection con = ConexaoBanco.getConnection();
+            if (con == null) {
+                System.out.println("Erro de conexão");
+                lblStatus.setIcon(new ImageIcon(Loading.class.getResource("/img/excluir-banco-de-dados.png")));
+                JOptionPane.showMessageDialog(null, "Erro ao conectar ao Banco de Dados!");
+                this.dispose();
+                
+            } else {
+                System.out.println("Banco de dados Conectado");
+                lblStatus.setIcon(new ImageIcon(Loading.class.getResource("/img/base-de-dados.png")));
+                ContaDAO dao = new ContaDAO();
+                dao.atualizarEstatusContasAtrasadas();
+            }
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public String dataAtual(){
+    
+        LocalDateTime dataAtual = LocalDateTime.now();
+        DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd/MM-yyyy HH:mm:ss");
+        
+    
+    String data = dataAtual.format(formater);
+    
+    return data;
     }
 
     /**
@@ -32,6 +76,10 @@ public class Loading extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         progresso = new javax.swing.JProgressBar();
         porcento = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lblStatus = new javax.swing.JLabel();
+        jblDataAtual = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 51));
@@ -45,14 +93,24 @@ public class Loading extends javax.swing.JFrame {
         porcento.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
         porcento.setForeground(new java.awt.Color(255, 255, 255));
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Contato");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("rafasousa.dev@gmail.com");
+
+        lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/excluir-banco-de-dados.png"))); // NOI18N
+        lblStatus.setText("jLabel4");
+        lblStatus.setPreferredSize(new java.awt.Dimension(32, 32));
+
+        jblDataAtual.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        jblDataAtual.setForeground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(progresso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(314, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -62,17 +120,44 @@ public class Loading extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(porcento, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(300, 300, 300))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(progresso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jblDataAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(114, 114, 114)
+                .addContainerGap()
+                .addComponent(jblDataAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(71, 71, 71)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(progresso, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(porcento, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -95,50 +180,39 @@ public class Loading extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Loading.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Loading.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Loading.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Loading.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize LaF");
         }
-        //</editor-fold>
+
         Loading loading = new Loading();
         loading.setVisible(true);
-        
-        try{
-            for (int i = 0; i < 100; i+=3) {
+
+        try {
+            for (int i = 0; i < 100; i += 3) {
                 Thread.sleep(70);
                 loading.progresso.setValue(i);
                 loading.porcento.setText(Integer.toString(i) + "%");
             }
             loading.dispose();
-            
+
             TelaInicial ini = new TelaInicial();
             ini.setVisible(true);
-        } catch (InterruptedException e ){
-            JOptionPane.showConfirmDialog(null,"Erro!");
+        } catch (InterruptedException e) {
+            JOptionPane.showConfirmDialog(null, "Erro!");
         }
         /* Create and display the form */
-       
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jblDataAtual;
+    private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel porcento;
     private javax.swing.JProgressBar progresso;
     // End of variables declaration//GEN-END:variables

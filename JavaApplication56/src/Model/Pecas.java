@@ -1,5 +1,7 @@
 package Model;
 
+import java.text.DecimalFormat;
+
 public class Pecas {
 
     private int id;
@@ -83,7 +85,8 @@ public class Pecas {
     }
 
     public double getPreco_venda() {
-        return preco_venda;
+        DecimalFormat df = new DecimalFormat("#.00");
+        return Double.parseDouble(df.format(preco_venda).replace(",", "."));
     }
 
     public void setPreco_venda(double preco_venda) {

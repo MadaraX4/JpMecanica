@@ -108,4 +108,96 @@ public class ContaDAO {
         return contas;
     }
 
+    public void update(Conta conta) {
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = con.prepareStatement("UPDATE conta SET referencia =?,data_vencimento=?,tipo=?,valor=? WHERE id=?");
+            stmt.setString(1, conta.getReferencia());
+            stmt.setDate(2, (Date) conta.getData_vencimento());
+            stmt.setString(3, conta.getTipo());
+            stmt.setDouble(4, conta.getValor());
+            stmt.setInt(5, conta.getId());
+
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar conta!\n" + ex);
+        } finally {
+            ConexaoBanco.closeConnection(con, stmt);
+        }
+
+    }
+
+    public void delete(String id) {
+
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = con.prepareStatement("DELETE FROM conta WHERE id=?");
+            stmt.setString(1, id);
+
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir conta!\n" + ex);
+        } finally {
+            ConexaoBanco.closeConnection(con, stmt);
+        }
+    }
+
+    public void updatePagamento(Conta conta) {
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = con.prepareStatement("UPDATE conta SET data_pagamento =?,estatus=? WHERE id=?");
+            stmt.setDate(1, (Date) conta.getData_pagamento());
+            stmt.setString(2, conta.getEstatus());
+            stmt.setInt(3, conta.getId());
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERRO!" + ex);
+        } finally {
+            ConexaoBanco.closeConnection(con, stmt);
+        }
+
+    }
+    
+    private void modificarEstatusConta(int idConta, String novoEstatus){
+    Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt=con.prepareStatement("UPDATE conta SET estatus=? WHERE id=?");
+            stmt.setString(1, novoEstatus);
+            stmt.setInt(2, idConta);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void atualizarEstatusContasAtrasadas() {
+
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        java.sql.Date dataAtual = new java.sql.Date(System.currentTimeMillis());
+        
+        try {
+            stmt = con.prepareStatement("SELECT id FROM conta WHERE data_vencimento=?");
+            stmt.setDate(1, dataAtual);
+            rs= stmt.executeQuery();
+            
+            while (rs.next()) {                
+                int id =rs.getInt("id");
+                modificarEstatusConta(id, "ATRASADO");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
 }

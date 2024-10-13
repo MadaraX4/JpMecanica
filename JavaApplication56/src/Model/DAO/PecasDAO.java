@@ -6,17 +6,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class PecasDAO {
 
-    Connection con = ConexaoBanco.getConnection();
-    PreparedStatement stmt = null;
-    ResultSet rs = null;
-
     public void create(Pecas peca) {
+
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             stmt = con.prepareStatement("INSERT INTO pecas(cod_identificacao,nome,carro,referencia,quantidade,preco_compra,preco_venda,fornecedor) VALUES(?,?,?,?,?,?,?,?)");
@@ -40,6 +42,10 @@ public class PecasDAO {
     }
 
     public Pecas select(String cod_identificacao) {
+
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         Pecas peca = new Pecas();
         try {
@@ -71,6 +77,10 @@ public class PecasDAO {
 
     public void update(Pecas peca) {
 
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
         try {
             stmt = con.prepareStatement("UPDATE pecas SET nome=?, carro=?, referencia=?, quantidade=?, preco_compra=?, preco_venda=?, fornecedor=? WHERE cod_identificacao=?");
             stmt.setString(1, peca.getNome());
@@ -91,21 +101,83 @@ public class PecasDAO {
             ConexaoBanco.closeConnection(con, stmt);
         }
     }
-    
-    public boolean delete(String cod_identificacao){
-    
+
+    public boolean delete(String cod_identificacao) {
+
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+
         try {
-            stmt= con.prepareStatement("DELETE FROM pecas WHERE cod_identificacao=?");
-            stmt.setString(1,cod_identificacao);
-            
+            stmt = con.prepareStatement("DELETE FROM pecas WHERE cod_identificacao=?");
+            stmt.setString(1, cod_identificacao);
+
             stmt.executeUpdate();
             return true;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao excluir!\n"+ex);
+            JOptionPane.showMessageDialog(null, "Erro ao excluir!\n" + ex);
             return false;
-        }finally{
-        ConexaoBanco.closeConnection(con, stmt);
+        } finally {
+            ConexaoBanco.closeConnection(con, stmt);
         }
+    }
+
+    public List<String> listaNome(String nome) {
+
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<String> listaNomes = new ArrayList<>();
+
+        try {
+            stmt = con.prepareStatement("SELECT * FROM pecas WHERE nome LIKE ? ORDER BY nome");
+            stmt.setString(1, nome + "%");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+               
+               listaNomes.add(rs.getString("nome"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            ConexaoBanco.closeConnection(con, stmt, rs);
+        }
+
+        return listaNomes;
+    }
+    
+    public List<Pecas> listaPecas(String nome){
+     
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+    
+        List<Pecas> listaPecas = new ArrayList<>();
+        
+        try {
+            stmt=con.prepareStatement("SELECT * FROM pecas WHERE nome=?");
+            stmt.setString(1, nome);
+            rs=stmt.executeQuery();
+            
+            while (rs.next()) {                
+                Pecas pecas = new Pecas();
+                pecas.setId(rs.getInt("id"));
+                pecas.setCod_identificacao(rs.getInt("cod_identificacao"));
+                pecas.setNome(rs.getString("nome"));
+                pecas.setCarro(rs.getString("carro"));
+                pecas.setReferencia(rs.getString("referencia"));
+                pecas.setQuantidade(rs.getInt("quantidade"));
+                pecas.setPreco_venda(rs.getDouble("preco_venda"));
+                listaPecas.add(pecas);
+            }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }finally{
+        ConexaoBanco.closeConnection(con, stmt, rs);
+        }
+        return listaPecas;
     }
 
 }

@@ -84,11 +84,11 @@ public class ClienteDAO {
         Connection con = ConexaoBanco.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-       
+
         List<Carro> carros = new ArrayList<>();
 
         try {
-           
+
             stmt = con.prepareStatement("SELECT DISTINCT placa,modelo,montadora,data_manutencao from carro where proprietario = ?");
             stmt.setString(1, proprietario);
             rs = stmt.executeQuery();
@@ -138,9 +138,9 @@ public class ClienteDAO {
     public void alterarCliente(Cliente cliente) {
         Connection con = ConexaoBanco.getConnection();
         PreparedStatement stmt = null;
-        
+
         try {
-            stmt= con.prepareStatement("UPDATE clientes set nome=?, rg=?, email=?, dataNascimento=?, telefone=?, endereco=? WHERE cpf=? ");
+            stmt = con.prepareStatement("UPDATE clientes set nome=?, rg=?, email=?, dataNascimento=?, telefone=?, endereco=? WHERE cpf=? ");
             stmt.setString(1, cliente.getNome());
             stmt.setString(2, cliente.getRg());
             stmt.setString(3, cliente.getEmail());
@@ -149,12 +149,61 @@ public class ClienteDAO {
             stmt.setString(6, cliente.getEndereco());
             stmt.setString(7, cliente.getCpf());
             stmt.executeUpdate();
-             
+
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-        ConexaoBanco.closeConnection(con, stmt);
+        } finally {
+            ConexaoBanco.closeConnection(con, stmt);
         }
+    }
+
+    public List<String> listaNome(String cpf) {
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<String> listaCliente = new ArrayList<>();
+
+        try {
+            stmt = con.prepareStatement("SELECT * FROM clientes WHERE cpf LIKE ?");
+            stmt.setString(1, cpf + "%");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                listaCliente.add(rs.getString("nome"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            ConexaoBanco.closeConnection(con, stmt, rs);
+        }
+        return listaCliente;
+    }
+
+    public List<Cliente> listaCliente(String nome) {
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        List<Cliente> listaCliente = new ArrayList<>();
+        
+        try {
+            stmt=con.prepareStatement("SELECT * FROM clientes WHERE nome LIKE ?");
+            stmt.setString(1, nome + "%");
+            rs=stmt.executeQuery();
+            
+            while (rs.next()) {                
+              Cliente cliente = new Cliente();
+              cliente.setNome(rs.getString("nome"));
+              cliente.setTelefone(rs.getString("telefone"));
+              listaCliente.add(cliente);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }finally{
+        ConexaoBanco.closeConnection(con, stmt, rs);
+        }
+        return listaCliente;
     }
 
 }
