@@ -14,17 +14,10 @@ public class Carro {
     private int num_cilindros;
     private Date data_manutencao;
     private Date manutencao_agendada;
+    private String cobustivel;
 
     public Carro() {
-        this.placa = placa;
-        this.cpf_proprietario = cpf_proprietario;
-        this.modelo = modelo;
-        this.montadora = montadora;
-        this.motor = motor;
-        this.num_valvulas = num_valvulas;
-        this.num_cilindros = num_cilindros;
-        this.data_manutencao = data_manutencao;
-        this.manutencao_agendada = manutencao_agendada;
+       
     }
 
     public Date getManutencao_agendada() {
@@ -97,6 +90,14 @@ public class Carro {
 
     public void setData_manutencao(Date data_manutencao) {
         this.data_manutencao = data_manutencao;
+    }
+
+    public String getCobustivel() {
+        return cobustivel;
+    }
+
+    public void setCobustivel(String cobustivel) {
+        this.cobustivel = cobustivel;
     }
     
 

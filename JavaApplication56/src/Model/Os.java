@@ -17,6 +17,7 @@ public class Os {
     private String descricao;
     private String status;
     private Date dataAprovação;
+    private String combustivel;
 
     public Os() {
       
@@ -116,6 +117,14 @@ public class Os {
 
     public void setDataAprovação(Date dataAprovação) {
         this.dataAprovação = dataAprovação;
+    }
+
+    public String getCombustivel() {
+        return combustivel;
+    }
+
+    public void setCombustivel(String combustivel) {
+        this.combustivel = combustivel;
     }
     
     

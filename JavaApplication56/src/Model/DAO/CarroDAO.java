@@ -28,7 +28,7 @@ public class CarroDAO {
 
     public void create(Carro carro) {
         try {
-            stmt = con.prepareStatement("INSERT INTO carro(placa,modelo,montadora,motor,num_valvulas,num_cilindros,proprietario) VALUES (?,?,?,?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO carro(placa,modelo,montadora,motor,num_valvulas,num_cilindros,proprietario,combustivel) VALUES (?,?,?,?,?,?,?,?)");
             stmt.setString(1, carro.getPlaca());
             stmt.setString(2, carro.getModelo());
             stmt.setString(3, carro.getMontadora());
@@ -36,6 +36,7 @@ public class CarroDAO {
             stmt.setInt(5, carro.getNum_valvulas());
             stmt.setInt(6, carro.getNum_cilindros());
             stmt.setString(7, carro.getCpf_proprietario());
+            stmt.setString(8, carro.getCobustivel());
 
             stmt.executeUpdate();
 
@@ -54,7 +55,7 @@ public class CarroDAO {
         Carro carro = new Carro();
 
         try {
-            stmt = con.prepareStatement("SELECT proprietario,modelo,montadora,motor,num_valvulas,num_cilindros,data_manutencao,proprietario,manutencao_agendada FROM carro WHERE placa=?");
+            stmt = con.prepareStatement("SELECT proprietario,modelo,montadora,motor,num_valvulas,num_cilindros,data_manutencao,proprietario,manutencao_agendada,combustivel FROM carro WHERE placa=?");
             stmt.setString(1, placa);
 
             rs = stmt.executeQuery();
@@ -68,6 +69,7 @@ public class CarroDAO {
                 carro.setNum_cilindros(rs.getInt("num_cilindros"));
                 carro.setData_manutencao(rs.getDate("data_manutencao"));
                 carro.setManutencao_agendada(rs.getDate("manutencao_agendada"));
+                carro.setCobustivel(rs.getString("cobustivel"));
 
             }
 
@@ -83,13 +85,14 @@ public class CarroDAO {
     public void update(Carro carro) {
 
         try {
-            stmt = con.prepareStatement("UPDATE carro SET modelo=?,montadora=?,motor=?,num_valvulas=?,num_cilindros=? WHERE placa=?");
+            stmt = con.prepareStatement("UPDATE carro SET modelo=?,montadora=?,motor=?,num_valvulas=?,num_cilindros=?,cobustivel=? WHERE placa=?");
             stmt.setString(1, carro.getModelo());
             stmt.setString(2, carro.getMontadora());
             stmt.setString(3, carro.getMotor());
             stmt.setInt(4, carro.getNum_valvulas());
             stmt.setInt(5, carro.getNum_cilindros());
-            stmt.setString(6, carro.getPlaca());
+            stmt.setString(6, carro.getCobustivel());
+            stmt.setString(7, carro.getPlaca());
 
             stmt.executeUpdate();
 
@@ -161,6 +164,7 @@ public class CarroDAO {
                 carro.setCpf_proprietario(rs.getString("proprietario"));
                 carro.setMontadora(rs.getString("montadora"));
                 carro.setModelo(rs.getString("modelo"));
+                carro.setModelo(rs.getString("combustivel"));
                 carros.add(carro);
             }
 

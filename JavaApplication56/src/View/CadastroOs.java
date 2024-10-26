@@ -95,6 +95,7 @@ public class CadastroOs extends javax.swing.JFrame {
         ((AbstractDocument) txtTelefoneCliente.getDocument()).setDocumentFilter(new TextoMaisculo());
         ((AbstractDocument) txtValorServico.getDocument()).setDocumentFilter(new TextoMaisculo());
         ((AbstractDocument) txtValorTotalPecas.getDocument()).setDocumentFilter(new TextoMaisculo());
+        ((AbstractDocument) txtCombustivel.getDocument()).setDocumentFilter(new TextoMaisculo());
         
     }
     
@@ -117,6 +118,7 @@ public class CadastroOs extends javax.swing.JFrame {
         txtValorTotalPecas.setBorder(bad);
         txtTecnico.setBorder(bad);
         txtValorTotalServico.setBorder(bad);
+        txtCombustivel.setBorder(bad);
     }
     
     public void precoTotalPecas() {
@@ -158,7 +160,6 @@ public class CadastroOs extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField10 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         txtNomeCliente = new javax.swing.JTextField();
@@ -190,17 +191,19 @@ public class CadastroOs extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         txtTecnico = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
-        scrollPanelistaServicos = new javax.swing.JScrollPane();
-        listaPlacas = new javax.swing.JList<>();
         jScrollpanePecas = new javax.swing.JScrollPane();
         jListpecas = new javax.swing.JList<>();
-        jScrollPaneAddServicos = new javax.swing.JScrollPane();
-        jListServicos = new javax.swing.JList<>();
         jlabel = new javax.swing.JLabel();
         jlDataOs = new javax.swing.JLabel();
         jScrollPaneAddClientes = new javax.swing.JScrollPane();
         jListCliente = new javax.swing.JList<>();
         jlOsId = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        txtCombustivel = new javax.swing.JTextField();
+        jScrollPaneAddServicos = new javax.swing.JScrollPane();
+        jListServicos = new javax.swing.JList<>();
+        scrollPanelistaServicos = new javax.swing.JScrollPane();
+        listaPlacas = new javax.swing.JList<>();
         jPanel3 = new javax.swing.JPanel();
         jScrollPaneServicos = new javax.swing.JScrollPane();
         JtPecas = new javax.swing.JTable();
@@ -226,9 +229,8 @@ public class CadastroOs extends javax.swing.JFrame {
         btnremoverServico = new BotaoRedondo();
         btnAtualizar = new BotaoRedondo();
 
-        jTextField10.setText("jTextField10");
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 153));
@@ -302,17 +304,17 @@ public class CadastroOs extends javax.swing.JFrame {
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/lupa (2).png"))); // NOI18N
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 30, 30));
-        jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 390, 10));
+        jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 317, 390, 10));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(51, 51, 51));
         jLabel9.setText("Peças e Serviços");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Serviço");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, -1, -1));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, -1, -1));
 
         txtNomeServico.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtNomeServico.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -320,7 +322,7 @@ public class CadastroOs extends javax.swing.JFrame {
                 txtNomeServicoKeyReleased(evt);
             }
         });
-        jPanel2.add(txtNomeServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, 310, -1));
+        jPanel2.add(txtNomeServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, 310, -1));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
@@ -337,7 +339,7 @@ public class CadastroOs extends javax.swing.JFrame {
                 btnNovoServicoActionPerformed(evt);
             }
         });
-        jPanel2.add(btnNovoServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 360, 130, 50));
+        jPanel2.add(btnNovoServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 370, 130, 50));
         jPanel2.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 390, 10));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -367,19 +369,6 @@ public class CadastroOs extends javax.swing.JFrame {
         jPanel2.add(txtTecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 440, 310, -1));
         jPanel2.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 400, -1));
 
-        scrollPanelistaServicos.setBorder(null);
-
-        listaPlacas.setBorder(null);
-        listaPlacas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        listaPlacas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listaPlacasMouseClicked(evt);
-            }
-        });
-        scrollPanelistaServicos.setViewportView(listaPlacas);
-
-        jPanel2.add(scrollPanelistaServicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 120, 110));
-
         jScrollpanePecas.setBorder(null);
 
         jListpecas.setBorder(null);
@@ -392,17 +381,6 @@ public class CadastroOs extends javax.swing.JFrame {
         jScrollpanePecas.setViewportView(jListpecas);
 
         jPanel2.add(jScrollpanePecas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 380, 150));
-
-        jListServicos.setBorder(null);
-        jListServicos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jListServicos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jListServicosMouseClicked(evt);
-            }
-        });
-        jScrollPaneAddServicos.setViewportView(jListServicos);
-
-        jPanel2.add(jScrollPaneAddServicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, 310, 100));
 
         jlabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jlabel.setForeground(new java.awt.Color(0, 0, 0));
@@ -432,6 +410,38 @@ public class CadastroOs extends javax.swing.JFrame {
         jlOsId.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jlOsId.setForeground(new java.awt.Color(0, 0, 0));
         jPanel2.add(jlOsId, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 40, 20));
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel17.setText("Combustivel");
+        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
+
+        txtCombustivel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPanel2.add(txtCombustivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, 200, -1));
+
+        jListServicos.setBorder(null);
+        jListServicos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jListServicos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListServicosMouseClicked(evt);
+            }
+        });
+        jScrollPaneAddServicos.setViewportView(jListServicos);
+
+        jPanel2.add(jScrollPaneAddServicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, 310, 100));
+
+        scrollPanelistaServicos.setBorder(null);
+
+        listaPlacas.setBorder(null);
+        listaPlacas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        listaPlacas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaPlacasMouseClicked(evt);
+            }
+        });
+        scrollPanelistaServicos.setViewportView(listaPlacas);
+
+        jPanel2.add(scrollPanelistaServicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 120, 110));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 410, 570));
 
@@ -538,6 +548,11 @@ public class CadastroOs extends javax.swing.JFrame {
 
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sair.png"))); // NOI18N
         btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 590, 90, -1));
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 204));
@@ -630,6 +645,7 @@ public class CadastroOs extends javax.swing.JFrame {
                 txtPlaca.setText(carro.getPlaca());
                 txtModelo.setText(carro.getModelo());
                 txtMontadora.setText(carro.getMontadora());
+                txtCombustivel.setText(carro.getCobustivel());
                 scrollPanelistaServicos.setVisible(false);
                 scrollPanelistaServicos.setVisible(false);
             }
@@ -864,6 +880,7 @@ public class CadastroOs extends javax.swing.JFrame {
         os.setTecnico(txtTecnico.getText());
         os.setTelefone(txtTelefoneCliente.getText());
         os.setValor(Double.parseDouble(txtValorTotalPecas.getText()) + Double.parseDouble(txtValorTotalServico.getText()));
+        os.setCombustivel(txtCombustivel.getText());
         
         int id_os = dao.salvarOs(os);
         if (id_os > 0) {
@@ -945,6 +962,7 @@ public class CadastroOs extends javax.swing.JFrame {
                 txtPlaca.setText(os.getPlacaVeiculo());
                 txtTecnico.setText(os.getTecnico());
                 txtTelefoneCliente.setText(os.getTelefone());
+                txtCombustivel.setText(os.getCombustivel());
                 jlDataOs.setText(sdf.format(os.getDataOrdem()));
                 jlEstatusOs.setText(os.getStatus());
                 jlOsId.setText(String.valueOf(os.getId()));
@@ -981,9 +999,16 @@ public class CadastroOs extends javax.swing.JFrame {
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
         // TODO add your handling code here:
+        String id = JOptionPane.showInputDialog("Informe o ID da Os!");
+        int idOs =Integer.parseInt(id) ;
        OsPDF pdf = new OsPDF();
-       pdf.gerarPdf();
+       pdf.gerarPdf(idOs);
     }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
     
     public void selectTablePecas(int idOs) {
         DefaultTableModel modelo = (DefaultTableModel) JtPecas.getModel();
@@ -1060,6 +1085,7 @@ public class CadastroOs extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1090,13 +1116,13 @@ public class CadastroOs extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JTable jTServicos;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField10;
     private javax.swing.JLabel jlDataOs;
     private javax.swing.JLabel jlEstatusOs;
     private javax.swing.JLabel jlOsId;
     private javax.swing.JLabel jlabel;
     private javax.swing.JList<String> listaPlacas;
     private javax.swing.JScrollPane scrollPanelistaServicos;
+    private javax.swing.JTextField txtCombustivel;
     private javax.swing.JTextArea txtDescricao;
     private javax.swing.JTextField txtModelo;
     private javax.swing.JTextField txtMontadora;

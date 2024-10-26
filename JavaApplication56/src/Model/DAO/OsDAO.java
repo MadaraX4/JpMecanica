@@ -17,7 +17,7 @@ public class OsDAO {
         Connection con = ConexaoBanco.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        String sql = "INSERT INTO os (clienteNome,telefone,placaVeiculo,montadora,modelo,dataDaOrdem,valor,tecnico,descricao,estatus) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO os (clienteNome,telefone,placaVeiculo,montadora,modelo,dataDaOrdem,valor,tecnico,descricao,estatus,combustivel) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
         int id_os = 0;
 
@@ -36,6 +36,7 @@ public class OsDAO {
             stmt.setString(8, os.getTecnico());
             stmt.setString(9, os.getDescricao());
             stmt.setString(10, os.getStatus());
+            stmt.setString(11, os.getCombustivel());
             stmt.executeUpdate();
 
             rs = stmt.getGeneratedKeys();
@@ -74,6 +75,7 @@ public class OsDAO {
                 os.setTecnico(rs.getString("tecnico"));
                 os.setTelefone(rs.getString("telefone"));
                 os.setValor(rs.getDouble("valor"));
+                os.setCombustivel(rs.getString("combustivel"));
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Os não encontrada!\n" + ex);
