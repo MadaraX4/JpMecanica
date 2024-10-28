@@ -1,4 +1,4 @@
-package Controler;
+package GerarPdfs;
 
 import Model.DAO.OsDAO;
 import Model.DAO.Os_PecasDAO;

@@ -10,7 +10,10 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -163,13 +166,13 @@ public class ContaDAO {
         }
 
     }
-    
-    private void modificarEstatusConta(int idConta, String novoEstatus){
-    Connection con = ConexaoBanco.getConnection();
+
+    private void modificarEstatusConta(int idConta, String novoEstatus) {
+        Connection con = ConexaoBanco.getConnection();
         PreparedStatement stmt = null;
-        
+
         try {
-            stmt=con.prepareStatement("UPDATE conta SET estatus=? WHERE id=?");
+            stmt = con.prepareStatement("UPDATE conta SET estatus=? WHERE id=?");
             stmt.setString(1, novoEstatus);
             stmt.setInt(2, idConta);
             stmt.executeUpdate();
@@ -185,19 +188,80 @@ public class ContaDAO {
         ResultSet rs = null;
 
         java.sql.Date dataAtual = new java.sql.Date(System.currentTimeMillis());
-        
+
         try {
             stmt = con.prepareStatement("SELECT id FROM conta WHERE data_vencimento=?");
             stmt.setDate(1, dataAtual);
-            rs= stmt.executeQuery();
-            
-            while (rs.next()) {                
-                int id =rs.getInt("id");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
                 modificarEstatusConta(id, "ATRASADO");
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public List<String> verificaConta() {
+
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<String> lista = new ArrayList<>();
+
+        LocalDate dataAtual = LocalDate.now();
+//        int diaAtual = dataAtual.getDayOfMonth();
+//        int mesAtual = dataAtual.getMonthValue();
+//        int diaProximo = diaAtual + 5;
+
+        boolean temConta = false;
+
+        try {
+            stmt = con.prepareStatement("SELECT * FROM conta");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Conta conta = new Conta();
+                conta.setReferencia(rs.getString("referencia"));
+                conta.setValor(rs.getDouble("valor"));
+                conta.setData_vencimento(rs.getDate("data_vencimento"));
+                Date data = rs.getDate("data_vencimento");
+                
+              
+
+                if (data != null) {
+                     LocalDate vencimento = data.toLocalDate();
+
+
+                    if (vencimento.isAfter(dataAtual) && vencimento.isBefore(dataAtual.plusDays(5))) {
+                        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                        String aviso = "A Conta " + conta.getReferencia() + " irá se Vencer em Alguns Dias Com Valor de R$" + conta.getValor() + " Vencimento " + formato.format(conta.getData_vencimento());
+                        String espaco = "----------------------------------------------------------------*----------------------------------------------------------------";
+                        temConta = true;
+                        lista.add(aviso + "\n" + espaco);
+
+                    } else if (vencimento.equals(dataAtual)) {
+                        String aviso = "A Conta " + conta.getReferencia() + " Venceu Hoje Com Valor de R$" + conta.getValor();
+                        String espaco = "----------------------------------------------------------------*----------------------------------------------------------------";
+                        temConta = true;
+                        lista.add(aviso + "\n" + espaco);
+
+                    }
+                }
+            }
+            if (!temConta) {
+                String aviso = "Sem Contas Próximas ou Vencendo";
+                lista.add(aviso);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro: " + ex);
+        } finally {
+            ConexaoBanco.closeConnection(con, stmt, rs);
+        }
+
+        return lista;
     }
 
 }

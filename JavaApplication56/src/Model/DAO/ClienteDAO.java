@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -184,26 +185,75 @@ public class ClienteDAO {
         Connection con = ConexaoBanco.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        
+
         List<Cliente> listaCliente = new ArrayList<>();
-        
+
         try {
-            stmt=con.prepareStatement("SELECT * FROM clientes WHERE nome LIKE ?");
+            stmt = con.prepareStatement("SELECT * FROM clientes WHERE nome LIKE ?");
             stmt.setString(1, nome + "%");
-            rs=stmt.executeQuery();
-            
-            while (rs.next()) {                
-              Cliente cliente = new Cliente();
-              cliente.setNome(rs.getString("nome"));
-              cliente.setTelefone(rs.getString("telefone"));
-              listaCliente.add(cliente);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Cliente cliente = new Cliente();
+                cliente.setNome(rs.getString("nome"));
+                cliente.setTelefone(rs.getString("telefone"));
+                listaCliente.add(cliente);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }finally{
-        ConexaoBanco.closeConnection(con, stmt, rs);
+        } finally {
+            ConexaoBanco.closeConnection(con, stmt, rs);
         }
         return listaCliente;
+    }
+
+    public List<String> verificarAniversario() {
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<String> aniversariantes = new ArrayList<>();
+
+        LocalDate dataAtual = LocalDate.now();
+        int diaAtual = dataAtual.getDayOfMonth();
+        int mesAtual = dataAtual.getMonthValue();
+
+        boolean temAniverssariante = false;
+
+        try {
+            stmt = con.prepareStatement("SELECT * FROM clientes");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Cliente cliente = new Cliente();
+                cliente.setNome(rs.getString("nome"));
+                cliente.setTelefone(rs.getString("telefone"));
+                cliente.setEmail(rs.getString("email"));
+                Date data = rs.getDate("dataNascimento");
+
+                if (data != null) {
+
+                    LocalDate dataAniversario = data.toLocalDate();
+
+                    if (dataAniversario.getDayOfMonth() == diaAtual && dataAniversario.getMonthValue() == mesAtual) {
+                        String menssagem = "Hoje é Aniverssario de " + cliente.getNome() + " Mande uma menssagem de parabéns para seu Telefone:" + cliente.getTelefone() + " ou Email: " + cliente.getEmail();
+                        String espaco = "----------------------------------------------------------------*----------------------------------------------------------------";
+                        aniversariantes.add(menssagem +"\n"+ espaco);
+                        temAniverssariante = true;
+                    }
+                }
+            }
+            
+            if (!temAniverssariante) {
+                aniversariantes.add("Não temos aniversariantes no dia de hoje!");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro: " + ex);
+        } finally {
+            ConexaoBanco.closeConnection(con, stmt, rs);
+        }
+
+        return aniversariantes;
     }
 
 }

@@ -120,6 +120,11 @@ public class TelaInicial extends javax.swing.JFrame {
         jButton7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-ordem-48.png"))); // NOI18N
         jButton7.setText("Ordem de Serviço");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 410, 200, 70));
 
         jButton8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -135,6 +140,11 @@ public class TelaInicial extends javax.swing.JFrame {
         jButton10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-notificação-48.png"))); // NOI18N
         jButton10.setText("Notificações");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 340, 220, 60));
 
         btnContas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -215,6 +225,20 @@ public class TelaInicial extends javax.swing.JFrame {
         CadastroContas contas = new CadastroContas();
         contas.setVisible(true);
     }//GEN-LAST:event_btnContasActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        CadastroOs os = new CadastroOs();
+        os.setVisible(true);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        TelaNotificacoes notificacoes = new TelaNotificacoes();
+        notificacoes.setVisible(true);
+        
+    }//GEN-LAST:event_jButton10ActionPerformed
 
     /**
      * @param args the command line arguments

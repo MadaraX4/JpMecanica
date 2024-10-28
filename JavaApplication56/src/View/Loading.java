@@ -10,10 +10,13 @@ import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import java.sql.Connection;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import javax.swing.ImageIcon;
+import javax.swing.Timer;
 
 /**
  *
@@ -28,7 +31,9 @@ public class Loading extends javax.swing.JFrame {
         initComponents();
 
         statusConexao();
-        jblDataAtual.setText(dataAtual());
+        Timer timer = new Timer(1000, e ->dataAtual());
+        timer.start();
+        dataAtual();
     }
 
     private void statusConexao() {
@@ -39,7 +44,7 @@ public class Loading extends javax.swing.JFrame {
                 lblStatus.setIcon(new ImageIcon(Loading.class.getResource("/img/excluir-banco-de-dados.png")));
                 JOptionPane.showMessageDialog(null, "Erro ao conectar ao Banco de Dados!");
                 this.dispose();
-                
+
             } else {
                 System.out.println("Banco de dados Conectado");
                 lblStatus.setIcon(new ImageIcon(Loading.class.getResource("/img/base-de-dados.png")));
@@ -51,16 +56,18 @@ public class Loading extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    
-    public String dataAtual(){
-    
-        LocalDateTime dataAtual = LocalDateTime.now();
-        DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd/MM-yyyy HH:mm:ss");
+
+    public void dataAtual() {
+
+        LocalDate dataAtual = LocalDate.now();
+        DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalTime hora = LocalTime.now();
+        DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+        String data = dataAtual.format(formater);
+        String horaAtual = hora.format(formatoHora);
         
-    
-    String data = dataAtual.format(formater);
-    
-    return data;
+        jblDataAtual.setText(data + "  " +horaAtual);
     }
 
     /**
@@ -197,8 +204,8 @@ public class Loading extends javax.swing.JFrame {
             }
             loading.dispose();
 
-            TelaInicial ini = new TelaInicial();
-            ini.setVisible(true);
+            TelaNotificacoes notificacoes = new TelaNotificacoes();
+            notificacoes.setVisible(true);
         } catch (InterruptedException e) {
             JOptionPane.showConfirmDialog(null, "Erro!");
         }

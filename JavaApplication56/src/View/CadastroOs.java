@@ -4,7 +4,7 @@
  */
 package View;
 
-import Controler.OsPDF;
+import GerarPdfs.OsPDF;
 import Estilo.BordaCantoArredondado;
 import Estilo.BotaoRedondo;
 import Estilo.TextoMaisculo;
