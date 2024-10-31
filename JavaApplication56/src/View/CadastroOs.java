@@ -817,7 +817,7 @@ public class CadastroOs extends javax.swing.JFrame {
             modeloTabela.removeRow(linha);
             precoTotalServicos();
         } else {
-            JOptionPane.showMessageDialog(null, "Nenhma peça selecionada!");
+            JOptionPane.showMessageDialog(null, "Nenhum Serviço selecionada!");
         }
     }//GEN-LAST:event_btnremoverServicoActionPerformed
     

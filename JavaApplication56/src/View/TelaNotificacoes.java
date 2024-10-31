@@ -16,6 +16,7 @@ import java.util.Locale;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import Estilo.BotaoRedondo;
+import Estilo.TextoMaisculo;
 import Model.DAO.ClienteDAO;
 import Model.DAO.ContaDAO;
 import java.awt.Component;
@@ -25,6 +26,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JTextArea;
 import javax.swing.ListCellRenderer;
+import javax.swing.text.AbstractDocument;
 
 /**
  *
@@ -51,7 +53,8 @@ public class TelaNotificacoes extends javax.swing.JFrame {
 
         aniversariantes();
         contas();
-    }
+        textoMaiusculo();
+   }
 
     public void titulo() {
 
@@ -68,6 +71,12 @@ public class TelaNotificacoes extends javax.swing.JFrame {
 
         lblTitulo.setText("Verifique Suas Notificações de Hoje " + nomeDoDia + " " + data + "    " + horaFormatada);
 
+    }
+    
+     public void textoMaiusculo() {
+        ((AbstractDocument) jtAniversariantes.getDocument()).setDocumentFilter(new TextoMaisculo());
+        ((AbstractDocument) jtContas.getDocument()).setDocumentFilter(new TextoMaisculo());
+       
     }
 
     public void txtBorda() {

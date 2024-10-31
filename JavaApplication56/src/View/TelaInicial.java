@@ -133,8 +133,13 @@ public class TelaInicial extends javax.swing.JFrame {
         jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 410, 240, -1));
 
         jButton9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/orcamento.png"))); // NOI18N
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/orcamento (1).png"))); // NOI18N
         jButton9.setText("Orçamento");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 410, 220, 70));
 
         jButton10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -239,6 +244,12 @@ public class TelaInicial extends javax.swing.JFrame {
         notificacoes.setVisible(true);
         
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        TelaOrcamento orcamento = new TelaOrcamento();
+        orcamento.setVisible(true);
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
      * @param args the command line arguments
