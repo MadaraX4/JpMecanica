@@ -7,6 +7,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -88,12 +90,12 @@ public class OsDAO {
     public void atualizarEstatus(Os os) {
         Connection con = ConexaoBanco.getConnection();
         PreparedStatement stmt = null;
-        
+
         java.sql.Date dataMysql = new java.sql.Date(os.getDataAprovação().getTime());
-        
+
         try {
-            stmt= con.prepareStatement("UPDATE os SET estatus=?,data_aprovacao=? WHERE id=?");
-            stmt.setString(1,os.getStatus());
+            stmt = con.prepareStatement("UPDATE os SET estatus=?,data_aprovacao=? WHERE id=?");
+            stmt.setString(1, os.getStatus());
             stmt.setDate(2, dataMysql);
             stmt.setInt(3, os.getId());
             stmt.executeUpdate();
@@ -103,4 +105,66 @@ public class OsDAO {
         }
 
     }
+
+    public List<Os> listaOs() {
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        List<Os> oss = new ArrayList<>();
+        
+        try {
+            stmt=con.prepareStatement("SELECT * FROM os ORDER BY id DESC");
+            rs=stmt.executeQuery();
+            
+            while (rs.next()) {                
+                Os os = new Os();
+                os.setId(rs.getInt("id"));
+                os.setClienteNome(rs.getString("clienteNome"));
+                os.setPlacaVeiculo(rs.getString("placaVeiculo"));
+                os.setDataOrdem(rs.getDate("dataDaOrdem"));
+                os.setValor(rs.getDouble("valor"));
+                os.setStatus(rs.getString("estatus"));
+                oss.add(os);
+            }
+        } catch (SQLException ex) {
+            System.out.println("ERRO: " + ex);
+        }finally{
+        ConexaoBanco.closeConnection(con, stmt, rs);
+        }
+        
+        return oss;
+    }
+    public List<Os> osPorPlaca(String placa) {
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        List<Os> oss = new ArrayList<>();
+        
+        try {
+            stmt=con.prepareStatement("SELECT * FROM os WHERE placaVeiculo=?");
+            stmt.setString(1, placa);
+            rs=stmt.executeQuery();
+            
+            while (rs.next()) {                
+                Os os = new Os();
+                os.setId(rs.getInt("id"));
+                os.setClienteNome(rs.getString("clienteNome"));
+                os.setPlacaVeiculo(rs.getString("placaVeiculo"));
+                os.setDataOrdem(rs.getDate("dataDaOrdem"));
+                os.setValor(rs.getDouble("valor"));
+                os.setStatus(rs.getString("estatus"));
+                oss.add(os);
+            }
+        } catch (SQLException ex) {
+            System.out.println("ERRO: " + ex);
+        }finally{
+        ConexaoBanco.closeConnection(con, stmt, rs);
+        }
+        
+        return oss;
+    }
+    
+    
 }

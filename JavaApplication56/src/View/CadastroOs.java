@@ -891,6 +891,8 @@ public class CadastroOs extends javax.swing.JFrame {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-YYYY");
             jlDataOs.setText(sdf.format(dataAtual));
             jlEstatusOs.setText(os.getStatus());
+            
+            JOptionPane.showMessageDialog(null, "Os Cadastrada com Sucesso!");
         }
         
 

@@ -164,7 +164,7 @@ public class CarroDAO {
                 carro.setCpf_proprietario(rs.getString("proprietario"));
                 carro.setMontadora(rs.getString("montadora"));
                 carro.setModelo(rs.getString("modelo"));
-                carro.setModelo(rs.getString("combustivel"));
+                carro.setCobustivel(rs.getString("combustivel"));
                 carros.add(carro);
             }
 
