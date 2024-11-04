@@ -140,6 +140,7 @@ public class TelaVenda extends javax.swing.JFrame {
         jScrollPaneLista = new javax.swing.JScrollPane();
         jListPecas = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
+        btnRemoverPecas = new javax.swing.JButton();
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -184,7 +185,7 @@ public class TelaVenda extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(jTPecas);
 
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(572, 80, 590, -1));
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(572, 80, 590, 400));
 
         txtQtdItens.setEditable(false);
         txtQtdItens.setBackground(new java.awt.Color(0, 153, 255));
@@ -192,7 +193,7 @@ public class TelaVenda extends javax.swing.JFrame {
         txtQtdItens.setForeground(new java.awt.Color(255, 255, 255));
         txtQtdItens.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtQtdItens.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Número de Itens", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Arial", 0, 14), new java.awt.Color(255, 255, 255))); // NOI18N
-        jPanel1.add(txtQtdItens, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 520, 260, 60));
+        jPanel1.add(txtQtdItens, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 530, 260, 60));
 
         txtValorTotal.setEditable(false);
         txtValorTotal.setBackground(new java.awt.Color(0, 153, 255));
@@ -200,7 +201,7 @@ public class TelaVenda extends javax.swing.JFrame {
         txtValorTotal.setForeground(new java.awt.Color(255, 255, 255));
         txtValorTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtValorTotal.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Valor Total", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Arial", 0, 14), new java.awt.Color(255, 255, 255))); // NOI18N
-        jPanel1.add(txtValorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 520, 250, 60));
+        jPanel1.add(txtValorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 530, 250, 60));
 
         txtValorUnitario.setEditable(false);
         txtValorUnitario.setBackground(new java.awt.Color(0, 153, 255));
@@ -280,6 +281,18 @@ public class TelaVenda extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 702, 1170, 40));
+
+        btnRemoverPecas.setBackground(new java.awt.Color(0, 153, 255));
+        btnRemoverPecas.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        btnRemoverPecas.setForeground(new java.awt.Color(255, 255, 255));
+        btnRemoverPecas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/remover-do-carrinho.png"))); // NOI18N
+        btnRemoverPecas.setText("Remover da Lista");
+        btnRemoverPecas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverPecasActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnRemoverPecas, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 490, -1, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1180, 810));
 
@@ -434,6 +447,21 @@ public class TelaVenda extends javax.swing.JFrame {
         inicial.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnRemoverPecasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverPecasActionPerformed
+        // TODO add your handling code here:
+         DefaultTableModel modeloTabela = (DefaultTableModel) jTPecas.getModel();
+        
+        int linha = jTPecas.getSelectedRow();
+        System.out.println(linha);
+        
+        if (linha != -1) {
+            modeloTabela.removeRow(linha);
+            precoTotalPecas();
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum Serviço selecionada!");
+        }
+    }//GEN-LAST:event_btnRemoverPecasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -456,6 +484,7 @@ public class TelaVenda extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFinalizarVenda;
+    private javax.swing.JButton btnRemoverPecas;
     private javax.swing.JButton btnVendasDoDia;
     private javax.swing.JButton jButton1;
     private javax.swing.JList<String> jList1;
