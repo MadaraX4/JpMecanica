@@ -13,12 +13,13 @@ import javax.swing.border.AbstractBorder;
  *
  * @author MadaraX4
  */
-public class BordaCantoArredondado extends AbstractBorder {
+public class Borda2 extends AbstractBorder{
+    
 
-    private static final BasicStroke CONTORNO = new BasicStroke(2);
+    private static final BasicStroke CONTORNO = new BasicStroke(4);
     private Color cor;
 
-    public BordaCantoArredondado(Color cor) {
+    public Borda2(Color cor) {
         this.cor = cor;
     }
 
@@ -32,7 +33,7 @@ public class BordaCantoArredondado extends AbstractBorder {
         g2d.setStroke(CONTORNO);
 
         g2d.setColor(cor);
-        g2d.drawRoundRect(x, y, width - 1, height - 1, 15, 15);
+        g2d.drawRoundRect(x, y, width - 1, height - 1, 40, 40);
 
         g2d.dispose();
 
@@ -41,7 +42,4 @@ public class BordaCantoArredondado extends AbstractBorder {
    public void setCor(Color GREEN) {
            this.cor = cor;
     }
-
-   
-
 }

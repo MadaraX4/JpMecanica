@@ -135,8 +135,8 @@ public class PecasDAO {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-               
-               listaNomes.add(rs.getString("nome"));
+
+                listaNomes.add(rs.getString("nome"));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -146,21 +146,21 @@ public class PecasDAO {
 
         return listaNomes;
     }
-    
-    public List<Pecas> listaPecas(String nome){
-     
+
+    public List<Pecas> listaPecas(String nome) {
+
         Connection con = ConexaoBanco.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-    
+
         List<Pecas> listaPecas = new ArrayList<>();
-        
+
         try {
-            stmt=con.prepareStatement("SELECT * FROM pecas WHERE nome=?");
+            stmt = con.prepareStatement("SELECT * FROM pecas WHERE nome=?");
             stmt.setString(1, nome);
-            rs=stmt.executeQuery();
-            
-            while (rs.next()) {                
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
                 Pecas pecas = new Pecas();
                 pecas.setId(rs.getInt("id"));
                 pecas.setCod_identificacao(rs.getInt("cod_identificacao"));
@@ -171,13 +171,37 @@ public class PecasDAO {
                 pecas.setPreco_venda(rs.getDouble("preco_venda"));
                 listaPecas.add(pecas);
             }
-            
+
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            ConexaoBanco.closeConnection(con, stmt, rs);
+        }
+        return listaPecas;
+    }
+
+    public Pecas vendaPecas(String nome) {
+
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        Pecas peca = new Pecas();
+        try {
+            stmt=con.prepareStatement("SELECT * FROM pecas WHERE nome=?");
+            stmt.setString(1, nome);
+            rs=stmt.executeQuery();
+            
+            while (rs.next()) {                
+              peca.setId(rs.getInt("id"));
+              peca.setPreco_venda(rs.getDouble("preco_venda"));
+            }
+        } catch (SQLException ex) {
+            System.out.println("ERRO: " + ex);
         }finally{
         ConexaoBanco.closeConnection(con, stmt, rs);
         }
-        return listaPecas;
+        return peca;
     }
 
 }

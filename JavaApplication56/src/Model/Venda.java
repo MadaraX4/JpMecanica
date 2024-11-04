@@ -1,32 +1,70 @@
 package Model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Venda {
 
-    private LocalDateTime data_venda;
-    private double valor_total;
+   private int id;
+   private LocalDate data;
+   private LocalTime hora;
+   private int qtdItens;
+   private Double valor;
+   private Double dinheiro;
+   
+   public Venda(){
+   
+   }
 
-    public Venda(LocalDateTime data_venda, double valor_total) {
-        this.data_venda = data_venda;
-        this.valor_total = valor_total;
-
+    public int getId() {
+        return id;
     }
 
-    public LocalDateTime getData_venda() {
-        return data_venda;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setData_venda(LocalDateTime data_venda) {
-        this.data_venda = data_venda;
+    public LocalDate getData() {
+        return data;
     }
 
-    public double getValor_total() {
-        return valor_total;
+    public void setData(LocalDate data) {
+        this.data = data;
     }
 
-    public void setValor_total(double valor_total) {
-        this.valor_total = valor_total;
+    public LocalTime getHora() {
+        return hora;
     }
 
+    public void setHora(LocalTime hora) {
+        this.hora = hora;
+    }
+
+    public int getQtdItens() {
+        return qtdItens;
+    }
+
+    public void setQtdItens(int qtdItens) {
+        this.qtdItens = qtdItens;
+    }
+
+    public Double getValor() {
+        return valor;
+    }
+
+    public void setValor(Double valor) {
+        this.valor = valor;
+    }
+
+    public Double getDinheiro() {
+        return dinheiro;
+    }
+
+    public void setDinheiro(Double dinheiro) {
+        this.dinheiro = dinheiro;
+    }
+    
+    
+
+   
 }
