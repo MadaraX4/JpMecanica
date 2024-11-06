@@ -1,12 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model.DAO;
 
 import ConnectionFactory.ConexaoBanco;
 import Model.Carro;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -151,7 +148,7 @@ public class CarroDAO {
         ResultSet rs = null;
 
         List<Carro> carros = new ArrayList<>();
-        
+
         try {
             stmt = con.prepareStatement("SELECT * FROM carro WHERE placa LIKE ?");
             stmt.setString(1, placa + "%");
@@ -175,6 +172,106 @@ public class CarroDAO {
         }
 
         return carros;
+    }
+
+    public void agendarManutencao(Carro carro) {
+
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = con.prepareStatement("UPDATE carro SET manutencao_agendada=? WHERE placa=?");
+            stmt.setDate(1, (Date) carro.getManutencao_agendada());
+            stmt.setString(2, carro.getPlaca());
+
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Manutenção Agendada com Sucesso!");
+        } catch (SQLException ex) {
+            System.out.println("ERRO: " + ex);
+        } finally {
+            ConexaoBanco.closeConnection(con, stmt);
+        }
+    }
+    public void alterarManutencao(Carro carro) {
+
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = con.prepareStatement("UPDATE carro SET manutencao_agendada=? WHERE placa=?");
+            stmt.setDate(1, (Date) carro.getManutencao_agendada());
+            stmt.setString(2, carro.getPlaca());
+
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Data Alterada com Sucesso!");
+        } catch (SQLException ex) {
+            System.out.println("ERRO: " + ex);
+        } finally {
+            ConexaoBanco.closeConnection(con, stmt);
+        }
+    }
+    public void cancelarManutencao(Carro carro) {
+
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = con.prepareStatement("UPDATE carro SET manutencao_agendada=? WHERE placa=?");
+            stmt.setDate(1, (Date) carro.getManutencao_agendada());
+            stmt.setString(2, carro.getPlaca());
+
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Manutenção Cancelada com Sucesso!");
+        } catch (SQLException ex) {
+            System.out.println("ERRO: " + ex);
+        } finally {
+            ConexaoBanco.closeConnection(con, stmt);
+        }
+    }
+    public void finalizarManutencao(Carro carro) {
+
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = con.prepareStatement("UPDATE carro SET manutencao_agendada=?,data_manutencao=? WHERE placa=?");
+            stmt.setDate(1, (Date) carro.getManutencao_agendada());
+            stmt.setDate(2, (Date) carro.getData_manutencao());
+            stmt.setString(3, carro.getPlaca());
+
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Manutenção Finalizada Com Sucesso!");
+        } catch (SQLException ex) {
+            System.out.println("ERRO: " + ex);
+        } finally {
+            ConexaoBanco.closeConnection(con, stmt);
+        }
+    }
+
+    public List<Carro> listaManutencao() {
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        List<Carro> lista = new ArrayList<>();
+        
+        try {
+            stmt=con.prepareStatement("SELECT placa,manutencao_agendada FROM carro WHERE manutencao_agendada IS NOT NULL ORDER BY ABS(DATEDIFF(manutencao_agendada, CURRENT_DATE))");
+            rs=stmt.executeQuery();
+            
+            while (rs.next()) {                
+                Carro carro = new Carro();
+                carro.setPlaca(rs.getString("placa"));
+                carro.setManutencao_agendada(rs.getDate("manutencao_agendada"));
+                lista.add(carro);
+            }
+        } catch (SQLException ex) {
+            System.out.println("ERRO: " + ex);
+        }finally{
+        ConexaoBanco.closeConnection(con, stmt, rs);
+        }
+
+        return lista;
     }
 
 }

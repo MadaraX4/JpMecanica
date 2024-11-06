@@ -104,7 +104,7 @@ public class VendasDoDia extends javax.swing.JFrame {
         jTVendas.setRowHeight(30);
         jScrollPane1.setViewportView(jTVendas);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 37, 1120, 680));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 37, 1110, 680));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 204));
         jPanel2.setForeground(new java.awt.Color(0, 0, 0));
