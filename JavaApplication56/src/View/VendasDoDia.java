@@ -38,6 +38,7 @@ public class VendasDoDia extends javax.swing.JFrame {
         header.setDefaultRenderer(new Cabecalho());
         
         titulo();
+        colunaTabela();
     }
 
     public void vendas() {
@@ -48,12 +49,13 @@ public class VendasDoDia extends javax.swing.JFrame {
 
         for (Venda venda : vendas) {
             DecimalFormat df = new DecimalFormat("#.00");
-            Object[] objeto = new Object[5];
+            Object[] objeto = new Object[6];
             objeto[0] = venda.getId();
             objeto[1] = df.format(venda.getValor());
             objeto[2] = venda.getQtdItens();
             objeto[3] = venda.getHora();
             objeto[4] = df.format(venda.getDinheiro());
+            objeto[5] = venda.getTipoDePagamento();
 
             modelo.addRow(objeto);
         }
@@ -65,6 +67,15 @@ public class VendasDoDia extends javax.swing.JFrame {
         DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         
         lblTitulo.setText("VENDAS REALIZADAS HOJE " + formatoData.format(dataAtual));
+    }
+    
+     public void colunaTabela() {
+        jTVendas.getColumnModel().getColumn(0).setPreferredWidth(5);
+        jTVendas.getColumnModel().getColumn(1).setPreferredWidth(20);
+        jTVendas.getColumnModel().getColumn(2).setPreferredWidth(20);
+        jTVendas.getColumnModel().getColumn(3).setPreferredWidth(50);
+        jTVendas.getColumnModel().getColumn(4).setPreferredWidth(20);
+        jTVendas.getColumnModel().getColumn(5).setPreferredWidth(50);
     }
 
     /**
@@ -98,7 +109,7 @@ public class VendasDoDia extends javax.swing.JFrame {
 
             },
             new String [] {
-                "IDENTIFICADOR", "VALOR", "ITENS DA VENDA", "HORA DA VENDA", "DINHEIRO"
+                "IDENTIFICADOR", "VALOR", "ITENS DA VENDA", "HORA DA VENDA", "DINHEIRO", "MÉTODO DE PAGAMENTO "
             }
         ));
         jTVendas.setRowHeight(30);

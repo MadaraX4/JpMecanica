@@ -11,7 +11,7 @@ import javax.swing.table.AbstractTableModel;
 public class ContaTableModel extends AbstractTableModel {
 
     private List<Conta> contas = new ArrayList<>();
-    private String[] colunas = {"REFERÊNCIA", "TIPO", "VALOR", "DADA DE VENCIMENTO", "ESTATUS", "DATA DE PAGAMENTO"};
+    private String[] colunas = {"REFERÊNCIA", "TIPO", "VALOR", "DADA DE VENCIMENTO", "ESTATUS", "DATA DE PAGAMENTO","VALOR PAGO"};
 
     @Override
     public String getColumnName(int column) {
@@ -47,6 +47,8 @@ public class ContaTableModel extends AbstractTableModel {
                 return contas.get(linhaIndex).getEstatus();
             case 5:
                 return contas.get(linhaIndex).getData_pagamento();
+            case 6:
+                return contas.get(linhaIndex).getValorPago();
 
         }
         fireTableCellUpdated(linhaIndex, colunaIndex);
@@ -88,7 +90,9 @@ public class ContaTableModel extends AbstractTableModel {
                 }
                 break;
             }
-
+            case 6: {
+            contas.get(linhaIndex).setValorPago(Double.parseDouble((String) valor));
+            }
         }
         this.fireTableRowsUpdated(linhaIndex, linhaIndex);
     }

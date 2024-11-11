@@ -17,6 +17,7 @@ public class Conta {
     private Date data_vencimento;
     private String estatus;
     private Date data_pagamento;
+    private double valorPago;
    
 
     public Conta() {
@@ -81,6 +82,16 @@ public class Conta {
     public void setData_pagamento(Date data_pagamento) {
         this.data_pagamento = data_pagamento;
     }
+
+    public double getValorPago() {
+        return valorPago;
+    }
+
+    public void setValorPago(double valorPago) {
+        this.valorPago = valorPago;
+    }
+    
+    
 
   
     }

@@ -10,6 +10,8 @@ import Model.DAO.ContaDAO;
 import Estilo.BordaCantoArredondado;
 import Estilo.BotaoRedondo;
 import Estilo.TextoMaisculo;
+import Model.DAO.FluxoDeCaixaDAO;
+import Model.FluxoDeCaixa;
 import Style.table.Cabecalho;
 import Style.table.FormatarTipos;
 import Style.table.Render;
@@ -19,6 +21,8 @@ import java.awt.Color;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
@@ -67,6 +71,7 @@ public final class CadastroContas extends javax.swing.JFrame {
         jtContas.getColumnModel().getColumn(2).setCellRenderer(new FormatarTipos()); // Para coluna de valor
         jtContas.getColumnModel().getColumn(3).setCellRenderer(new FormatarTipos());
         jtContas.getColumnModel().getColumn(5).setCellRenderer(new FormatarTipos());
+        jtContas.getColumnModel().getColumn(6).setCellRenderer(new FormatarTipos());
 
         formatarTabela();
         readJTAble();
@@ -367,7 +372,7 @@ public final class CadastroContas extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jtContas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jtContas.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jtContas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -468,6 +473,7 @@ public final class CadastroContas extends javax.swing.JFrame {
         txtDataVencimento.setText(dataFormatada);
         txtValor.setText(valorFormatado);
         jlEstatus.setText(conta.getEstatus());
+        
         if ("PENDENTE".equals(conta.getEstatus())) {
             jlEstatus.setForeground(Color.BLUE);
         } else if (conta.getEstatus().equals("PAGO")) {
@@ -557,15 +563,28 @@ public final class CadastroContas extends javax.swing.JFrame {
 
         Conta conta = new Conta();
         ContaDAO dao = new ContaDAO();
+        
+        FluxoDeCaixaDAO daoFluxo = new FluxoDeCaixaDAO();
+        FluxoDeCaixa fluxo = new FluxoDeCaixa();
 
         Date dataLocal = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String dataString = sdf.format(dataLocal);
+        
+        String valorPago = JOptionPane.showInputDialog("Informe o valor Pago!");
 
         conta.setId(Integer.parseInt(jlId.getText()));
         conta.setReferencia(txtReferencia.getText());
         conta.setData_pagamento(dataMysql(dataString));
         conta.setEstatus("PAGO");
+        conta.setValorPago(Double.parseDouble(valorPago.replace(",", ".")));
+        
+        fluxo.setDescricao(conta.getReferencia());
+        fluxo.setDataOperacao(LocalDate.now());
+        fluxo.setHoraOperacao(LocalTime.now());
+        fluxo.setTipo("SAÍDA");
+        fluxo.setValorEntrada(0.0);
+        fluxo.setValorSaida(conta.getValorPago());
 
         jlEstatus.setText("PAGO");
 
@@ -577,8 +596,10 @@ public final class CadastroContas extends javax.swing.JFrame {
             if (jtContas.getSelectedRow() != -1) {
                 modelo.setValueAt(jlEstatus.getText(), jtContas.getSelectedRow(), 4);
                 modelo.setValueAt(dataString, jtContas.getSelectedRow(), 5);
+                modelo.setValueAt(valorPago, jtContas.getSelectedRow(),6 );
 
                 dao.updatePagamento(conta);
+                daoFluxo.inserir(fluxo);
                 JOptionPane.showMessageDialog(null, "Estatus atualizado com sucesso!");
                 limparCampos();
 

@@ -1,14 +1,14 @@
-
 package View;
-
 
 import Estilo.BordaCantoArredondado;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.UIManager;
 import Estilo.TextoMaisculo;
+import Model.DAO.FluxoDeCaixaDAO;
 import Model.DAO.ItensVendaDAO;
 import Model.DAO.PecasDAO;
 import Model.DAO.VendaDAO;
+import Model.FluxoDeCaixa;
 import Model.ItensVenda;
 import Model.Pecas;
 import Model.Venda;
@@ -23,6 +23,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
@@ -35,51 +36,47 @@ public class TelaVenda extends javax.swing.JFrame {
      */
     public TelaVenda() {
         initComponents();
-        
+
         Timer timer = new Timer(1000, e -> rodape());
         timer.start();
-        
+
         String placeRolder = "DIGIGITE O NOME DA PEÇA AQUI...";
         txtPesquisa.setText(placeRolder);
-        
+
         txtBorda();
         rodape();
         colunasTabelaPecas();
         textoMaiusculo();
-        
-      
+
         lblRodape.requestFocusInWindow();
         jScrollPaneLista.setVisible(false);
         jPanel1.setComponentZOrder(jScrollPaneLista, 0);
-        
+
         jTPecas.setDefaultRenderer(Object.class, new CentralizarTexto());
-        
-        
-        
+
     }
-    
-    
+
     public void colunasTabelaPecas() {
         jTPecas.getColumnModel().getColumn(0).setPreferredWidth(5);
         jTPecas.getColumnModel().getColumn(1).setPreferredWidth(250);
         jTPecas.getColumnModel().getColumn(2).setPreferredWidth(5);
         jTPecas.getColumnModel().getColumn(3).setPreferredWidth(10);
-        
+
     }
-    
+
     public void textoMaiusculo() {
         ((AbstractDocument) txtPesquisa.getDocument()).setDocumentFilter(new TextoMaisculo());
         ((AbstractDocument) txtQtdItens.getDocument()).setDocumentFilter(new TextoMaisculo());
         ((AbstractDocument) txtValorTotal.getDocument()).setDocumentFilter(new TextoMaisculo());
         ((AbstractDocument) txtValorUnitario.getDocument()).setDocumentFilter(new TextoMaisculo());
-        
+
     }
-    
+
     public void txtBorda() {
         BordaCantoArredondado bad = new BordaCantoArredondado(Color.WHITE);
         lblRodape.setBorder(bad);
     }
-    
+
     public void rodape() {
         LocalDate dataAtual = LocalDate.now();
         DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -89,15 +86,15 @@ public class TelaVenda extends javax.swing.JFrame {
         lblRodape.setForeground(Color.WHITE);
         lblRodape.setText("CAIXA ABERTO                           " + formatoData.format(dataAtual) + "                             " + formatoHora.format(horaAtual));
     }
-    
+
     public void precoTotalPecas() {
         DefaultTableModel modeloTabela = (DefaultTableModel) jTPecas.getModel();
         double soma = 0;
         int colunaPreco = 3;
-        
+
         for (int i = 0; i < modeloTabela.getRowCount(); i++) {
             Object valor = modeloTabela.getValueAt(i, colunaPreco);
-            
+
             if (valor instanceof Number) {
                 soma += ((Number) valor).doubleValue();
             }
@@ -105,12 +102,12 @@ public class TelaVenda extends javax.swing.JFrame {
         DecimalFormat df = new DecimalFormat("#.00");
         txtValorTotal.setText(df.format(soma));
     }
-    
+
     public void contadorItens() {
-        
+
         DefaultTableModel modeloTabela = (DefaultTableModel) jTPecas.getModel();
         int contador = modeloTabela.getRowCount();
-        
+
         txtQtdItens.setText(String.valueOf(contador));
     }
 
@@ -303,24 +300,24 @@ public class TelaVenda extends javax.swing.JFrame {
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
         // TODO add your handling code here:
         jScrollPaneLista.setVisible(true);
-        
+
         DefaultListModel<String> modelo = new DefaultListModel<>();
         jListPecas.setModel(modelo);
-        
+
         String nome = txtPesquisa.getText();
         PecasDAO dao = new PecasDAO();
-        
+
         modelo.clear();
-        
+
         if (!nome.isEmpty()) {
             List<String> nomes = dao.listaNome(nome);
-            
+
             for (String nomePeca : nomes) {
                 modelo.addElement(nomePeca);
             }
         } else {
             jScrollPaneLista.setVisible(false);
-            
+
         }
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
@@ -332,7 +329,7 @@ public class TelaVenda extends javax.swing.JFrame {
 
     private void jListPecasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListPecasMouseClicked
         int linha = jListPecas.getSelectedIndex();
-        
+
         if (linha != -1) {
             String nome = jListPecas.getModel().getElementAt(linha);
             PecasDAO dao = new PecasDAO();
@@ -341,7 +338,7 @@ public class TelaVenda extends javax.swing.JFrame {
             DecimalFormat df = new DecimalFormat("#.00");
             String preco = df.format(peca.getPreco_venda());
             txtValorUnitario.setText(preco);
-            
+
             jScrollPaneLista.setVisible(false);
         }
     }//GEN-LAST:event_jListPecasMouseClicked
@@ -351,14 +348,14 @@ public class TelaVenda extends javax.swing.JFrame {
         String nome = txtPesquisa.getText();
         PecasDAO dao = new PecasDAO();
         Pecas peca = dao.vendaPecas(nome);
-        
+
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (!txtValorUnitario.getText().isEmpty() && !txtQuantidade.getText().isEmpty()) {
                 Double precoUnitario = Double.parseDouble(txtValorUnitario.getText().replace(",", "."));
                 int qtd = Integer.parseInt(txtQuantidade.getText());
                 Double PrecoTotal = precoUnitario * qtd;
                 DefaultTableModel modelo = (DefaultTableModel) jTPecas.getModel();
-                
+
                 modelo.addRow(new Object[]{
                     peca.getId(),
                     nome,
@@ -375,14 +372,14 @@ public class TelaVenda extends javax.swing.JFrame {
             lblRodape.requestFocus();
         }
     }//GEN-LAST:event_txtQuantidadeKeyPressed
-    
+
     public void listaItens(int idVenda) {
         DefaultTableModel modelo = (DefaultTableModel) jTPecas.getModel();
-        
+
         List<ItensVenda> itensVenda = new ArrayList<>();
         try {
             ItensVendaDAO dao = new ItensVendaDAO();
-            
+
             for (int i = 0; i < modelo.getRowCount(); i++) {
                 int idPeca = (int) modelo.getValueAt(i, 0);
                 int quantidade = (int) modelo.getValueAt(i, 2);
@@ -397,7 +394,7 @@ public class TelaVenda extends javax.swing.JFrame {
     private void btnFinalizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarVendaActionPerformed
         // TODO add your handling code here:
         DefaultTableModel modelo = (DefaultTableModel) jTPecas.getModel();
-        
+
         VendaDAO vendaDao = new VendaDAO();
         Venda venda = new Venda();
         LocalDate dataAtual = LocalDate.now();
@@ -406,32 +403,62 @@ public class TelaVenda extends javax.swing.JFrame {
         venda.setData(dataAtual);
         venda.setHora(horaAtual);
         venda.setValor(Double.parseDouble(txtValorTotal.getText().replace(",", ".")));
-        
+
         String dinheiro = JOptionPane.showInputDialog(null, "INFORME O VALOR RECEBIDO DO CLIENTE");
         double recebido = Double.parseDouble(dinheiro.replace(",", "."));
-        
+        String[] opcoes = {"Dinheiro", "Crédito", "Débito"};
+        JComboBox<String> comboBox = new JComboBox<>(opcoes);
+
+        int resposta = JOptionPane.showOptionDialog(
+                null, // Contêiner pai (null para centralizar)
+                comboBox, // O componente que será exibido
+                "Escolha um Metodo de Pagamamento!", // Título da janela
+                JOptionPane.DEFAULT_OPTION, // Tipo de opção de botão
+                JOptionPane.QUESTION_MESSAGE, // Tipo de mensagem
+                null, // Ícone personalizado (null para usar o padrão)
+                null, // Não é necessário um array de opções
+                null // Não é necessário um valor inicial
+        );
+
+        if (resposta == JOptionPane.OK_OPTION) {
+            venda.setTipoDePagamento((String) comboBox.getSelectedItem());
+        }else{
+        JOptionPane.showMessageDialog(null,"Escolha um Método de Pagamento!");
+        }
         if (dinheiro != null && recebido >= venda.getValor()) {
             double troco = recebido - venda.getValor();
             DecimalFormat df = new DecimalFormat("#,00");
             JOptionPane.showMessageDialog(null, "TROCO: R$" + df.format(troco));
         }
         venda.setDinheiro(recebido);
-        
+
         int idVenda = vendaDao.salvarVenda(venda);
-        
+
         if (idVenda > 0 && recebido >= venda.getValor()) {
             listaItens(idVenda);
-            
+
             txtValorTotal.setText("0,00");
             txtQtdItens.setText("0");
             modelo.setRowCount(0);
-            
+
             JOptionPane.showMessageDialog(null, "VENDA REALIZA COM SUCESSO!");
         } else {
             JOptionPane.showMessageDialog(null, "ERRO AO REALIZAR VENDA!");
         }
+        
+        FluxoDeCaixa fluxo = new FluxoDeCaixa();
+        fluxo.setDescricao("VENDA");
+        fluxo.setDataOperacao(LocalDate.now());
+        fluxo.setHoraOperacao(LocalTime.now());
+        fluxo.setTipo("ENTRADA");
+        fluxo.setValorEntrada(venda.getValor());
+        fluxo.setValorSaida(0.0);
+        
+        FluxoDeCaixaDAO daoFluxo = new FluxoDeCaixaDAO();
+        daoFluxo.inserir(fluxo);
+        
     }//GEN-LAST:event_btnFinalizarVendaActionPerformed
-    
+
 
     private void btnVendasDoDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasDoDiaActionPerformed
         // TODO add your handling code here:
@@ -449,11 +476,11 @@ public class TelaVenda extends javax.swing.JFrame {
 
     private void btnRemoverPecasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverPecasActionPerformed
         // TODO add your handling code here:
-         DefaultTableModel modeloTabela = (DefaultTableModel) jTPecas.getModel();
-        
+        DefaultTableModel modeloTabela = (DefaultTableModel) jTPecas.getModel();
+
         int linha = jTPecas.getSelectedRow();
         System.out.println(linha);
-        
+
         if (linha != -1) {
             modeloTabela.removeRow(linha);
             precoTotalPecas();
@@ -466,7 +493,7 @@ public class TelaVenda extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (Exception ex) {

@@ -28,7 +28,7 @@ public class ContaDAO {
         ResultSet rs = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO conta (referencia,tipo,valor,data_vencimento,estatus) VALUES(?,?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO conta (referencia,tipo,valor,data_vencimento,estatus) VALUES(?,?,?,?,)");
             stmt.setString(1, conta.getReferencia());
             stmt.setString(2, conta.getTipo());
             stmt.setDouble(3, conta.getValor());
@@ -79,6 +79,7 @@ public class ContaDAO {
                     conta.setData_vencimento(rs.getDate("data_vencimento"));
                     conta.setEstatus(rs.getString("estatus"));
                     conta.setData_pagamento(rs.getDate("data_pagamento"));
+                    conta.setValorPago(rs.getDouble("valorPago"));
 
                     contas.add(conta);
                 } else {
@@ -95,6 +96,7 @@ public class ContaDAO {
                     conta.setValor(valorFormatado);
                     conta.setData_vencimento(rs.getDate("data_vencimento"));
                     conta.setEstatus(rs.getString("estatus"));
+                    conta.setValorPago(rs.getDouble("valorPago"));
 
                     contas.add(conta);
                 }
@@ -154,10 +156,11 @@ public class ContaDAO {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("UPDATE conta SET data_pagamento =?,estatus=? WHERE id=?");
+            stmt = con.prepareStatement("UPDATE conta SET data_pagamento =?,estatus=?,valorPago=? WHERE id=?");
             stmt.setDate(1, (Date) conta.getData_pagamento());
             stmt.setString(2, conta.getEstatus());
-            stmt.setInt(3, conta.getId());
+            stmt.setDouble(3, conta.getValorPago());
+            stmt.setInt(4, conta.getId());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "ERRO!" + ex);

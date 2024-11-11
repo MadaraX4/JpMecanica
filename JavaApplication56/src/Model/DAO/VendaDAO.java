@@ -19,7 +19,7 @@ public class VendaDAO {
         Connection con = ConexaoBanco.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        String sql = "INSERT INTO venda (data_da_venda,hora_da_venda,qtdItens,valor,dinheiro) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO venda (data_da_venda,hora_da_venda,qtdItens,valor,dinheiro,tipoDePagamento) VALUES (?,?,?,?,?,?)";
 
         int id_venda = 0;
         try {
@@ -31,6 +31,7 @@ public class VendaDAO {
             stmt.setInt(3, venda.getQtdItens());
             stmt.setDouble(4, venda.getValor());
             stmt.setDouble(5, venda.getDinheiro());
+            stmt.setString(6, venda.getTipoDePagamento());
             stmt.executeUpdate();
 
             rs = stmt.getGeneratedKeys();
@@ -55,7 +56,7 @@ public class VendaDAO {
         List<Venda> vendas = new ArrayList<>();
         
         try {
-            stmt=con.prepareStatement("SELECT id,valor,qtdItens,hora_da_venda,dinheiro FROM venda WHERE Date (data_da_venda) = CURRENT_DATE");
+            stmt=con.prepareStatement("SELECT id,valor,qtdItens,hora_da_venda,dinheiro,tipoDePagamento FROM venda WHERE Date (data_da_venda) = CURRENT_DATE");
             rs=stmt.executeQuery();
             
             while (rs.next()) {                
@@ -65,6 +66,7 @@ public class VendaDAO {
                 venda.setQtdItens(rs.getInt("qtdItens"));
                 venda.setHora(rs.getTime("hora_da_venda").toLocalTime());
                 venda.setDinheiro(rs.getDouble("dinheiro"));
+                venda.setTipoDePagamento(rs.getString("tipoDePagamento"));
                 
                 vendas.add(venda);
             }

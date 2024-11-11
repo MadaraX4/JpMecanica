@@ -11,6 +11,7 @@ public class Venda {
    private int qtdItens;
    private Double valor;
    private Double dinheiro;
+   private String tipoDePagamento;
    
    public Venda(){
    
@@ -62,6 +63,14 @@ public class Venda {
 
     public void setDinheiro(Double dinheiro) {
         this.dinheiro = dinheiro;
+    }
+
+    public String getTipoDePagamento() {
+        return tipoDePagamento;
+    }
+
+    public void setTipoDePagamento(String tipoDePagamento) {
+        this.tipoDePagamento = tipoDePagamento;
     }
     
     

@@ -41,18 +41,18 @@ public class TelaInicial extends javax.swing.JFrame {
         btnCadastrarCarro = new javax.swing.JButton();
         btnCadastrarPecas = new javax.swing.JButton();
         btnCadastrarMecanico = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnVendas = new javax.swing.JButton();
+        btnBackup = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        btnOs = new javax.swing.JButton();
+        btnVerOs = new javax.swing.JButton();
+        btnOrcamento = new javax.swing.JButton();
+        btnNotificacoes = new javax.swing.JButton();
         btnContas = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
+        btnFerramentas = new javax.swing.JButton();
+        btnFluxoDeCaixa = new javax.swing.JButton();
+        btnSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,58 +99,63 @@ public class TelaInicial extends javax.swing.JFrame {
         });
         jPanel1.add(btnCadastrarMecanico, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 220, 70));
 
-        jButton5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/caixa-eletronico.png"))); // NOI18N
-        jButton5.setText("Tela de vendas");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnVendas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/caixa-eletronico.png"))); // NOI18N
+        btnVendas.setText("Tela de vendas");
+        btnVendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnVendasActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 220, 70));
+        jPanel1.add(btnVendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 220, 70));
 
-        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/carro.png"))); // NOI18N
-        jButton6.setText("PESQUISAR CARRO");
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 220, -1));
+        btnBackup.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnBackup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/copia-de-seguranca (1).png"))); // NOI18N
+        btnBackup.setText("Backup");
+        jPanel1.add(btnBackup, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 220, 70));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LOGO-removebg-preview.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 460, 410));
 
-        jButton7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-ordem-48.png"))); // NOI18N
-        jButton7.setText("Ordem de Serviço");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnOs.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnOs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-ordem-48.png"))); // NOI18N
+        btnOs.setText("Ordem de Serviço");
+        btnOs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btnOsActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 410, 200, 70));
+        jPanel1.add(btnOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 410, 200, 70));
 
-        jButton8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ordem-de-servico.png"))); // NOI18N
-        jButton8.setText("Ver Ordens de serviço");
-        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 410, 240, -1));
-
-        jButton9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/orcamento (1).png"))); // NOI18N
-        jButton9.setText("Orçamento");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        btnVerOs.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnVerOs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ordem-de-servico.png"))); // NOI18N
+        btnVerOs.setText("Ver Ordens de serviço");
+        btnVerOs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                btnVerOsActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 410, 220, 70));
+        jPanel1.add(btnVerOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 410, 240, -1));
 
-        jButton10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-notificação-48.png"))); // NOI18N
-        jButton10.setText("Notificações");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        btnOrcamento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnOrcamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/orcamento (1).png"))); // NOI18N
+        btnOrcamento.setText("Orçamento");
+        btnOrcamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                btnOrcamentoActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 340, 220, 60));
+        jPanel1.add(btnOrcamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 410, 220, 70));
+
+        btnNotificacoes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnNotificacoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-notificação-48.png"))); // NOI18N
+        btnNotificacoes.setText("Notificações");
+        btnNotificacoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNotificacoesActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnNotificacoes, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 340, 220, 60));
 
         btnContas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnContas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pago.png"))); // NOI18N
@@ -167,20 +172,35 @@ public class TelaInicial extends javax.swing.JFrame {
         jButton12.setText("Vendas do dia");
         jPanel1.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 204, 220, 60));
 
-        jButton13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-ferramentas-48.png"))); // NOI18N
-        jButton13.setText("Cadastrar ferramentas");
-        jPanel1.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 140, 220, -1));
+        btnFerramentas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnFerramentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-ferramentas-48.png"))); // NOI18N
+        btnFerramentas.setText("Cadastrar ferramentas");
+        btnFerramentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFerramentasActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnFerramentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 140, 220, -1));
 
-        jButton14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-vendas-48.png"))); // NOI18N
-        jButton14.setText("Finanças");
-        jPanel1.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 80, 220, -1));
+        btnFluxoDeCaixa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnFluxoDeCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-vendas-48.png"))); // NOI18N
+        btnFluxoDeCaixa.setText("Finanças");
+        btnFluxoDeCaixa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFluxoDeCaixaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnFluxoDeCaixa, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 80, 220, -1));
 
-        jButton15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fechar.png"))); // NOI18N
-        jButton15.setText("Fechar sistema");
-        jPanel1.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 10, 220, 60));
+        btnSair.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fechar.png"))); // NOI18N
+        btnSair.setText("Fechar sistema");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 10, 220, 60));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -203,9 +223,12 @@ public class TelaInicial extends javax.swing.JFrame {
         cadastroPecas.setVisible(true);
     }//GEN-LAST:event_btnCadastrarPecasActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+        TelaVenda venda = new TelaVenda();
+        this.dispose();
+        venda.setVisible(true);
+    }//GEN-LAST:event_btnVendasActionPerformed
 
     private void btnCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarClienteActionPerformed
         // TODO add your handling code here:
@@ -231,25 +254,50 @@ public class TelaInicial extends javax.swing.JFrame {
         contas.setVisible(true);
     }//GEN-LAST:event_btnContasActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void btnOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsActionPerformed
         // TODO add your handling code here:
         CadastroOs os = new CadastroOs();
         os.setVisible(true);
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_btnOsActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void btnNotificacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNotificacoesActionPerformed
         // TODO add your handling code here:
         this.dispose();
         TelaNotificacoes notificacoes = new TelaNotificacoes();
         notificacoes.setVisible(true);
         
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }//GEN-LAST:event_btnNotificacoesActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void btnOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrcamentoActionPerformed
         // TODO add your handling code here:
         TelaOrcamento orcamento = new TelaOrcamento();
         orcamento.setVisible(true);
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_btnOrcamentoActionPerformed
+
+    private void btnVerOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerOsActionPerformed
+        // TODO add your handling code here:
+        VerOSs oss = new VerOSs();
+        this.dispose();
+        oss.setVisible(true);
+    }//GEN-LAST:event_btnVerOsActionPerformed
+
+    private void btnFerramentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFerramentasActionPerformed
+        // TODO add your handling code here:
+        CadastroFerramenta ferramenta = new CadastroFerramenta();
+        ferramenta.setVisible(true);
+    }//GEN-LAST:event_btnFerramentasActionPerformed
+
+    private void btnFluxoDeCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFluxoDeCaixaActionPerformed
+        // TODO add your handling code here:
+        TelaFinanceiro financeiro = new TelaFinanceiro();
+        this.dispose();
+        financeiro.setVisible(true);
+    }//GEN-LAST:event_btnFluxoDeCaixaActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -272,21 +320,21 @@ public class TelaInicial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBackup;
     private javax.swing.JButton btnCadastrarCarro;
     private javax.swing.JButton btnCadastrarCliente;
     private javax.swing.JButton btnCadastrarMecanico;
     private javax.swing.JButton btnCadastrarPecas;
     private javax.swing.JButton btnContas;
-    private javax.swing.JButton jButton10;
+    private javax.swing.JButton btnFerramentas;
+    private javax.swing.JButton btnFluxoDeCaixa;
+    private javax.swing.JButton btnNotificacoes;
+    private javax.swing.JButton btnOrcamento;
+    private javax.swing.JButton btnOs;
+    private javax.swing.JButton btnSair;
+    private javax.swing.JButton btnVendas;
+    private javax.swing.JButton btnVerOs;
     private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
