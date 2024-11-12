@@ -112,6 +112,11 @@ public class TelaInicial extends javax.swing.JFrame {
         btnBackup.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnBackup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/copia-de-seguranca (1).png"))); // NOI18N
         btnBackup.setText("Backup");
+        btnBackup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackupActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnBackup, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 220, 70));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LOGO-removebg-preview.png"))); // NOI18N
@@ -298,6 +303,12 @@ public class TelaInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackupActionPerformed
+        // TODO add your handling code here:
+        TelaBackup backup = new TelaBackup();
+        backup.setVisible(true);
+    }//GEN-LAST:event_btnBackupActionPerformed
 
     /**
      * @param args the command line arguments
