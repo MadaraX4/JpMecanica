@@ -13,6 +13,9 @@ import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import Estilo.BotaoRedondo;
+import java.time.LocalDate;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -69,6 +72,7 @@ public class TelaFinanceiro extends javax.swing.JFrame {
         FluxoDeCaixaDAO dao = new FluxoDeCaixaDAO();
 
         List<FluxoDeCaixa> lista = dao.listaFluxo();
+        modelo.setNumRows(0);
 
         for (FluxoDeCaixa fluxoDeCaixa : lista) {
             Object[] objeto = new Object[6];
@@ -156,6 +160,8 @@ public class TelaFinanceiro extends javax.swing.JFrame {
         txtTotalEntrada = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtTotalSaida = new javax.swing.JTextField();
+        txtNovaEntrada = new BotaoRedondo();
+        txtNovaSaida = new BotaoRedondo();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -213,11 +219,27 @@ public class TelaFinanceiro extends javax.swing.JFrame {
         txtTotalSaida.setEditable(false);
         txtTotalSaida.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
 
+        txtNovaEntrada.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtNovaEntrada.setText("Adicionar Nova Entrada");
+        txtNovaEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNovaEntradaActionPerformed(evt);
+            }
+        });
+
+        txtNovaSaida.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtNovaSaida.setText("Adicionar Nova Saida");
+        txtNovaSaida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNovaSaidaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1010, Short.MAX_VALUE)
             .addComponent(jScrollPane1)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -229,6 +251,12 @@ public class TelaFinanceiro extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(txtTotalSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtNovaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(txtNovaSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(293, 293, 293))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,10 +271,14 @@ public class TelaFinanceiro extends javax.swing.JFrame {
                     .addComponent(txtTotalEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(txtTotalSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNovaSaida, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                    .addComponent(txtNovaEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 590));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 640));
 
         pack();
         setLocationRelativeTo(null);
@@ -258,6 +290,76 @@ public class TelaFinanceiro extends javax.swing.JFrame {
         this.dispose();
         inicial.setVisible(true);
     }//GEN-LAST:event_btnSairActionPerformed
+
+    private void txtNovaEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNovaEntradaActionPerformed
+        // TODO add your handling code here:
+        
+        String descricao = JOptionPane.showInputDialog("Digite a Descrição");
+        String valor = JOptionPane.showInputDialog("Digite o Valor\n");
+        
+        FluxoDeCaixa fluxo = new FluxoDeCaixa();
+        
+        if (descricao != null) {
+          fluxo.setDescricao(descricao);  
+        }else{
+        JOptionPane.showMessageDialog(null, "Digite uma descrição para a entrada!");
+        }
+       
+        fluxo.setDataOperacao(LocalDate.now());
+        fluxo.setHoraOperacao(LocalTime.now());
+        fluxo.setTipo("ENTRADA");
+        
+        if (valor != null) {
+          fluxo.setValorEntrada(Double.parseDouble(valor.replace(",", ".")));  
+        }else{
+        JOptionPane.showMessageDialog(null, "Degite um valor para a entrada!");
+        }
+        
+        fluxo.setValorSaida(0.0);
+        
+        FluxoDeCaixaDAO dao = new FluxoDeCaixaDAO();
+        dao.inserir(fluxo);
+        
+        listaFluxo();
+        totalEntrada();
+        totalSaida();
+        
+        
+    }//GEN-LAST:event_txtNovaEntradaActionPerformed
+
+    private void txtNovaSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNovaSaidaActionPerformed
+        // TODO add your handling code here:
+        
+         String descricao = JOptionPane.showInputDialog("Digite a Descrição");
+        String valor = JOptionPane.showInputDialog("Digite o Valor");
+        
+        FluxoDeCaixa fluxo = new FluxoDeCaixa();
+        
+        if (descricao != null) {
+          fluxo.setDescricao(descricao);  
+        }else{
+        JOptionPane.showMessageDialog(null, "Digite uma descrição para a saida!");
+        }
+       
+        fluxo.setDataOperacao(LocalDate.now());
+        fluxo.setHoraOperacao(LocalTime.now());
+        fluxo.setTipo("SAÍDA");
+        
+        if (valor != null) {
+          fluxo.setValorSaida(Double.parseDouble(valor.replace(",", ".")));  
+        }else{
+        JOptionPane.showMessageDialog(null, "Degite um valor para a saida!");
+        }
+        
+        fluxo.setValorEntrada(0.0);
+        
+        FluxoDeCaixaDAO dao = new FluxoDeCaixaDAO();
+        dao.inserir(fluxo);
+        
+        listaFluxo();
+        totalEntrada();
+        totalSaida();
+    }//GEN-LAST:event_txtNovaSaidaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -286,6 +388,8 @@ public class TelaFinanceiro extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTFluxoDeCaixa;
     private javax.swing.JLabel lblHora;
+    private javax.swing.JButton txtNovaEntrada;
+    private javax.swing.JButton txtNovaSaida;
     private javax.swing.JTextField txtTotalEntrada;
     private javax.swing.JTextField txtTotalSaida;
     // End of variables declaration//GEN-END:variables

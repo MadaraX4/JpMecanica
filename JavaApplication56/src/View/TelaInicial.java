@@ -3,13 +3,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package View;
-import View.CadastroCliente;
-import com.formdev.flatlaf.FlatLightLaf;
-import java.awt.Color;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.UIManager;
 
+import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowStateListener;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.UIManager;
 
 /**
  *
@@ -23,8 +28,19 @@ public class TelaInicial extends javax.swing.JFrame {
     public TelaInicial() {
         initComponents();
         btnCadastrarCliente.setBackground(Color.WHITE);
-        
-        
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        lblLogo.setIcon(new ImageIcon("src/img/LOGO-MAIOR.png"));
+
+        addWindowStateListener(new WindowStateListener() {
+            @Override
+            public void windowStateChanged(WindowEvent e) {
+                if (getExtendedState() == JFrame.MAXIMIZED_BOTH) {
+                    lblLogo.setIcon(new ImageIcon(getClass().getResource("/img/LOGO-MAIOR.png")));
+                } else {
+                    lblLogo.setIcon(new ImageIcon(getClass().getResource("/img/LOGO-removebg-preview.png")));
+                }
+            }
+        });
     }
 
     /**
@@ -43,13 +59,12 @@ public class TelaInicial extends javax.swing.JFrame {
         btnCadastrarMecanico = new javax.swing.JButton();
         btnVendas = new javax.swing.JButton();
         btnBackup = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lblLogo = new javax.swing.JLabel();
         btnOs = new javax.swing.JButton();
         btnVerOs = new javax.swing.JButton();
         btnOrcamento = new javax.swing.JButton();
         btnNotificacoes = new javax.swing.JButton();
         btnContas = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
         btnFerramentas = new javax.swing.JButton();
         btnFluxoDeCaixa = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
@@ -57,7 +72,6 @@ public class TelaInicial extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnCadastrarCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCadastrarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-cliente-48.png"))); // NOI18N
@@ -67,7 +81,6 @@ public class TelaInicial extends javax.swing.JFrame {
                 btnCadastrarClienteActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCadastrarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 220, 67));
 
         btnCadastrarCarro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCadastrarCarro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-carro-48.png"))); // NOI18N
@@ -77,7 +90,6 @@ public class TelaInicial extends javax.swing.JFrame {
                 btnCadastrarCarroActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCadastrarCarro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 220, 70));
 
         btnCadastrarPecas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCadastrarPecas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pecas-de-reposicao.png"))); // NOI18N
@@ -87,7 +99,6 @@ public class TelaInicial extends javax.swing.JFrame {
                 btnCadastrarPecasActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCadastrarPecas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 220, 70));
 
         btnCadastrarMecanico.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCadastrarMecanico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/mecanico.png"))); // NOI18N
@@ -97,7 +108,6 @@ public class TelaInicial extends javax.swing.JFrame {
                 btnCadastrarMecanicoActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCadastrarMecanico, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 220, 70));
 
         btnVendas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/caixa-eletronico.png"))); // NOI18N
@@ -107,7 +117,6 @@ public class TelaInicial extends javax.swing.JFrame {
                 btnVendasActionPerformed(evt);
             }
         });
-        jPanel1.add(btnVendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 220, 70));
 
         btnBackup.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnBackup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/copia-de-seguranca (1).png"))); // NOI18N
@@ -117,10 +126,8 @@ public class TelaInicial extends javax.swing.JFrame {
                 btnBackupActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBackup, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 220, 70));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LOGO-removebg-preview.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 460, 410));
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LOGO-removebg-preview.png"))); // NOI18N
 
         btnOs.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnOs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-ordem-48.png"))); // NOI18N
@@ -130,7 +137,6 @@ public class TelaInicial extends javax.swing.JFrame {
                 btnOsActionPerformed(evt);
             }
         });
-        jPanel1.add(btnOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 410, 200, 70));
 
         btnVerOs.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnVerOs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ordem-de-servico.png"))); // NOI18N
@@ -140,7 +146,6 @@ public class TelaInicial extends javax.swing.JFrame {
                 btnVerOsActionPerformed(evt);
             }
         });
-        jPanel1.add(btnVerOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 410, 240, -1));
 
         btnOrcamento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnOrcamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/orcamento (1).png"))); // NOI18N
@@ -150,7 +155,6 @@ public class TelaInicial extends javax.swing.JFrame {
                 btnOrcamentoActionPerformed(evt);
             }
         });
-        jPanel1.add(btnOrcamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 410, 220, 70));
 
         btnNotificacoes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnNotificacoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-notificação-48.png"))); // NOI18N
@@ -160,7 +164,6 @@ public class TelaInicial extends javax.swing.JFrame {
                 btnNotificacoesActionPerformed(evt);
             }
         });
-        jPanel1.add(btnNotificacoes, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 340, 220, 60));
 
         btnContas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnContas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pago.png"))); // NOI18N
@@ -170,12 +173,6 @@ public class TelaInicial extends javax.swing.JFrame {
                 btnContasActionPerformed(evt);
             }
         });
-        jPanel1.add(btnContas, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 270, 220, 60));
-
-        jButton12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-carrinho-de-compras-carregado-48.png"))); // NOI18N
-        jButton12.setText("Vendas do dia");
-        jPanel1.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 204, 220, 60));
 
         btnFerramentas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnFerramentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-ferramentas-48.png"))); // NOI18N
@@ -185,7 +182,6 @@ public class TelaInicial extends javax.swing.JFrame {
                 btnFerramentasActionPerformed(evt);
             }
         });
-        jPanel1.add(btnFerramentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 140, 220, -1));
 
         btnFluxoDeCaixa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnFluxoDeCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-vendas-48.png"))); // NOI18N
@@ -195,7 +191,6 @@ public class TelaInicial extends javax.swing.JFrame {
                 btnFluxoDeCaixaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnFluxoDeCaixa, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 80, 220, -1));
 
         btnSair.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fechar.png"))); // NOI18N
@@ -205,17 +200,87 @@ public class TelaInicial extends javax.swing.JFrame {
                 btnSairActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 10, 220, 60));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnVendas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCadastrarCarro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCadastrarMecanico, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                    .addComponent(btnCadastrarCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBackup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCadastrarPecas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnOs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(33, 33, 33)
+                        .addComponent(btnVerOs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(10, 10, 10))
+                    .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnOrcamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnFerramentas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnContas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                    .addComponent(btnNotificacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnFluxoDeCaixa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(btnSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(12, 12, 12)
+                                .addComponent(btnFluxoDeCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnFerramentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(12, 12, 12)
+                                .addComponent(btnContas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnNotificacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(2, 2, 2))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(btnCadastrarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnCadastrarCarro, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
+                                .addGap(12, 12, 12)
+                                .addComponent(btnCadastrarPecas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnCadastrarMecanico, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+                                .addGap(15, 15, 15)
+                                .addComponent(btnVendas, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)))
+                        .addGap(8, 8, 8))
+                    .addComponent(lblLogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBackup, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                    .addComponent(btnOs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnVerOs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnOrcamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(17, 17, 17))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 934, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -270,7 +335,7 @@ public class TelaInicial extends javax.swing.JFrame {
         this.dispose();
         TelaNotificacoes notificacoes = new TelaNotificacoes();
         notificacoes.setVisible(true);
-        
+
     }//GEN-LAST:event_btnNotificacoesActionPerformed
 
     private void btnOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrcamentoActionPerformed
@@ -314,8 +379,7 @@ public class TelaInicial extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-      
-        
+
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (Exception ex) {
@@ -345,8 +409,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnVendas;
     private javax.swing.JButton btnVerOs;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblLogo;
     // End of variables declaration//GEN-END:variables
 }
