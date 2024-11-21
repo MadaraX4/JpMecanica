@@ -18,6 +18,7 @@ import Estilo.BotaoRedondo;
 import Estilo.TextoMaisculo;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Toolkit;
 import javax.swing.UIManager;
 import javax.swing.text.AbstractDocument;
 
@@ -32,6 +33,7 @@ public class CadastroCliente extends javax.swing.JFrame {
      */
     public CadastroCliente() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
 
         DefaultTableModel modelo = (DefaultTableModel) jtCarros.getModel();
         //jtCarros.setRowSorter(new TableRowSorter(modelo));

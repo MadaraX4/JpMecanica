@@ -16,6 +16,7 @@ import javax.swing.UIManager;
 import Estilo.BotaoRedondo;
 import Estilo.TextoMaisculo;
 import java.awt.Color;
+import java.awt.Toolkit;
 import javax.swing.text.AbstractDocument;
 
 /**
@@ -29,6 +30,7 @@ public class CadastroCarro extends javax.swing.JFrame {
      */
     public CadastroCarro() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
         setLocationRelativeTo(null);
 
         btnAlterar.setEnabled(false);
@@ -132,6 +134,7 @@ public class CadastroCarro extends javax.swing.JFrame {
         btnSair = new BotaoRedondo();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cadastro de Carros");
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 153));

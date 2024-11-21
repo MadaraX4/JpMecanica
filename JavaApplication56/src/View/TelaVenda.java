@@ -14,6 +14,7 @@ import Model.Pecas;
 import Model.Venda;
 import Style.table.CentralizarTexto;
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -36,6 +37,7 @@ public class TelaVenda extends javax.swing.JFrame {
      */
     public TelaVenda() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
 
         Timer timer = new Timer(1000, e -> rodape());
         timer.start();
@@ -147,7 +149,7 @@ public class TelaVenda extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jList1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("TelaDeVenda");
+        setTitle("Tela De Venda");
         setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

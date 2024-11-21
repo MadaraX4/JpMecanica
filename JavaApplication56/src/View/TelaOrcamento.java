@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package View;
 
 import Estilo.BordaCantoArredondado;
@@ -18,6 +15,7 @@ import Model.Pecas;
 import Model.Servico;
 import Style.table.CentralizarTexto;
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.time.LocalTime;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -37,6 +35,7 @@ public class TelaOrcamento extends javax.swing.JFrame {
      */
     public TelaOrcamento() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
 
         LocalDate dataAtual = LocalDate.now();
         DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -199,6 +198,7 @@ public class TelaOrcamento extends javax.swing.JFrame {
         jRadioButtonMenuItem1.setText("jRadioButtonMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Orçamento");
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

@@ -16,6 +16,7 @@ import Estilo.TextoMaisculo;
 import Style.table.Cabecalho;
 import Style.table.Render;
 import java.awt.Color;
+import java.awt.Toolkit;
 import javax.swing.table.JTableHeader;
 import javax.swing.text.AbstractDocument;
 
@@ -23,6 +24,7 @@ public class Agendamentos extends javax.swing.JFrame {
 
     public Agendamentos() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
         
         listaManutencao();
         txtBorda();
@@ -112,6 +114,7 @@ public class Agendamentos extends javax.swing.JFrame {
         btnAlterar = new BotaoRedondo();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Agendamentos");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 153));

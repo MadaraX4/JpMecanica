@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import Estilo.BotaoRedondo;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Toolkit;
 import javax.swing.UIManager;
 
 /**
@@ -24,6 +25,7 @@ public class VerOSs extends javax.swing.JFrame {
      */
     public VerOSs() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
         
         jScrollPane1.getViewport().setBackground(new java.awt.Color(255, 255, 204));
         jTOs.setBackground(new java.awt.Color(255, 255, 204));
@@ -93,6 +95,7 @@ public class VerOSs extends javax.swing.JFrame {
         jTOs = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Ver OS's");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 204));

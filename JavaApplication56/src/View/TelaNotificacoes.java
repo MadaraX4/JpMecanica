@@ -21,6 +21,7 @@ import Model.DAO.ClienteDAO;
 import Model.DAO.ContaDAO;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -39,6 +40,7 @@ public class TelaNotificacoes extends javax.swing.JFrame {
      */
     public TelaNotificacoes() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
 
         titulo();
         Timer timer = new Timer(1000, e -> titulo());
@@ -135,6 +137,7 @@ public class TelaNotificacoes extends javax.swing.JFrame {
         jButton1 = new BotaoRedondo();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Notificações");
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

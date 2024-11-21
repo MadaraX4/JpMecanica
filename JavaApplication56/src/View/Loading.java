@@ -5,8 +5,10 @@
 package View;
 
 import ConnectionFactory.ConexaoBanco;
+import Model.Atualizador;
 import Model.DAO.ContaDAO;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import java.sql.Connection;
@@ -29,11 +31,14 @@ public class Loading extends javax.swing.JFrame {
      */
     public Loading() {
         initComponents();
-
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
+        Atualizador atualizador = new Atualizador();
+        //atualizador.verificaAtualizacao();
         statusConexao();
-        Timer timer = new Timer(1000, e ->dataAtual());
+        Timer timer = new Timer(1000, e -> dataAtual());
         timer.start();
         dataAtual();
+
     }
 
     private void statusConexao() {
@@ -66,8 +71,8 @@ public class Loading extends javax.swing.JFrame {
 
         String data = dataAtual.format(formater);
         String horaAtual = hora.format(formatoHora);
-        
-        jblDataAtual.setText(data + "  " +horaAtual);
+
+        jblDataAtual.setText(data + "  " + horaAtual);
     }
 
     /**
@@ -89,6 +94,7 @@ public class Loading extends javax.swing.JFrame {
         jblDataAtual = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Carregando...");
         setBackground(new java.awt.Color(51, 51, 51));
         setUndecorated(true);
         setResizable(false);

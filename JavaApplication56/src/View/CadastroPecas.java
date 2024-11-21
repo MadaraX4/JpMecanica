@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package View;
 
 import Model.DAO.PecasDAO;
@@ -13,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import Estilo.BotaoRedondo;
 import Estilo.TextoMaisculo;
+import java.awt.Toolkit;
 import javax.swing.text.AbstractDocument;
 
 /**
@@ -26,6 +24,7 @@ public class CadastroPecas extends javax.swing.JFrame {
      */
     public CadastroPecas() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
 
         btnAlterar.setEnabled(false);
         btnDeletar.setEnabled(false);
@@ -109,7 +108,7 @@ public class CadastroPecas extends javax.swing.JFrame {
         txtFornecedor = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("JP Market");
+        setTitle("Cadastro de Peças");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setUndecorated(true);
 

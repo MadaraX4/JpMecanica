@@ -9,6 +9,7 @@ package View;
 import ConnectionFactory.ConexaoBanco;
 import Estilo.BotaoRedondo;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Toolkit;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
@@ -21,6 +22,7 @@ public class TelaBackup extends javax.swing.JFrame {
      */
     public TelaBackup() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
         
         lblTitulo.setText("Efeatuar ou Restaurar Backup!");
     }
@@ -43,6 +45,7 @@ public class TelaBackup extends javax.swing.JFrame {
         btnRestaurarBackup = new BotaoRedondo();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Backup");
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 153));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

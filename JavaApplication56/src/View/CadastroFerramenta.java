@@ -16,6 +16,7 @@ import javax.swing.table.JTableHeader;
 import Estilo.BotaoRedondo;
 import Estilo.TextoMaisculo;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Toolkit;
 import javax.swing.UIManager;
 import javax.swing.text.AbstractDocument;
 
@@ -32,6 +33,7 @@ public class CadastroFerramenta extends javax.swing.JFrame {
 
     public CadastroFerramenta() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
 
         DefaultTableModel modelo = (DefaultTableModel) jtFerramenta.getModel();
 
@@ -150,6 +152,7 @@ public class CadastroFerramenta extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cadastro de Ferramentas");
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 153));

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package View;
 
 import Model.DAO.MecanicoDAO;
@@ -16,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.text.AbstractDocument;
 import Estilo.BotaoRedondo;
+import java.awt.Toolkit;
 
 /**
  *
@@ -28,6 +26,7 @@ public class CadastroMecanico extends javax.swing.JFrame {
      */
     public CadastroMecanico() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
         txtEndereco.setLineWrap(true);
         txtEndereco.setWrapStyleWord(true);
 
@@ -123,6 +122,7 @@ public class CadastroMecanico extends javax.swing.JFrame {
         btnFechar = new BotaoRedondo();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cadastrar Mecanico");
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 153));

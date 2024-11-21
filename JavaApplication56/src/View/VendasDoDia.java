@@ -5,6 +5,7 @@ import Model.Venda;
 import Style.table.Cabecalho;
 import Style.table.Render;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Toolkit;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -24,6 +25,7 @@ public class VendasDoDia extends javax.swing.JFrame {
      */
     public VendasDoDia() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
         vendas();
 
         jScrollPane1.getViewport().setBackground(new java.awt.Color(255, 255, 204));
@@ -95,6 +97,7 @@ public class VendasDoDia extends javax.swing.JFrame {
         btnSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Vendas do dia");
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

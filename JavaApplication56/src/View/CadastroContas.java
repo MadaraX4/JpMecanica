@@ -18,6 +18,7 @@ import Style.table.Render;
 import Style.table.RenderLinha;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -49,6 +50,7 @@ public final class CadastroContas extends javax.swing.JFrame {
 
     public CadastroContas() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
 
         sorter = new TableRowSorter<>(modelo);
         jtContas.setModel(modelo);

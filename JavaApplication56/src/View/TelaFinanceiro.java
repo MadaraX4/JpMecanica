@@ -14,6 +14,7 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import Estilo.BotaoRedondo;
+import java.awt.Toolkit;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
@@ -28,6 +29,7 @@ public class TelaFinanceiro extends javax.swing.JFrame {
      */
     public TelaFinanceiro() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
 
         Timer timer = new Timer(1000, e -> relogio());
         timer.start();
@@ -164,6 +166,7 @@ public class TelaFinanceiro extends javax.swing.JFrame {
         txtNovaSaida = new BotaoRedondo();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Financeiro");
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

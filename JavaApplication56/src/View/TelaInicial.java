@@ -27,6 +27,7 @@ public class TelaInicial extends javax.swing.JFrame {
      */
     public TelaInicial() {
         initComponents();
+         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
         btnCadastrarCliente.setBackground(Color.WHITE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         lblLogo.setIcon(new ImageIcon("src/img/LOGO-MAIOR.png"));
@@ -70,6 +71,7 @@ public class TelaInicial extends javax.swing.JFrame {
         btnSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("JpMarket");
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 255));
 

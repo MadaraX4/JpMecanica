@@ -27,6 +27,7 @@ import Style.table.CentralizarTexto;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.ui.FlatListCellBorder;
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,6 +45,7 @@ public class CadastroOs extends javax.swing.JFrame {
      */
     public CadastroOs() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
         txtBorda();
         scrollPanelistaServicos.setVisible(false);
         jPanel2.setComponentZOrder(scrollPanelistaServicos, 0);
@@ -230,6 +232,7 @@ public class CadastroOs extends javax.swing.JFrame {
         btnAtualizar = new BotaoRedondo();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Criar Os");
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
