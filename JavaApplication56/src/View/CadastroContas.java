@@ -430,7 +430,7 @@ public final class CadastroContas extends javax.swing.JFrame {
         // TODO add your handling code here:
         txtReferencia.setText("");
         txtTipo.setText("");
-        txtDataVencimento.setText("");
+        txtDataVencimento.setValue(null);
         txtValor.setText("");
         jlEstatus.setText("Estado da Conta");
         jlEstatus.setForeground(Color.BLACK);

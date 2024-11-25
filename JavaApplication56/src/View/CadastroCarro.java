@@ -74,6 +74,7 @@ public class CadastroCarro extends javax.swing.JFrame {
         txtCpfProprietario.setText("");
         jblDtAgendada.setText("");
         jblDtManutencao.setText("");
+        txtCombustivel.setText("");
 
     }
 
@@ -447,6 +448,7 @@ public class CadastroCarro extends javax.swing.JFrame {
         carro.setMotor(txtMotor.getText());
         carro.setNum_cilindros(Integer.parseInt(txtCilindro.getText()));
         carro.setNum_valvulas(Integer.parseInt(txtValvula.getText()));
+        carro.setCobustivel(txtCombustivel.getText());
 
         dao.create(carro);
         limparCampos();
@@ -480,6 +482,7 @@ public class CadastroCarro extends javax.swing.JFrame {
                 txtCilindro.setText(Integer.toString(carro.getNum_cilindros()));
                 jblDtAgendada.setText(agendaFormatada);
                 jblDtManutencao.setText(manutencaoFormatada);
+                txtCombustivel.setText(carro.getCobustivel());
                 txtPlaca.setEditable(false);
 
             } else {
@@ -490,6 +493,7 @@ public class CadastroCarro extends javax.swing.JFrame {
                 txtMotor.setText(carro.getMotor());
                 txtValvula.setText(Integer.toString(carro.getNum_valvulas()));
                 txtCilindro.setText(Integer.toString(carro.getNum_cilindros()));
+                txtCombustivel.setText(carro.getCobustivel());
                 jblDtAgendada.setText("");
                 jblDtManutencao.setText("");
 
@@ -522,6 +526,7 @@ public class CadastroCarro extends javax.swing.JFrame {
         carro.setMotor(txtMotor.getText());
         carro.setNum_valvulas(Integer.parseInt(txtValvula.getText()));
         carro.setNum_cilindros(Integer.parseInt(txtCilindro.getText()));
+        carro.setCobustivel(txtCombustivel.getText());
 
         int confirmacao = JOptionPane.showConfirmDialog(null, "Deseja Alterar este carro?", "Confirmação!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 

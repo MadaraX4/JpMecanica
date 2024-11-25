@@ -28,7 +28,7 @@ public class ContaDAO {
         ResultSet rs = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO conta (referencia,tipo,valor,data_vencimento,estatus) VALUES(?,?,?,?,)");
+            stmt = con.prepareStatement("INSERT INTO conta (referencia,tipo,valor,data_vencimento,estatus) VALUES(?,?,?,?,?)");
             stmt.setString(1, conta.getReferencia());
             stmt.setString(2, conta.getTipo());
             stmt.setDouble(3, conta.getValor());

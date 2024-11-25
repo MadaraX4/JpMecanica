@@ -22,7 +22,7 @@ public class PecasDAO {
 
         try {
             stmt = con.prepareStatement("INSERT INTO pecas(cod_identificacao,nome,carro,referencia,quantidade,preco_compra,preco_venda,fornecedor) VALUES(?,?,?,?,?,?,?,?)");
-            stmt.setInt(1, peca.getCod_identificacao());
+            stmt.setString(1, peca.getCod_identificacao());
             stmt.setString(2, peca.getNome());
             stmt.setString(3, peca.getCarro());
             stmt.setString(4, peca.getReferencia());
@@ -90,7 +90,7 @@ public class PecasDAO {
             stmt.setDouble(5, peca.getPreco_compra());
             stmt.setDouble(6, peca.getPreco_venda());
             stmt.setString(7, peca.getFornecedor());
-            stmt.setInt(8, peca.getCod_identificacao());
+            stmt.setString(8, peca.getCod_identificacao());
 
             stmt.executeUpdate();
 
@@ -163,7 +163,7 @@ public class PecasDAO {
             while (rs.next()) {
                 Pecas pecas = new Pecas();
                 pecas.setId(rs.getInt("id"));
-                pecas.setCod_identificacao(rs.getInt("cod_identificacao"));
+                pecas.setCod_identificacao(rs.getString("cod_identificacao"));
                 pecas.setNome(rs.getString("nome"));
                 pecas.setCarro(rs.getString("carro"));
                 pecas.setReferencia(rs.getString("referencia"));

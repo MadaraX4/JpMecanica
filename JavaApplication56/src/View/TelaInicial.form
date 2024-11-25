@@ -49,7 +49,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btnVendas" alignment="1" max="32767" attributes="0"/>
                       <Component id="btnCadastrarCarro" alignment="1" max="32767" attributes="0"/>
-                      <Component id="btnCadastrarMecanico" alignment="1" pref="225" max="32767" attributes="0"/>
+                      <Component id="btnCadastrarMecanico" alignment="1" max="32767" attributes="0"/>
                       <Component id="btnCadastrarCliente" alignment="1" max="32767" attributes="0"/>
                       <Component id="btnBackup" max="32767" attributes="0"/>
                       <Component id="btnCadastrarPecas" alignment="1" max="32767" attributes="0"/>
@@ -62,16 +62,17 @@
                           <Component id="btnVerOs" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="lblLogo" pref="489" max="32767" attributes="0"/>
+                      <Component id="lblLogo" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btnOrcamento" max="32767" attributes="0"/>
-                      <Component id="btnFerramentas" alignment="1" pref="0" max="32767" attributes="0"/>
-                      <Component id="btnContas" alignment="1" pref="197" max="32767" attributes="0"/>
-                      <Component id="btnNotificacoes" max="32767" attributes="0"/>
+                      <Component id="btnFerramentas" alignment="1" pref="228" max="32767" attributes="0"/>
+                      <Component id="btnContas" alignment="1" max="32767" attributes="0"/>
                       <Component id="btnSair" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnFluxoDeCaixa" alignment="1" max="32767" attributes="0"/>
+                      <Component id="btnAgendamentos" max="32767" attributes="0"/>
+                      <Component id="btnNotificacoes" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
@@ -81,41 +82,41 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="lblLogo" alignment="1" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
+                                  <Component id="btnCadastrarCliente" pref="66" max="32767" attributes="0"/>
+                                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnCadastrarCarro" pref="68" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                  <Component id="btnCadastrarPecas" pref="82" max="32767" attributes="0"/>
+                                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnCadastrarMecanico" pref="82" max="32767" attributes="0"/>
                                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                                  <Component id="btnSair" max="32767" attributes="0"/>
-                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                  <Component id="btnVendas" pref="82" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="btnSair" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Component id="btnFluxoDeCaixa" max="32767" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnAgendamentos" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                                   <Component id="btnFerramentas" max="32767" attributes="0"/>
-                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                                   <Component id="btnContas" max="32767" attributes="0"/>
                                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                                   <Component id="btnNotificacoes" max="32767" attributes="0"/>
-                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnCadastrarCliente" pref="78" max="32767" attributes="0"/>
-                                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnCadastrarCarro" pref="76" max="32767" attributes="0"/>
-                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                                  <Component id="btnCadastrarPecas" max="32767" attributes="0"/>
-                                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnCadastrarMecanico" pref="72" max="32767" attributes="0"/>
-                                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                                  <Component id="btnVendas" pref="72" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="lblLogo" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnBackup" pref="77" max="32767" attributes="0"/>
+                      <Component id="btnBackup" max="32767" attributes="0"/>
                       <Component id="btnOs" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnVerOs" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnOrcamento" alignment="0" max="32767" attributes="0"/>
@@ -327,6 +328,17 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSairActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnAgendamentos">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/img/agendamento.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Agendamentos"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgendamentosActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

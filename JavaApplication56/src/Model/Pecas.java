@@ -5,7 +5,7 @@ import java.text.DecimalFormat;
 public class Pecas {
 
     private int id;
-    private int cod_identificacao;
+    private String cod_identificacao;
     private String nome;
     private String carro;
     private String referencia;
@@ -15,15 +15,7 @@ public class Pecas {
     private String fornecedor;
 
     public Pecas() {
-        this.id = id;
-        this.cod_identificacao = cod_identificacao;
-        this.nome = nome;
-        this.carro = carro;
-        this.referencia = referencia;
-        this.quantidade = quantidade;
-        this.preco_compra = preco_compra;
-        this.preco_venda = preco_venda;
-        this.fornecedor = fornecedor;
+
     }
 
     public int getId() {
@@ -33,14 +25,12 @@ public class Pecas {
     public void setId(int id) {
         this.id = id;
     }
-    
-    
 
-    public int getCod_identificacao() {
+    public String getCod_identificacao() {
         return cod_identificacao;
     }
 
-    public void setCod_identificacao(int cod_identificacao) {
+    public void setCod_identificacao(String cod_identificacao) {
         this.cod_identificacao = cod_identificacao;
     }
 

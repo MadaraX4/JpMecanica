@@ -113,7 +113,7 @@ public class Agendamentos extends javax.swing.JFrame {
         btnCancelar = new BotaoRedondo();
         btnAlterar = new BotaoRedondo();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agendamentos");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

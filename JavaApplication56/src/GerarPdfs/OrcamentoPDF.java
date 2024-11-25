@@ -75,7 +75,7 @@ public class OrcamentoPDF {
             imagemSubTitulo.addCell(cellSubtitulo);
 
             Paragraph aviso = new Paragraph();
-            aviso.add(new Chunk("Este Orçamento é valido até 15 dias após a data " + data + " " + hora, arialItalico));
+            aviso.add(new Chunk("Este Orçamento é valido até 7 dias após a data " + data + " " + hora, arialItalico));
 
             Paragraph nome = new Paragraph();
             nome.add(new Chunk("NOME: ", arialBold));

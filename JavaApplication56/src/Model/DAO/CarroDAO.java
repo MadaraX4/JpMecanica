@@ -66,7 +66,7 @@ public class CarroDAO {
                 carro.setNum_cilindros(rs.getInt("num_cilindros"));
                 carro.setData_manutencao(rs.getDate("data_manutencao"));
                 carro.setManutencao_agendada(rs.getDate("manutencao_agendada"));
-                carro.setCobustivel(rs.getString("cobustivel"));
+                carro.setCobustivel(rs.getString("combustivel"));
 
             }
 
@@ -82,15 +82,16 @@ public class CarroDAO {
     public void update(Carro carro) {
 
         try {
-            stmt = con.prepareStatement("UPDATE carro SET modelo=?,montadora=?,motor=?,num_valvulas=?,num_cilindros=?,cobustivel=? WHERE placa=?");
+            stmt = con.prepareStatement("UPDATE carro SET modelo=?,montadora=?,motor=?,num_valvulas=?,num_cilindros=?,combustivel=? WHERE placa=?");
             stmt.setString(1, carro.getModelo());
             stmt.setString(2, carro.getMontadora());
             stmt.setString(3, carro.getMotor());
             stmt.setInt(4, carro.getNum_valvulas());
             stmt.setInt(5, carro.getNum_cilindros());
             stmt.setString(6, carro.getCobustivel());
-            stmt.setString(7, carro.getPlaca());
-
+            stmt.setString(7, carro.getCobustivel());
+            stmt.setString(8, carro.getPlaca());
+            
             stmt.executeUpdate();
 
         } catch (SQLException ex) {
@@ -103,12 +104,13 @@ public class CarroDAO {
 
     public boolean delete(String placa) {
         try {
-            stmt = con.prepareStatement("DELETE FROM carros WHERE placa=?");
+            stmt = con.prepareStatement("DELETE FROM carro WHERE placa=?");
             stmt.setString(1, placa);
             stmt.executeUpdate();
             return true;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao deletar carro!\n" + ex);
+            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Erro ao deletar carro!\n" + "Exclua as OS`s relacionadas ao carro primeiro!");
             return false;
         } finally {
             ConexaoBanco.closeConnection(con, stmt);
@@ -192,6 +194,7 @@ public class CarroDAO {
             ConexaoBanco.closeConnection(con, stmt);
         }
     }
+
     public void alterarManutencao(Carro carro) {
 
         Connection con = ConexaoBanco.getConnection();
@@ -210,6 +213,7 @@ public class CarroDAO {
             ConexaoBanco.closeConnection(con, stmt);
         }
     }
+
     public void cancelarManutencao(Carro carro) {
 
         Connection con = ConexaoBanco.getConnection();
@@ -228,6 +232,7 @@ public class CarroDAO {
             ConexaoBanco.closeConnection(con, stmt);
         }
     }
+
     public void finalizarManutencao(Carro carro) {
 
         Connection con = ConexaoBanco.getConnection();
@@ -252,14 +257,14 @@ public class CarroDAO {
         Connection con = ConexaoBanco.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        
+
         List<Carro> lista = new ArrayList<>();
-        
+
         try {
-            stmt=con.prepareStatement("SELECT placa,manutencao_agendada FROM carro WHERE manutencao_agendada IS NOT NULL ORDER BY ABS(DATEDIFF(manutencao_agendada, CURRENT_DATE))");
-            rs=stmt.executeQuery();
-            
-            while (rs.next()) {                
+            stmt = con.prepareStatement("SELECT placa,manutencao_agendada FROM carro WHERE manutencao_agendada IS NOT NULL ORDER BY ABS(DATEDIFF(manutencao_agendada, CURRENT_DATE))");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
                 Carro carro = new Carro();
                 carro.setPlaca(rs.getString("placa"));
                 carro.setManutencao_agendada(rs.getDate("manutencao_agendada"));
@@ -267,8 +272,8 @@ public class CarroDAO {
             }
         } catch (SQLException ex) {
             System.out.println("ERRO: " + ex);
-        }finally{
-        ConexaoBanco.closeConnection(con, stmt, rs);
+        } finally {
+            ConexaoBanco.closeConnection(con, stmt, rs);
         }
 
         return lista;

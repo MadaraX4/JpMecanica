@@ -1,4 +1,3 @@
-
 package View;
 
 import Model.DAO.MecanicoDAO;
@@ -13,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.text.AbstractDocument;
 import Estilo.BotaoRedondo;
+import java.awt.AWTEvent;
 import java.awt.Toolkit;
 
 /**
@@ -34,6 +34,7 @@ public class CadastroMecanico extends javax.swing.JFrame {
         btnDeletar.setEnabled(false);
         txtBorda();
         textoMaiusculo();
+       
     }
 
     public void txtBorda() {
@@ -47,9 +48,8 @@ public class CadastroMecanico extends javax.swing.JFrame {
         txtRg.setBorder(bad);
         txtReferencia.setBorder(bad);
         txtTelefone.setBorder(bad);
-    
+
     }
-    
 
     public void textoMaiusculo() {
 
@@ -67,14 +67,14 @@ public class CadastroMecanico extends javax.swing.JFrame {
 
     public void limparCampos() {
         txtCategoria.setText("");
-        txtCpf.setText("");
+        txtCpf.setValue(null);
         txtEndereco.setText("");
         txtNome.setText("");
         txtReferencia.setText("");
         txtRg.setText("");
         txtEmail.setText("");
         txtTelefone.setText("");
-        txtDataNascimento.setText("");
+        txtDataNascimento.setValue(null);
     }
 
     public Date dataMysql(String data) {
@@ -147,7 +147,6 @@ public class CadastroMecanico extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         txtCpf.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtCpf.setText("");
         txtCpf.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -204,7 +203,8 @@ public class CadastroMecanico extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         txtDataNascimento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtDataNascimento.setText("");
+        txtDataNascimento.setText("  -  -");
+        txtDataNascimento.setToolTipText("");
         txtDataNascimento.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -504,6 +504,7 @@ public class CadastroMecanico extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
+
         } catch (Exception ex) {
             System.err.println("Failed to initialize LaF");
         }

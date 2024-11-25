@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 public class Atualizador {
 
-    private static final String version_url = "https://raw.githubusercontent.com/MadaraX4/JpMecanica/refs/heads/Trabalhando/JavaApplication56/dist/Version.txt";
+    private static final String version_url = "https://raw.githubusercontent.com/MadaraX4/JpMecanica/refs/heads/Trabalhando/JavaApplication56/src/Version/Version.txt";
     private static final String FILE_URL = "url";
     private static final String Destino = "JpMarket.jar";
 

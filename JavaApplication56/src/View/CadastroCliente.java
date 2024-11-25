@@ -36,12 +36,12 @@ public class CadastroCliente extends javax.swing.JFrame {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
 
         DefaultTableModel modelo = (DefaultTableModel) jtCarros.getModel();
-        //jtCarros.setRowSorter(new TableRowSorter(modelo));
+      
         modelo.setRowCount(0);
 
         jScrollPane3.getViewport().setBackground(new java.awt.Color(255, 255, 204));
-        jtCarros.setBackground(new java.awt.Color(255,255,204));
-      
+        jtCarros.setBackground(new java.awt.Color(255, 255, 204));
+
         Render render = new Render();
         for (int i = 0; i < jtCarros.getColumnCount(); i++) {
             jtCarros.getColumnModel().getColumn(i).setCellRenderer(render);
@@ -67,7 +67,6 @@ public class CadastroCliente extends javax.swing.JFrame {
         ((AbstractDocument) txtCpf.getDocument()).setDocumentFilter(new TextoMaisculo());
         ((AbstractDocument) txtDataNascimento.getDocument()).setDocumentFilter(new TextoMaisculo());
         ((AbstractDocument) txtNome.getDocument()).setDocumentFilter(new TextoMaisculo());
-        ((AbstractDocument) txtEmail.getDocument()).setDocumentFilter(new TextoMaisculo());
         ((AbstractDocument) txtEndereco.getDocument()).setDocumentFilter(new TextoMaisculo());
         ((AbstractDocument) txtRg.getDocument()).setDocumentFilter(new TextoMaisculo());
         ((AbstractDocument) txtTelefone.getDocument()).setDocumentFilter(new TextoMaisculo());
@@ -270,7 +269,6 @@ public class CadastroCliente extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         txtCpf.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtCpf.setText("");
         txtCpf.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtCpf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -341,7 +339,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jlbDataNascimento)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jlbEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -532,10 +530,11 @@ public class CadastroCliente extends javax.swing.JFrame {
                 limparCampos();
                 btnAlterar.setEnabled(false);
                 btnDeletar.setEnabled(false);
+                txtCpf.setEditable(true);
                 modelo.setRowCount(0);
             } else if (confirm == JOptionPane.NO_OPTION) {
                 JOptionPane.showMessageDialog(null, "Operação Cancelada");
-
+                txtCpf.setEditable(true);
             }
 
         }

@@ -371,7 +371,7 @@ public class CadastroPecas extends javax.swing.JFrame {
         PecasDAO dao = new PecasDAO();
 
         peca.setCarro(txtCarro.getText());
-        peca.setCod_identificacao(Integer.parseInt(txtCod_identificacao.getText()));
+        peca.setCod_identificacao(txtCod_identificacao.getText());
         peca.setFornecedor(txtFornecedor.getText());
         peca.setNome(txtNome.getText());
         peca.setPreco_compra(Double.parseDouble(txtPrecoCompra.getText()));
@@ -439,7 +439,7 @@ public class CadastroPecas extends javax.swing.JFrame {
         peca.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
         peca.setReferencia(txtReferencia.getText());
         peca.setId(Integer.parseInt(jlbId.getText()));
-        peca.setCod_identificacao(Integer.parseInt(cod_identificacao));
+        peca.setCod_identificacao(cod_identificacao);
 
         int confirmacao = JOptionPane.showConfirmDialog(null, "Deseja alterar este produto?", "Confirmação", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
@@ -450,6 +450,7 @@ public class CadastroPecas extends javax.swing.JFrame {
                 limparCampos();
                 btnAlterar.setEnabled(false);
                 btnDeletar.setEnabled(false);
+                txtCod_identificacao.setEditable(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Operação cancelada!");
             }
@@ -476,6 +477,7 @@ public class CadastroPecas extends javax.swing.JFrame {
                 limparCampos();
                 btnAlterar.setEnabled(false);
                 btnDeletar.setEnabled(false);
+                txtCod_identificacao.setEditable(true);
             } else {
                 JOptionPane.showMessageDialog(null, "<html><p>Campo Código está em branco!</p></html>");
             }
