@@ -468,8 +468,29 @@ public class CadastroCarro extends javax.swing.JFrame {
         if (validacao == false) {
             Carro carro = dao.select(placa);
 
-            if (carro.getData_manutencao() != null && carro.getManutencao_agendada() != null) {
+            if (carro.getData_manutencao() != null && carro.getManutencao_agendada() == null) {
 
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                //String agendaFormatada = sdf.format(carro.getManutencao_agendada());
+                String manutencaoFormatada = sdf.format(carro.getData_manutencao());
+
+                txtCpfProprietario.setText(carro.getCpf_proprietario());
+                txtModelo.setText(carro.getModelo());
+                txtMontadora.setText(carro.getMontadora());
+                txtMotor.setText(carro.getMotor());
+                txtValvula.setText(Integer.toString(carro.getNum_valvulas()));
+                txtCilindro.setText(Integer.toString(carro.getNum_cilindros()));
+                //jblDtAgendada.setText(agendaFormatada);
+                jblDtManutencao.setText(manutencaoFormatada);
+                txtCombustivel.setText(carro.getCobustivel());
+                txtPlaca.setEditable(false);
+                
+                 btnCadastrar.setEnabled(false);
+                btnAlterar.setEnabled(true);
+                btnDeletar.setEnabled(true);
+                txtPlaca.setEditable(false);
+
+            } else if (carro.getData_manutencao() != null && carro.getManutencao_agendada() != null) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
                 String agendaFormatada = sdf.format(carro.getManutencao_agendada());
                 String manutencaoFormatada = sdf.format(carro.getData_manutencao());
@@ -484,7 +505,11 @@ public class CadastroCarro extends javax.swing.JFrame {
                 jblDtManutencao.setText(manutencaoFormatada);
                 txtCombustivel.setText(carro.getCobustivel());
                 txtPlaca.setEditable(false);
-
+                
+                 btnCadastrar.setEnabled(false);
+                btnAlterar.setEnabled(true);
+                btnDeletar.setEnabled(true);
+                txtPlaca.setEditable(false);
             } else {
 
                 txtCpfProprietario.setText(carro.getCpf_proprietario());
