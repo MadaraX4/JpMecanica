@@ -487,6 +487,7 @@ public class TelaVenda extends javax.swing.JFrame {
         if (linha != -1) {
             modeloTabela.removeRow(linha);
             precoTotalPecas();
+            contadorItens();
         } else {
             JOptionPane.showMessageDialog(null, "Nenhum Serviço selecionada!");
         }
