@@ -30,7 +30,7 @@ public class TelaInicial extends javax.swing.JFrame {
          setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
         btnCadastrarCliente.setBackground(Color.WHITE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        lblLogo.setIcon(new ImageIcon("src/img/LOGO-MAIOR.png"));
+        lblLogo.setIcon(new ImageIcon(getClass().getResource("/img/LOGO-MAIOR.png")));
 
         addWindowStateListener(new WindowStateListener() {
             @Override
