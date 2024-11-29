@@ -33,7 +33,7 @@ public class Loading extends javax.swing.JFrame {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
         Atualizador atualizador = new Atualizador();
-        //atualizador.verificaAtualizacao();
+        atualizador.verificaAtualizacao();
         statusConexao();
         Timer timer = new Timer(1000, e -> dataAtual());
         timer.start();

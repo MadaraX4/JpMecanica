@@ -1,4 +1,3 @@
-
 package View;
 
 /**
@@ -6,14 +5,19 @@ package View;
  * @author MadaraX4
  *
  */
+import ConnectionFactory.Backup;
 import ConnectionFactory.ConexaoBanco;
 import Estilo.BotaoRedondo;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Toolkit;
+import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class TelaBackup extends javax.swing.JFrame {
 
@@ -23,11 +27,9 @@ public class TelaBackup extends javax.swing.JFrame {
     public TelaBackup() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
-        
+
         lblTitulo.setText("Efeatuar ou Restaurar Backup!");
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -120,27 +122,105 @@ public class TelaBackup extends javax.swing.JFrame {
 
     private void btnEfetuarBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfetuarBackupActionPerformed
         // TODO add your handling code here:
-        LocalDate data = LocalDate.now();
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        ConexaoBanco banco = new ConexaoBanco();
-        
-        int confirm = JOptionPane.showConfirmDialog(null, "Deseja efetuar o backup ate a data de hoje " + df.format(data)+" ?","Confirmação!",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-        
-        if (confirm == JOptionPane.YES_OPTION) {
-            banco.backup();
+        try {
+            // Instanciando a classe Backup
+            Backup backup = new Backup();
+            String database = "JpMarket"; // Nome do banco de dados
+
+            // Obtendo a data de hoje
+            LocalDate data = LocalDate.now();
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            // Caminho para a pasta "backup" dentro da Área de Trabalho
+            Path desktopPath = Paths.get(System.getProperty("user.home"), "Desktop", "backup");
+
+            // Criando a pasta "backup" se não existir
+            if (!Files.exists(desktopPath)) {
+                Files.createDirectories(desktopPath); // Cria a pasta "backup" no Desktop
+                JOptionPane.showMessageDialog(null, "Pasta 'backup' criada com sucesso!");
+            }
+
+            // Caminho do arquivo de backup dentro da pasta "backup"
+            Path backupPath = desktopPath.resolve("backup.sql");
+
+            // Perguntando ao usuário se deseja realizar o backup
+            int confirm = JOptionPane.showConfirmDialog(null,
+                    "Deseja efetuar o backup até a data de hoje " + df.format(data) + "?",
+                    "Confirmação!",
+                    JOptionPane.YES_NO_OPTION);
+
+            // Se o usuário confirmar, realiza o backup
+            if (confirm == JOptionPane.YES_OPTION) {
+                backup.realizarBackup(database, backupPath.toString());
+                JOptionPane.showMessageDialog(null, "Backup realizado com sucesso!");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao realizar o backup: " + e.getMessage());
+            e.printStackTrace();
         }
+
+
     }//GEN-LAST:event_btnEfetuarBackupActionPerformed
 
     private void btnRestaurarBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestaurarBackupActionPerformed
         // TODO add your handling code here:
-   
-        ConexaoBanco banco = new ConexaoBanco();
-        
-        int confirm = JOptionPane.showConfirmDialog(null, "Deseja Restaurar o Último Backup ","Confirmação!",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-        
-        if (confirm == JOptionPane.YES_OPTION) {
-            banco.restaurarBackup();
+
+        try {
+            // Instanciando a classe Backup
+            Backup backup = new Backup();
+            String database = "JpMarket"; // Nome do banco de dados
+
+            // Caminho para a pasta "backup" dentro da Área de Trabalho
+            String userHome = System.getProperty("user.home");
+            Path backupFolder = Paths.get(userHome, "Desktop", "backup");
+
+            // Verificando se a pasta "backup" existe
+            if (!Files.exists(backupFolder)) {
+                JOptionPane.showMessageDialog(null, "A pasta 'backup' não foi encontrada na Área de Trabalho.");
+                return; // Se a pasta não existir, sai do método
+            }
+
+            // Caminho para a subpasta "backup.sql" dentro da pasta "backup"
+            Path backupSubfolder = backupFolder.resolve("backup.sql");
+
+            // Verificando se a subpasta "backup.sql" existe
+            if (!Files.exists(backupSubfolder)) {
+                JOptionPane.showMessageDialog(null, "A subpasta 'backup.sql' não foi encontrada dentro da pasta 'backup'.");
+                return;
+            }
+
+            // Caminho completo do arquivo de backup dentro da subpasta "backup.sql"
+            Path backupFile = backupSubfolder.resolve("backup.sql");
+
+            // Verificando se o arquivo de backup existe
+            if (!Files.exists(backupFile)) {
+                JOptionPane.showMessageDialog(null, "O arquivo de backup não foi encontrado na pasta 'backup/sql'.");
+                return;
+            }
+
+            // Exibe o caminho do arquivo para depuração
+            System.out.println("Caminho do arquivo de backup: " + backupFile.toString());
+
+            // Perguntando ao usuário se deseja restaurar o último backup
+            int confirm = JOptionPane.showConfirmDialog(null,
+                    "Deseja restaurar o último backup?",
+                    "Confirmação!",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+
+            // Se o usuário confirmar, realiza a restauração
+            if (confirm == JOptionPane.YES_OPTION) {
+                backup.restaurarBackup(database, backupFile.toString());
+                JOptionPane.showMessageDialog(null, "Backup restaurado com sucesso!");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao restaurar o backup: " + e.getMessage());
+            e.printStackTrace();
         }
+
+
     }//GEN-LAST:event_btnRestaurarBackupActionPerformed
 
     /**

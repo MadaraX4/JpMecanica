@@ -1,14 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package View;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowStateListener;
@@ -18,29 +11,31 @@ import javax.swing.UIManager;
 
 /**
  *
- * @author lordt
+ * @author MadaraX4
  */
 public class TelaInicial extends javax.swing.JFrame {
 
     /**
-     * Creates new form TelaInicial
+     * Creates new form Tela2
      */
     public TelaInicial() {
         initComponents();
-         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
-        btnCadastrarCliente.setBackground(Color.WHITE);
+
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
+        lblLogo.setIcon(new ImageIcon(getClass().getResource("/img/LOGO-MAIOR (2).png")));
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        lblLogo.setIcon(new ImageIcon(getClass().getResource("/img/LOGO-MAIOR.png")));
 
         addWindowStateListener(new WindowStateListener() {
             @Override
             public void windowStateChanged(WindowEvent e) {
                 if (getExtendedState() == JFrame.MAXIMIZED_BOTH) {
-                    lblLogo.setIcon(new ImageIcon(getClass().getResource("/img/LOGO-MAIOR.png")));
+                    lblLogo.setIcon(new ImageIcon(getClass().getResource("/img/LOGO-MAIOR (2).png")));
                 } else {
                     lblLogo.setIcon(new ImageIcon(getClass().getResource("/img/LOGO-removebg-preview.png")));
                 }
             }
+//            
+
         });
     }
 
@@ -53,37 +48,37 @@ public class TelaInicial extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        btnCadastrarCliente = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
         btnCadastrarCarro = new javax.swing.JButton();
         btnCadastrarPecas = new javax.swing.JButton();
         btnCadastrarMecanico = new javax.swing.JButton();
         btnVendas = new javax.swing.JButton();
         btnBackup = new javax.swing.JButton();
-        lblLogo = new javax.swing.JLabel();
-        btnOs = new javax.swing.JButton();
-        btnVerOs = new javax.swing.JButton();
-        btnOrcamento = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        btnCadastrarCliente = new javax.swing.JButton();
+        btnSair = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        btnAgendamentos = new javax.swing.JButton();
+        btnCadastrarFerramentas = new javax.swing.JButton();
+        btnFluxoDeCaixa = new javax.swing.JButton();
         btnNotificacoes = new javax.swing.JButton();
         btnContas = new javax.swing.JButton();
-        btnFerramentas = new javax.swing.JButton();
-        btnFluxoDeCaixa = new javax.swing.JButton();
-        btnSair = new javax.swing.JButton();
-        btnAgendamentos = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        btnVerOss = new javax.swing.JButton();
+        btnOrcamento = new javax.swing.JButton();
+        btnOs = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
+        lblLogo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("JpMarket");
 
-        jPanel1.setBackground(new java.awt.Color(153, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(102, 255, 255));
+        jPanel2.setLayout(new java.awt.BorderLayout());
 
-        btnCadastrarCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCadastrarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-cliente-48.png"))); // NOI18N
-        btnCadastrarCliente.setText("Cadastrar Cliente");
-        btnCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarClienteActionPerformed(evt);
-            }
-        });
+        jPanel4.setBackground(new java.awt.Color(153, 255, 255));
+        jPanel4.setMinimumSize(new java.awt.Dimension(100, 220));
+        jPanel4.setPreferredSize(new java.awt.Dimension(230, 200));
 
         btnCadastrarCarro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCadastrarCarro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-carro-48.png"))); // NOI18N
@@ -114,7 +109,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         btnVendas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/caixa-eletronico.png"))); // NOI18N
-        btnVendas.setText("Tela de vendas");
+        btnVendas.setText("Tela de Vendas");
         btnVendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVendasActionPerformed(evt);
@@ -130,32 +125,110 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LOGO-removebg-preview.png"))); // NOI18N
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCadastrarCarro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCadastrarPecas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCadastrarMecanico, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnVendas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBackup, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(btnCadastrarCarro, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
+                .addComponent(btnCadastrarPecas, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
+                .addComponent(btnCadastrarMecanico, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
+                .addComponent(btnVendas, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnBackup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(39, 39, 39))
+        );
 
-        btnOs.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnOs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-ordem-48.png"))); // NOI18N
-        btnOs.setText("Ordem de Serviço");
-        btnOs.addActionListener(new java.awt.event.ActionListener() {
+        jPanel2.add(jPanel4, java.awt.BorderLayout.WEST);
+
+        jPanel5.setBackground(new java.awt.Color(153, 255, 255));
+        jPanel5.setPreferredSize(new java.awt.Dimension(1150, 100));
+
+        btnCadastrarCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCadastrarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-cliente-48.png"))); // NOI18N
+        btnCadastrarCliente.setText("Cadastrar Cliente");
+        btnCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOsActionPerformed(evt);
+                btnCadastrarClienteActionPerformed(evt);
             }
         });
 
-        btnVerOs.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnVerOs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ordem-de-servico.png"))); // NOI18N
-        btnVerOs.setText("Ver Ordens de serviço");
-        btnVerOs.addActionListener(new java.awt.event.ActionListener() {
+        btnSair.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fechar.png"))); // NOI18N
+        btnSair.setText("Fechar Sistema");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVerOsActionPerformed(evt);
+                btnSairActionPerformed(evt);
             }
         });
 
-        btnOrcamento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnOrcamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/orcamento (1).png"))); // NOI18N
-        btnOrcamento.setText("Orçamento");
-        btnOrcamento.addActionListener(new java.awt.event.ActionListener() {
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnCadastrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 704, Short.MAX_VALUE)
+                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSair, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                    .addComponent(btnCadastrarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10))
+        );
+
+        jPanel2.add(jPanel5, java.awt.BorderLayout.NORTH);
+
+        jPanel6.setBackground(new java.awt.Color(153, 255, 255));
+        jPanel6.setMinimumSize(new java.awt.Dimension(230, 100));
+        jPanel6.setPreferredSize(new java.awt.Dimension(230, 512));
+
+        btnAgendamentos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnAgendamentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/agendamento.png"))); // NOI18N
+        btnAgendamentos.setText("Agendamentos");
+        btnAgendamentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOrcamentoActionPerformed(evt);
+                btnAgendamentosActionPerformed(evt);
+            }
+        });
+
+        btnCadastrarFerramentas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCadastrarFerramentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-ferramentas-48.png"))); // NOI18N
+        btnCadastrarFerramentas.setText("Cadastrar Ferramentas");
+        btnCadastrarFerramentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarFerramentasActionPerformed(evt);
+            }
+        });
+
+        btnFluxoDeCaixa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnFluxoDeCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-vendas-48.png"))); // NOI18N
+        btnFluxoDeCaixa.setText("Finanças");
+        btnFluxoDeCaixa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFluxoDeCaixaActionPerformed(evt);
             }
         });
 
@@ -170,234 +243,213 @@ public class TelaInicial extends javax.swing.JFrame {
 
         btnContas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnContas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pago.png"))); // NOI18N
-        btnContas.setText("Contas a pagar");
+        btnContas.setText("Contas a Pagar");
         btnContas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnContasActionPerformed(evt);
             }
         });
 
-        btnFerramentas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnFerramentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-ferramentas-48.png"))); // NOI18N
-        btnFerramentas.setText("Cadastrar ferramentas");
-        btnFerramentas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFerramentasActionPerformed(evt);
-            }
-        });
-
-        btnFluxoDeCaixa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnFluxoDeCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-vendas-48.png"))); // NOI18N
-        btnFluxoDeCaixa.setText("Finanças");
-        btnFluxoDeCaixa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFluxoDeCaixaActionPerformed(evt);
-            }
-        });
-
-        btnSair.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fechar.png"))); // NOI18N
-        btnSair.setText("Fechar sistema");
-        btnSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSairActionPerformed(evt);
-            }
-        });
-
-        btnAgendamentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/agendamento.png"))); // NOI18N
-        btnAgendamentos.setText("Agendamentos");
-        btnAgendamentos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgendamentosActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnVendas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCadastrarCarro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCadastrarMecanico, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCadastrarCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBackup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCadastrarPecas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnOs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(33, 33, 33)
-                        .addComponent(btnVerOs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(10, 10, 10))
-                    .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnOrcamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnFerramentas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-                    .addComponent(btnContas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnFluxoDeCaixa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAgendamentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnNotificacoes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnCadastrarFerramentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnFluxoDeCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNotificacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnContas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblLogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnCadastrarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnCadastrarCarro, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
-                                .addGap(12, 12, 12)
-                                .addComponent(btnCadastrarPecas, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnCadastrarMecanico, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
-                                .addGap(15, 15, 15)
-                                .addComponent(btnVendas, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
-                                .addGap(8, 8, 8))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnFluxoDeCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnAgendamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnFerramentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnContas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnNotificacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnBackup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnOs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnVerOs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnOrcamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(17, 17, 17))
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(btnAgendamentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnCadastrarFerramentas, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnFluxoDeCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
+                .addComponent(btnNotificacoes, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
+                .addComponent(btnContas, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
+                .addGap(45, 45, 45))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        jPanel2.add(jPanel6, java.awt.BorderLayout.EAST);
+
+        jPanel7.setBackground(new java.awt.Color(153, 255, 255));
+
+        btnVerOss.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnVerOss.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ordem-de-servico.png"))); // NOI18N
+        btnVerOss.setText("Ver OS`s");
+        btnVerOss.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerOssActionPerformed(evt);
+            }
+        });
+
+        btnOrcamento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnOrcamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/orcamento (1).png"))); // NOI18N
+        btnOrcamento.setText("Orçamento");
+        btnOrcamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrcamentoActionPerformed(evt);
+            }
+        });
+
+        btnOs.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnOs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-ordem-48.png"))); // NOI18N
+        btnOs.setText("OS");
+        btnOs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOsActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addComponent(btnOs, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                .addGap(156, 156, 156)
+                .addComponent(btnVerOss, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+                .addGap(289, 289, 289)
+                .addComponent(btnOrcamento, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                .addGap(33, 33, 33))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnOs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnOrcamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnVerOss, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(40, 40, 40))
         );
+
+        jPanel2.add(jPanel7, java.awt.BorderLayout.SOUTH);
+
+        jPanel8.setBackground(new java.awt.Color(153, 255, 255));
+        jPanel8.setPreferredSize(new java.awt.Dimension(200, 400));
+
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LOGO-MAIOR (1).png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(124, Short.MAX_VALUE)
+                .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(84, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jPanel2.add(jPanel8, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCadastrarPecasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarPecasActionPerformed
-        // TODO add your handling code here:
-        CadastroPecas cadastroPecas = new CadastroPecas();
-        cadastroPecas.setVisible(true);
-    }//GEN-LAST:event_btnCadastrarPecasActionPerformed
-
-    private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
-        // TODO add your handling code here:
-        TelaVenda venda = new TelaVenda();
-        this.dispose();
-        venda.setVisible(true);
-    }//GEN-LAST:event_btnVendasActionPerformed
-
-    private void btnCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarClienteActionPerformed
-        // TODO add your handling code here:
-        CadastroCliente cadastroCliente = new CadastroCliente();
-        cadastroCliente.setVisible(true);
-    }//GEN-LAST:event_btnCadastrarClienteActionPerformed
-
-    private void btnCadastrarCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCarroActionPerformed
-        // TODO add your handling code here:
-        CadastroCarro cadastroCarro = new CadastroCarro();
-        cadastroCarro.setVisible(true);
-    }//GEN-LAST:event_btnCadastrarCarroActionPerformed
-
-    private void btnCadastrarMecanicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarMecanicoActionPerformed
-        // TODO add your handling code here:
-        CadastroMecanico cadastroMecanico = new CadastroMecanico();
-        cadastroMecanico.setVisible(true);
-    }//GEN-LAST:event_btnCadastrarMecanicoActionPerformed
-
-    private void btnContasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContasActionPerformed
-        // TODO add your handling code here:
-        CadastroContas contas = new CadastroContas();
-        contas.setVisible(true);
-    }//GEN-LAST:event_btnContasActionPerformed
-
     private void btnOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsActionPerformed
-        // TODO add your handling code here:
         CadastroOs os = new CadastroOs();
         os.setVisible(true);
     }//GEN-LAST:event_btnOsActionPerformed
 
-    private void btnNotificacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNotificacoesActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-        TelaNotificacoes notificacoes = new TelaNotificacoes();
-        notificacoes.setVisible(true);
-
-    }//GEN-LAST:event_btnNotificacoesActionPerformed
-
     private void btnOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrcamentoActionPerformed
-        // TODO add your handling code here:
         TelaOrcamento orcamento = new TelaOrcamento();
         orcamento.setVisible(true);
     }//GEN-LAST:event_btnOrcamentoActionPerformed
 
-    private void btnVerOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerOsActionPerformed
-        // TODO add your handling code here:
+    private void btnVerOssActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerOssActionPerformed
         VerOSs oss = new VerOSs();
         this.dispose();
         oss.setVisible(true);
-    }//GEN-LAST:event_btnVerOsActionPerformed
+    }//GEN-LAST:event_btnVerOssActionPerformed
 
-    private void btnFerramentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFerramentasActionPerformed
-        // TODO add your handling code here:
-        CadastroFerramenta ferramenta = new CadastroFerramenta();
-        ferramenta.setVisible(true);
-    }//GEN-LAST:event_btnFerramentasActionPerformed
+    private void btnBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackupActionPerformed
+        TelaBackup backup = new TelaBackup();
+        backup.setVisible(true);
+    }//GEN-LAST:event_btnBackupActionPerformed
+
+    private void btnContasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContasActionPerformed
+        CadastroContas contas = new CadastroContas();
+        contas.setVisible(true);
+    }//GEN-LAST:event_btnContasActionPerformed
 
     private void btnFluxoDeCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFluxoDeCaixaActionPerformed
-        // TODO add your handling code here:
         TelaFinanceiro financeiro = new TelaFinanceiro();
         this.dispose();
         financeiro.setVisible(true);
     }//GEN-LAST:event_btnFluxoDeCaixaActionPerformed
 
-    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_btnSairActionPerformed
-
-    private void btnBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackupActionPerformed
-        // TODO add your handling code here:
-        TelaBackup backup = new TelaBackup();
-        backup.setVisible(true);
-    }//GEN-LAST:event_btnBackupActionPerformed
+    private void btnCadastrarFerramentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarFerramentasActionPerformed
+        CadastroFerramenta ferramenta = new CadastroFerramenta();
+        ferramenta.setVisible(true);
+    }//GEN-LAST:event_btnCadastrarFerramentasActionPerformed
 
     private void btnAgendamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendamentosActionPerformed
-        // TODO add your handling code here:
         Agendamentos agendamentos = new Agendamentos();
         agendamentos.setVisible(true);
     }//GEN-LAST:event_btnAgendamentosActionPerformed
+
+    private void btnNotificacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNotificacoesActionPerformed
+        this.dispose();
+        TelaNotificacoes notificacoes = new TelaNotificacoes();
+        notificacoes.setVisible(true);
+    }//GEN-LAST:event_btnNotificacoesActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarClienteActionPerformed
+        CadastroCliente cadastroCliente = new CadastroCliente();
+        cadastroCliente.setVisible(true);
+    }//GEN-LAST:event_btnCadastrarClienteActionPerformed
+
+    private void btnCadastrarCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCarroActionPerformed
+        CadastroCarro cadastroCarro = new CadastroCarro();
+        cadastroCarro.setVisible(true);
+    }//GEN-LAST:event_btnCadastrarCarroActionPerformed
+
+    private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
+        TelaVenda venda = new TelaVenda();
+        this.dispose();
+        venda.setVisible(true);
+    }//GEN-LAST:event_btnVendasActionPerformed
+
+    private void btnCadastrarMecanicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarMecanicoActionPerformed
+        CadastroMecanico cadastroMecanico = new CadastroMecanico();
+        cadastroMecanico.setVisible(true);
+    }//GEN-LAST:event_btnCadastrarMecanicoActionPerformed
+
+    private void btnCadastrarPecasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarPecasActionPerformed
+        CadastroPecas cadastroPecas = new CadastroPecas();
+        cadastroPecas.setVisible(true);
+    }//GEN-LAST:event_btnCadastrarPecasActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (Exception ex) {
@@ -417,18 +469,23 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton btnBackup;
     private javax.swing.JButton btnCadastrarCarro;
     private javax.swing.JButton btnCadastrarCliente;
+    private javax.swing.JButton btnCadastrarFerramentas;
     private javax.swing.JButton btnCadastrarMecanico;
     private javax.swing.JButton btnCadastrarPecas;
     private javax.swing.JButton btnContas;
-    private javax.swing.JButton btnFerramentas;
     private javax.swing.JButton btnFluxoDeCaixa;
     private javax.swing.JButton btnNotificacoes;
     private javax.swing.JButton btnOrcamento;
     private javax.swing.JButton btnOs;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnVendas;
-    private javax.swing.JButton btnVerOs;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton btnVerOss;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JLabel lblLogo;
     // End of variables declaration//GEN-END:variables
 }
