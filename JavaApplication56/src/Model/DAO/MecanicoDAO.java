@@ -21,11 +21,12 @@ public class MecanicoDAO {
 
         try {
             stmt = con.prepareStatement("INSERT INTO mecanico(nome,rg,cpf,telefone,data_nascimento,categoria,email,endereco,referencia) VALUES(?,?,?,?,?,?,?,?,?)");
+            java.sql.Date datasql = java.sql.Date.valueOf(mecanico.getData_nascimento());
             stmt.setString(1, mecanico.getNome());
             stmt.setString(2, mecanico.getRg());
             stmt.setString(3, mecanico.getCpf());
             stmt.setString(4, mecanico.getTelefone());
-            stmt.setDate(5, (Date) mecanico.getData_nascimento());
+            stmt.setDate(5, datasql);
             stmt.setString(6, mecanico.getCategoria());
             stmt.setString(7, mecanico.getEmail());
             stmt.setString(8, mecanico.getEndereco());
@@ -52,7 +53,7 @@ public class MecanicoDAO {
 
             while (rs.next()) {
                 mecanico.setCategoria(rs.getString("categoria"));
-                mecanico.setData_nascimento(rs.getDate("data_nascimento"));
+                mecanico.setData_nascimento(rs.getDate("data_nascimento").toLocalDate());
                 mecanico.setEmail(rs.getString("email"));
                 mecanico.setEndereco(rs.getString("endereco"));
                 mecanico.setNome(rs.getString("nome"));
@@ -73,10 +74,11 @@ public class MecanicoDAO {
         
         try {
             stmt=con.prepareStatement("UPDATE mecanico SET nome=?,rg=?,telefone=?,data_nascimento=?,categoria=?,email=?,endereco=?,referencia=? WHERE cpf=?");
+             java.sql.Date datasql = java.sql.Date.valueOf(mecanico.getData_nascimento());
             stmt.setString(1, mecanico.getNome());
             stmt.setString(2, mecanico.getRg());
             stmt.setString(3, mecanico.getTelefone());
-            stmt.setDate(4, (Date) mecanico.getData_nascimento());
+            stmt.setDate(4, datasql);
             stmt.setString(5, mecanico.getCategoria());
             stmt.setString(6, mecanico.getEmail());
             stmt.setString(7, mecanico.getEndereco());

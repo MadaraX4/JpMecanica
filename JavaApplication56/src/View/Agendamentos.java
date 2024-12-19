@@ -69,24 +69,24 @@ public class Agendamentos extends javax.swing.JFrame {
     
     modelo.setRowCount(0);
         for (Carro manutencoes : manutencao) {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             Object[] objeto = new Object[2];
             objeto[0] = manutencoes.getPlaca();
-            objeto[1] = sdf.format(manutencoes.getManutencao_agendada());
+            objeto[1] = formatoData.format(manutencoes.getManutencao_agendada());
             modelo.addRow(objeto);
         }
     
     
     }
 
-    public java.sql.Date dataMysql(String data) {
-         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+   
+    public LocalDate dataMysql(String data) {
 
-        // Converte a string para LocalDate
-        LocalDate localDate = LocalDate.parse(data, formatter);
+        // Define o formato esperado: ano-mês-dia
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-        // Converte LocalDate para java.sql.Date
-        return java.sql.Date.valueOf(localDate);
+        // Converte a string no formato "dd-MM-yyyy" para LocalDate
+        return LocalDate.parse(data, formatter);
     }
 
     /**

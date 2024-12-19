@@ -4,11 +4,13 @@ package Model;
 public class OsServicos {
 
     private int os_id;
-    private int servico_id;
+private String descricao;
+private Double valor;
 
-    public OsServicos(int os_id ,int servico_id) {
+    public OsServicos(int os_id, String descricao, Double valor) {
         this.os_id = os_id;
-        this.servico_id = servico_id;
+        this.descricao = descricao;
+        this.valor = valor;
     }
 
     public int getOs_id() {
@@ -19,12 +21,22 @@ public class OsServicos {
         this.os_id = os_id;
     }
 
-    public int getServico_id() {
-        return servico_id;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setServico_id(int servico_id) {
-        this.servico_id = servico_id;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
+
+    public Double getValor() {
+        return valor;
+    }
+
+    public void setValor(Double valor) {
+        this.valor = valor;
+    }
+
+    
 
 }

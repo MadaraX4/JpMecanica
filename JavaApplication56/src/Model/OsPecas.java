@@ -3,13 +3,31 @@ package Model;
 public class OsPecas {
 
     private int os_id;
-    private int id_pecas;
+    private String descricao;
     private int quantidade;
+    private Double valor;
 
-    public OsPecas(int os_id, int id_pecas, int quantidade) {
+    public OsPecas(int os_id, String descricao, int quantidade, Double valor) {
         this.os_id = os_id;
-        this.id_pecas = id_pecas;
+        this.descricao = descricao;
         this.quantidade = quantidade;
+        this.valor = valor;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Double getValor() {
+        return valor;
+    }
+
+    public void setValor(Double valor) {
+        this.valor = valor;
     }
 
     public int getOs_id() {
@@ -18,14 +36,6 @@ public class OsPecas {
 
     public void setOs_id(int os_id) {
         this.os_id = os_id;
-    }
-
-    public int getId_pecas() {
-        return id_pecas;
-    }
-
-    public void setId_pecas(int id_pecas) {
-        this.id_pecas = id_pecas;
     }
 
     public int getQuantidade() {

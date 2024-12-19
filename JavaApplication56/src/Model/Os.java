@@ -1,6 +1,7 @@
 
 package Model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Os {
@@ -11,13 +12,15 @@ public class Os {
     private String placaVeiculo;
     private String montadora;
     private String modelo;
-    private Date dataOrdem;
+    private LocalDate dataOrdem;
     private Double valor;
     private String tecnico;
     private String descricao;
     private String status;
-    private Date dataAprovação;
+    private LocalDate dataAprovação;
     private String combustivel;
+    private Double km;
+    private int ano;
 
     public Os() {
       
@@ -71,11 +74,11 @@ public class Os {
         this.modelo = modelo;
     }
 
-    public Date getDataOrdem() {
+    public LocalDate getDataOrdem() {
         return dataOrdem;
     }
 
-    public void setDataOrdem(Date dataOrdem) {
+    public void setDataOrdem(LocalDate dataOrdem) {
         this.dataOrdem = dataOrdem;
     }
 
@@ -111,11 +114,11 @@ public class Os {
         this.status = status;
     }
 
-    public Date getDataAprovação() {
+    public LocalDate getDataAprovação() {
         return dataAprovação;
     }
 
-    public void setDataAprovação(Date dataAprovação) {
+    public void setDataAprovação(LocalDate dataAprovação) {
         this.dataAprovação = dataAprovação;
     }
 
@@ -126,7 +129,22 @@ public class Os {
     public void setCombustivel(String combustivel) {
         this.combustivel = combustivel;
     }
-    
+
+    public Double getKm() {
+        return km;
+    }
+
+    public void setKm(Double km) {
+        this.km = km;
+    }
+
+    public int getAno() {
+        return ano;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
     
     
     

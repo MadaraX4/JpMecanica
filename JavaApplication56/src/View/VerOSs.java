@@ -10,9 +10,12 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import Estilo.BotaoRedondo;
+import Estilo.TextoMaisculo;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Toolkit;
+import java.time.format.DateTimeFormatter;
 import javax.swing.UIManager;
+import javax.swing.text.AbstractDocument;
 
 /**
  *
@@ -40,6 +43,12 @@ public class VerOSs extends javax.swing.JFrame {
         
         colunasTabelaOs();
         todasOs();
+        textoMaiusculo();
+    }
+    
+    public void textoMaiusculo() {
+        ((AbstractDocument) txtPlaca.getDocument()).setDocumentFilter(new TextoMaisculo());
+
     }
     
     public void colunasTabelaOs() {
@@ -55,8 +64,8 @@ public class VerOSs extends javax.swing.JFrame {
     public void todasOs() {
         DefaultTableModel modelo = (DefaultTableModel) jTOs.getModel();
         
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        DecimalFormat df = new DecimalFormat("#,00");
+      DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DecimalFormat df = new DecimalFormat("#,##0.00");
         OsDAO dao = new OsDAO();
         List<Os> oss = dao.listaOs();
         
@@ -66,7 +75,7 @@ public class VerOSs extends javax.swing.JFrame {
             objeto[0] = os.getId();
             objeto[1] = os.getClienteNome();
             objeto[2] = os.getPlacaVeiculo();
-            objeto[3] = sdf.format(os.getDataOrdem());
+            objeto[3] = format.format(os.getDataOrdem());
             objeto[4] = df.format(os.getValor());
             objeto[5] = os.getStatus();
             
@@ -96,6 +105,7 @@ public class VerOSs extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ver OS's");
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 204));
@@ -190,7 +200,7 @@ public class VerOSs extends javax.swing.JFrame {
         String placa = txtPlaca.getText();
         DefaultTableModel modelo = (DefaultTableModel) jTOs.getModel();
         
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DecimalFormat df = new DecimalFormat("#,00");
         OsDAO dao = new OsDAO();
         List<Os> oss = dao.osPorPlaca(placa);
@@ -203,7 +213,7 @@ public class VerOSs extends javax.swing.JFrame {
             objeto[0] = os.getId();
             objeto[1] = os.getClienteNome();
             objeto[2] = os.getPlacaVeiculo();
-            objeto[3] = sdf.format(os.getDataOrdem());
+            objeto[3] = format.format(os.getDataOrdem());
             objeto[4] = df.format(os.getValor());
             objeto[5] = os.getStatus();
             

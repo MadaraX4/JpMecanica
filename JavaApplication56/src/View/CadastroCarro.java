@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package View;
 
 import Estilo.BordaCantoArredondado;
@@ -17,6 +14,7 @@ import Estilo.BotaoRedondo;
 import Estilo.TextoMaisculo;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.time.format.DateTimeFormatter;
 import javax.swing.text.AbstractDocument;
 
 /**
@@ -50,6 +48,8 @@ public class CadastroCarro extends javax.swing.JFrame {
         txtPlaca.setBorder(bad);
         txtValvula.setBorder(bad);
         txtCombustivel.setBorder(bad);
+        txtAno.setBorder(bad);
+        txtCambio.setBorder(bad);
     }
 
     public void textoMaiusculo() {
@@ -61,6 +61,8 @@ public class CadastroCarro extends javax.swing.JFrame {
         ((AbstractDocument) txtPlaca.getDocument()).setDocumentFilter(new TextoMaisculo());
         ((AbstractDocument) txtValvula.getDocument()).setDocumentFilter(new TextoMaisculo());
         ((AbstractDocument) txtCombustivel.getDocument()).setDocumentFilter(new TextoMaisculo());
+        ((AbstractDocument) txtAno.getDocument()).setDocumentFilter(new TextoMaisculo());
+        ((AbstractDocument) txtCambio.getDocument()).setDocumentFilter(new TextoMaisculo());
 
     }
 
@@ -75,24 +77,11 @@ public class CadastroCarro extends javax.swing.JFrame {
         jblDtAgendada.setText("");
         jblDtManutencao.setText("");
         txtCombustivel.setText("");
+        txtAno.setText("");
+        txtCambio.setText("");
 
     }
 
-    public Date manutencaoMysql(String data) {
-        String[] dataFormatada = jblDtManutencao.getText().split("-");
-
-        Date dataMysql = new Date(Integer.parseInt(dataFormatada[0]), Integer.parseInt(dataFormatada[1]), Integer.parseInt(dataFormatada[2]));
-
-        return dataMysql;
-    }
-
-    public Date agendaMysql(String data) {
-        String[] dataFormatada = jblDtAgendada.getText().split("-");
-
-        Date dataMysql = new Date(Integer.parseInt(dataFormatada[0]), Integer.parseInt(dataFormatada[1]), Integer.parseInt(dataFormatada[2]));
-
-        return dataMysql;
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -123,6 +112,10 @@ public class CadastroCarro extends javax.swing.JFrame {
         txtCilindro = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         txtCombustivel = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        txtAno = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        txtCambio = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jblDtManutencao = new javax.swing.JLabel();
@@ -181,7 +174,7 @@ public class CadastroCarro extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtCpfProprietario, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -204,38 +197,46 @@ public class CadastroCarro extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, -1));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 570, -1));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 204));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Especificações do Carro", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Modelo");
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 32, -1, -1));
 
         txtModelo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtModelo.setForeground(new java.awt.Color(0, 0, 0));
         txtModelo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel3.add(txtModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(73, 29, 270, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Montadora");
+        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
 
         txtMontadora.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtMontadora.setForeground(new java.awt.Color(0, 0, 0));
         txtMontadora.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel3.add(txtMontadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, 131, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Motor");
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
         txtMotor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtMotor.setForeground(new java.awt.Color(0, 0, 0));
         txtMotor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel3.add(txtMotor, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 87, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Válvulas");
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, -1, -1));
 
         txtValvula.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtValvula.setForeground(new java.awt.Color(0, 0, 0));
@@ -245,84 +246,42 @@ public class CadastroCarro extends javax.swing.JFrame {
                 txtValvulaActionPerformed(evt);
             }
         });
+        jPanel3.add(txtValvula, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 70, 42, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Cilindros");
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
 
         txtCilindro.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtCilindro.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel3.add(txtCilindro, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 44, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Combustivel");
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 70, -1, -1));
 
         txtCombustivel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPanel3.add(txtCombustivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, 122, -1));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtMotor, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtValvula, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCilindro, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtMontadora, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCombustivel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(37, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtMontadora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtMotor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(txtValvula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(txtCilindro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(txtCombustivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel12.setText("Ano");
+        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, -1, -1));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, -1, -1));
+        txtAno.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPanel3.add(txtAno, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 86, -1));
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel13.setText("Cambio");
+        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, -1, -1));
+
+        txtCambio.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPanel3.add(txtCambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, 230, -1));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 600, 150));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 204));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Manutenções", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
@@ -350,7 +309,7 @@ public class CadastroCarro extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addComponent(jblDtManutencao, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 184, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jblDtAgendada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -370,7 +329,7 @@ public class CadastroCarro extends javax.swing.JFrame {
                 .addGap(24, 24, 24))
         );
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, -1, -1));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 600, -1));
 
         btnCadastrar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/plus4274912.png"))); // NOI18N
@@ -426,11 +385,11 @@ public class CadastroCarro extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 777, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -449,7 +408,9 @@ public class CadastroCarro extends javax.swing.JFrame {
         carro.setNum_cilindros(Integer.parseInt(txtCilindro.getText()));
         carro.setNum_valvulas(Integer.parseInt(txtValvula.getText()));
         carro.setCobustivel(txtCombustivel.getText());
-
+        carro.setAno(Integer.parseInt(txtAno.getText()));
+        carro.setCambio(txtCambio.getText());
+        
         dao.create(carro);
         limparCampos();
     }//GEN-LAST:event_btnCadastrarActionPerformed
@@ -469,10 +430,7 @@ public class CadastroCarro extends javax.swing.JFrame {
             Carro carro = dao.select(placa);
 
             if (carro.getData_manutencao() != null && carro.getManutencao_agendada() == null) {
-
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-                //String agendaFormatada = sdf.format(carro.getManutencao_agendada());
-                String manutencaoFormatada = sdf.format(carro.getData_manutencao());
+                DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
                 txtCpfProprietario.setText(carro.getCpf_proprietario());
                 txtModelo.setText(carro.getModelo());
@@ -481,19 +439,20 @@ public class CadastroCarro extends javax.swing.JFrame {
                 txtValvula.setText(Integer.toString(carro.getNum_valvulas()));
                 txtCilindro.setText(Integer.toString(carro.getNum_cilindros()));
                 //jblDtAgendada.setText(agendaFormatada);
-                jblDtManutencao.setText(manutencaoFormatada);
+                jblDtManutencao.setText(formater.format(carro.getData_manutencao()));
                 txtCombustivel.setText(carro.getCobustivel());
+                txtAno.setText(Integer.toString(carro.getAno()));
+                txtCambio.setText(carro.getCambio());
                 txtPlaca.setEditable(false);
-                
-                 btnCadastrar.setEnabled(false);
+
+                btnCadastrar.setEnabled(false);
                 btnAlterar.setEnabled(true);
                 btnDeletar.setEnabled(true);
                 txtPlaca.setEditable(false);
+                btnBuscar.setEnabled(false);
 
             } else if (carro.getData_manutencao() != null && carro.getManutencao_agendada() != null) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-                String agendaFormatada = sdf.format(carro.getManutencao_agendada());
-                String manutencaoFormatada = sdf.format(carro.getData_manutencao());
+                DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
                 txtCpfProprietario.setText(carro.getCpf_proprietario());
                 txtModelo.setText(carro.getModelo());
@@ -501,15 +460,18 @@ public class CadastroCarro extends javax.swing.JFrame {
                 txtMotor.setText(carro.getMotor());
                 txtValvula.setText(Integer.toString(carro.getNum_valvulas()));
                 txtCilindro.setText(Integer.toString(carro.getNum_cilindros()));
-                jblDtAgendada.setText(agendaFormatada);
-                jblDtManutencao.setText(manutencaoFormatada);
+                jblDtAgendada.setText(formater.format(carro.getManutencao_agendada()));
+                jblDtManutencao.setText(formater.format(carro.getData_manutencao()));
                 txtCombustivel.setText(carro.getCobustivel());
+                txtAno.setText(Integer.toString(carro.getAno()));
+                txtCambio.setText(carro.getCambio());
                 txtPlaca.setEditable(false);
-                
-                 btnCadastrar.setEnabled(false);
+
+                btnCadastrar.setEnabled(false);
                 btnAlterar.setEnabled(true);
                 btnDeletar.setEnabled(true);
                 txtPlaca.setEditable(false);
+                btnBuscar.setEnabled(false);
             } else {
 
                 txtCpfProprietario.setText(carro.getCpf_proprietario());
@@ -519,6 +481,8 @@ public class CadastroCarro extends javax.swing.JFrame {
                 txtValvula.setText(Integer.toString(carro.getNum_valvulas()));
                 txtCilindro.setText(Integer.toString(carro.getNum_cilindros()));
                 txtCombustivel.setText(carro.getCobustivel());
+                txtAno.setText(Integer.toString(carro.getAno()));
+                txtCambio.setText(carro.getCambio());
                 jblDtAgendada.setText("");
                 jblDtManutencao.setText("");
 
@@ -527,7 +491,7 @@ public class CadastroCarro extends javax.swing.JFrame {
                 btnAlterar.setEnabled(true);
                 btnDeletar.setEnabled(true);
                 txtPlaca.setEditable(false);
-
+                btnBuscar.setEnabled(false);
             }
 
         } else {
@@ -552,6 +516,8 @@ public class CadastroCarro extends javax.swing.JFrame {
         carro.setNum_valvulas(Integer.parseInt(txtValvula.getText()));
         carro.setNum_cilindros(Integer.parseInt(txtCilindro.getText()));
         carro.setCobustivel(txtCombustivel.getText());
+        carro.setAno(Integer.parseInt(txtAno.getText()));
+        carro.setCambio(txtCambio.getText());
 
         int confirmacao = JOptionPane.showConfirmDialog(null, "Deseja Alterar este carro?", "Confirmação!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
@@ -627,6 +593,8 @@ public class CadastroCarro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -641,6 +609,8 @@ public class CadastroCarro extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel jblDtAgendada;
     private javax.swing.JLabel jblDtManutencao;
+    private javax.swing.JTextField txtAno;
+    private javax.swing.JTextField txtCambio;
     private javax.swing.JTextField txtCilindro;
     private javax.swing.JTextField txtCombustivel;
     private javax.swing.JFormattedTextField txtCpfProprietario;

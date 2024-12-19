@@ -14,9 +14,9 @@ public class Conta {
     private String referencia;
     private String tipo;
     private double valor;
-    private Date data_vencimento;
+    private LocalDate data_vencimento;
     private String estatus;
-    private Date data_pagamento;
+    private LocalDate data_pagamento;
     private double valorPago;
    
 
@@ -59,11 +59,11 @@ public class Conta {
 
     }
 
-    public Date getData_vencimento() {
+    public LocalDate getData_vencimento() {
         return data_vencimento;
     }
 
-    public void setData_vencimento(Date data_vencimento) {
+    public void setData_vencimento(LocalDate data_vencimento) {
         this.data_vencimento = data_vencimento;
     }
 
@@ -75,11 +75,11 @@ public class Conta {
         this.estatus = estatus;
     }
 
-    public Date getData_pagamento() {
+    public LocalDate getData_pagamento() {
         return data_pagamento;
     }
 
-    public void setData_pagamento(Date data_pagamento) {
+    public void setData_pagamento(LocalDate data_pagamento) {
         this.data_pagamento = data_pagamento;
     }
 

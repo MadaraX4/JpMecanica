@@ -2,6 +2,9 @@ package Model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -11,7 +14,7 @@ import javax.swing.table.AbstractTableModel;
 public class ContaTableModel extends AbstractTableModel {
 
     private List<Conta> contas = new ArrayList<>();
-    private String[] colunas = {"REFERÊNCIA", "TIPO", "VALOR", "DADA DE VENCIMENTO", "ESTATUS", "DATA DE PAGAMENTO","VALOR PAGO"};
+    private String[] colunas = {"REFERÊNCIA", "TIPO", "VALOR", "DADA DE VENCIMENTO", "ESTATUS", "DATA DE PAGAMENTO", "VALOR PAGO"};
 
     @Override
     public String getColumnName(int column) {
@@ -32,7 +35,7 @@ public class ContaTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int linhaIndex, int colunaIndex) {
-
+        Conta conta = contas.get(linhaIndex);
         switch (colunaIndex) {
 
             case 0:
@@ -42,11 +45,11 @@ public class ContaTableModel extends AbstractTableModel {
             case 2:
                 return contas.get(linhaIndex).getValor();
             case 3:
-                return contas.get(linhaIndex).getData_vencimento();
+                return contas.get(linhaIndex).getData_vencimento() != null ? conta.getData_vencimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : null;
             case 4:
                 return contas.get(linhaIndex).getEstatus();
             case 5:
-                return contas.get(linhaIndex).getData_pagamento();
+                return contas.get(linhaIndex).getData_pagamento() != null ? conta.getData_pagamento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : null;
             case 6:
                 return contas.get(linhaIndex).getValorPago();
 
@@ -58,8 +61,8 @@ public class ContaTableModel extends AbstractTableModel {
 
     @Override
     public void setValueAt(Object valor, int linhaIndex, int colunaIndex) {
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        Conta conta = contas.get(linhaIndex);
         switch (colunaIndex) {
 
             case 0:
@@ -73,8 +76,8 @@ public class ContaTableModel extends AbstractTableModel {
                 break;
             case 3: {
                 try {
-                    contas.get(linhaIndex).setData_vencimento(sdf.parse((String) valor));
-                } catch (ParseException ex) {
+                    contas.get(linhaIndex).setData_vencimento(LocalDate.parse(valor.toString(), formatter));
+                } catch (DateTimeParseException ex) {
                     Logger.getLogger(ContaTableModel.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -84,14 +87,14 @@ public class ContaTableModel extends AbstractTableModel {
                 break;
             case 5: {
                 try {
-                    contas.get(linhaIndex).setData_pagamento(sdf.parse((String) valor));
-                } catch (ParseException ex) {
+                    contas.get(linhaIndex).setData_pagamento(LocalDate.parse(valor.toString(), formatter));
+                } catch (DateTimeParseException ex) {
                     Logger.getLogger(ContaTableModel.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 break;
             }
             case 6: {
-            contas.get(linhaIndex).setValorPago(Double.parseDouble((String) valor));
+               contas.get(linhaIndex).setValorPago(Double.parseDouble(((String) valor).replace(",", ".")));
             }
         }
         this.fireTableRowsUpdated(linhaIndex, linhaIndex);

@@ -1,4 +1,3 @@
-
 package View;
 
 import Estilo.BordaCantoArredondado;
@@ -14,11 +13,15 @@ import Model.DAO.ServicoDAO;
 import Model.Pecas;
 import Model.Servico;
 import Style.table.CentralizarTexto;
+import Style.table.FormatarTipos;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.io.File;
+import java.text.DecimalFormat;
 import java.time.LocalTime;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -41,18 +44,12 @@ public class TelaOrcamento extends javax.swing.JFrame {
         DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         jlbTitulo.setText("Orçamento " + formater.format(dataAtual));
 
-        jSPListaPecas.setVisible(false);
-        jPanel2.setComponentZOrder(jSPListaPecas, 0);
+        jTPecas.setDefaultRenderer(Object.class, new FormatarTipos());
+        jTServicos.setDefaultRenderer(Object.class, new FormatarTipos());
 
-        jSPListaServico.setVisible(false);
-        jPanel2.setComponentZOrder(jSPListaServico, 0);
-
-        jTPecas.setDefaultRenderer(Object.class, new CentralizarTexto());
-        jTServicos.setDefaultRenderer(Object.class, new CentralizarTexto());
-        
         txtTotalServicos.setHorizontalAlignment(JTextField.CENTER);
         txtTotalPecas.setHorizontalAlignment(JTextField.CENTER);
-        
+
         txtTotalServicos.setEditable(false);
         txtTotalPecas.setEditable(false);
 
@@ -77,8 +74,7 @@ public class TelaOrcamento extends javax.swing.JFrame {
         txtTelefone.setBorder(bad);
         txtTotalPecas.setBorder(bad);
         txtTotalServicos.setBorder(bad);
-        jListPecas.setBorder(bad);
-        jListServicos.setBorder(bad);
+        txtValorPeca.setBorder(bad);
         txtValorServico.setBorder(bad);
     }
 
@@ -119,7 +115,8 @@ public class TelaOrcamento extends javax.swing.JFrame {
                 soma += ((Number) valor).doubleValue();
             }
         }
-        txtTotalPecas.setText(String.valueOf(soma));
+        DecimalFormat df = new DecimalFormat("#,##0.00");
+        txtTotalPecas.setText(String.valueOf(df.format(soma)));
     }
 
     public void precoTotalServicos() {
@@ -134,7 +131,8 @@ public class TelaOrcamento extends javax.swing.JFrame {
                 soma += ((Number) valor).doubleValue();
             }
         }
-        txtTotalServicos.setText(String.valueOf(soma));
+        DecimalFormat df = new DecimalFormat("#,##0.00");
+        txtTotalServicos.setText(String.valueOf(df.format(soma)));
     }
 
     /**
@@ -172,13 +170,12 @@ public class TelaOrcamento extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         txtServicos = new javax.swing.JTextField();
-        btnNovoServico = new BotaoRedondo();
-        jSPListaPecas = new javax.swing.JScrollPane();
-        jListPecas = new javax.swing.JList<>();
-        jSPListaServico = new javax.swing.JScrollPane();
-        jListServicos = new javax.swing.JList<>();
         jLabel12 = new javax.swing.JLabel();
         txtValorServico = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        txtValorPeca = new javax.swing.JTextField();
+        btnAdicionarServicos = new BotaoRedondo();
+        btnAdicionarPecas1 = new BotaoRedondo();
         jlbTitulo = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -270,13 +267,13 @@ public class TelaOrcamento extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Adicionar Peça");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 388, -1, -1));
-        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 410, 385, 10));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, -1));
+        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 385, 10));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Peças");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 429, -1, -1));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, -1, -1));
 
         txtPecas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtPecas.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -284,7 +281,7 @@ public class TelaOrcamento extends javax.swing.JFrame {
                 txtPecasKeyReleased(evt);
             }
         });
-        jPanel2.add(txtPecas, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 426, 335, -1));
+        jPanel2.add(txtPecas, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 400, 335, -1));
         jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 503, 385, 10));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
@@ -305,35 +302,6 @@ public class TelaOrcamento extends javax.swing.JFrame {
         });
         jPanel2.add(txtServicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 519, 314, -1));
 
-        btnNovoServico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/novo servico.png"))); // NOI18N
-        btnNovoServico.setText("Novo Serviço");
-        btnNovoServico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovoServicoActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnNovoServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 563, 140, 40));
-
-        jListPecas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jListPecas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jListPecasMouseClicked(evt);
-            }
-        });
-        jSPListaPecas.setViewportView(jListPecas);
-
-        jPanel2.add(jSPListaPecas, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 330, -1));
-
-        jListServicos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jListServicos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jListServicosMouseClicked(evt);
-            }
-        });
-        jSPListaServico.setViewportView(jListServicos);
-
-        jPanel2.add(jSPListaServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 390, 310, -1));
-
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Valor do Serviço");
@@ -341,6 +309,34 @@ public class TelaOrcamento extends javax.swing.JFrame {
 
         txtValorServico.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jPanel2.add(txtValorServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 570, -1, -1));
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel13.setText("Valor");
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, -1, -1));
+
+        txtValorPeca.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPanel2.add(txtValorPeca, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 440, 80, -1));
+
+        btnAdicionarServicos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnAdicionarServicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/adicao.png"))); // NOI18N
+        btnAdicionarServicos.setText("Adicionar");
+        btnAdicionarServicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarServicosActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnAdicionarServicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 570, 140, -1));
+
+        btnAdicionarPecas1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnAdicionarPecas1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/adicao.png"))); // NOI18N
+        btnAdicionarPecas1.setText("Adicionar");
+        btnAdicionarPecas1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarPecas1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnAdicionarPecas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(255, 450, 140, -1));
 
         jlbTitulo.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
         jlbTitulo.setForeground(new java.awt.Color(0, 0, 0));
@@ -361,6 +357,7 @@ public class TelaOrcamento extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTPecas);
 
         txtTotalPecas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtTotalPecas.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtTotalPecas.setText("0.0");
 
         btnRemoverPeca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/remover-do-carrinho.png"))); // NOI18N
@@ -377,12 +374,12 @@ public class TelaOrcamento extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(345, 345, 345)
-                        .addComponent(btnRemoverPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(txtTotalPecas, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtTotalPecas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnRemoverPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
@@ -391,11 +388,11 @@ public class TelaOrcamento extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRemoverPeca)
                     .addComponent(txtTotalPecas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 204));
@@ -413,6 +410,7 @@ public class TelaOrcamento extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTServicos);
 
         txtTotalServicos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtTotalServicos.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtTotalServicos.setText("0.0");
 
         btnRemoverServico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/remover-do-carrinho.png"))); // NOI18N
@@ -431,10 +429,9 @@ public class TelaOrcamento extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(309, 309, 309)
-                        .addComponent(btnRemoverServico, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTotalServicos, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtTotalServicos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnRemoverServico, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
@@ -444,7 +441,7 @@ public class TelaOrcamento extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTotalServicos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRemoverServico))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -486,19 +483,17 @@ public class TelaOrcamento extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnNovoOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnEmprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(53, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -515,7 +510,7 @@ public class TelaOrcamento extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(50, 50, 50)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnNovoOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEmprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -535,115 +530,13 @@ public class TelaOrcamento extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtPecasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPecasKeyReleased
-        jSPListaPecas.setVisible(true);
-        DefaultListModel<String> modelo = new DefaultListModel<>();
-        jListPecas.setModel(modelo);
 
-        String nome = txtPecas.getText();
-        PecasDAO dao = new PecasDAO();
-
-        modelo.clear();
-
-        if (!nome.isEmpty()) {
-            List<String> nomes = dao.listaNome(nome);
-
-            for (String nomePeca : nomes) {
-                modelo.addElement(nomePeca);
-            }
-        } else {
-            jSPListaPecas.setVisible(false);
-        }
 
     }//GEN-LAST:event_txtPecasKeyReleased
 
-    private void jListPecasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListPecasMouseClicked
-        int linha = jListPecas.getSelectedIndex();
-
-        String input = JOptionPane.showInputDialog(null, "Digite a quantidade:\n");
-        if (input != null) {
-            int quantidade = Integer.parseInt(input);
-
-            if (linha != -1) {
-                String nome = jListPecas.getModel().getElementAt(linha);
-                PecasDAO dao = new PecasDAO();
-                List<Pecas> pecas = dao.listaPecas(nome);
-
-                if (!pecas.isEmpty()) {
-                    DefaultTableModel modeloTabela = (DefaultTableModel) jTPecas.getModel();
-
-                    for (Pecas listaPecas : pecas) {
-                        Double precoUnitario = quantidade * listaPecas.getPreco_venda();
-
-                        modeloTabela.addRow(new Object[]{
-                            listaPecas.getNome(),
-                            quantidade,
-                            precoUnitario
-
-                        });
-                        txtPecas.setText("");
-                        jSPListaPecas.setVisible(false);
-
-                    }
-                }
-                precoTotalPecas();
-
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Informe uma quantidade!");
-        }
-    }//GEN-LAST:event_jListPecasMouseClicked
-
     private void txtServicosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtServicosKeyReleased
-        jSPListaServico.setVisible(true);
-
-        String nome = txtServicos.getText();
-        ServicoDAO dao = new ServicoDAO();
-        DefaultListModel<String> modeloServico = new DefaultListModel<>();
-        jListServicos.setModel(modeloServico);
-
-        if (!nome.isEmpty()) {
-            List<String> servicos = dao.listaNomes(nome);
-
-            for (String nomeServico : servicos) {
-                modeloServico.addElement(nomeServico);
-
-            }
-            jSPListaServico.setVisible(!servicos.isEmpty());
-        } else {
-            jSPListaServico.setVisible(false);
-        }
 
     }//GEN-LAST:event_txtServicosKeyReleased
-
-    private void jListServicosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListServicosMouseClicked
-        int linha = jListServicos.getSelectedIndex();
-        String nomeValor = jListServicos.getModel().getElementAt(linha);
-        String[] partes = nomeValor.split("\\s*R\\$\\s*");
-        String nome = partes[0].trim(); // Remove espaços em branco
-        String valor = partes[1].trim();
-
-        String nomeSql = nome;
-
-        if (linha != -1) {
-            ServicoDAO dao = new ServicoDAO();
-            List<Servico> servicos = dao.listaServicos(nomeSql);
-
-            if (!servicos.isEmpty()) {
-                DefaultTableModel modeloTabela = (DefaultTableModel) jTServicos.getModel();
-
-                for (Servico servico : servicos) {
-                    modeloTabela.addRow(new Object[]{
-                        servico.getNome(),
-                        servico.getPreco()
-                    });
-                    precoTotalServicos();
-                    txtServicos.setText("");
-                    jSPListaServico.setVisible(false);
-                }
-            }
-
-        }
-    }//GEN-LAST:event_jListServicosMouseClicked
 
     private void btnRemoverPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverPecaActionPerformed
         DefaultTableModel modeloTabela = (DefaultTableModel) jTPecas.getModel();
@@ -673,19 +566,6 @@ public class TelaOrcamento extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnRemoverServicoActionPerformed
 
-    private void btnNovoServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoServicoActionPerformed
-        Servico servico = new Servico();
-        ServicoDAO dao = new ServicoDAO();
-
-        servico.setNome(txtServicos.getText());
-        servico.setPreco(Double.parseDouble(txtValorServico.getText()));
-
-        dao.create(servico);
-        txtServicos.setText("");
-        txtValorServico.setText("");
-
-    }//GEN-LAST:event_btnNovoServicoActionPerformed
-
     private void btnNovoOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoOrcamentoActionPerformed
         // TODO add your handling code here:
         txtAno.setText("");
@@ -708,11 +588,11 @@ public class TelaOrcamento extends javax.swing.JFrame {
     private void btnEmprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmprimirActionPerformed
         // TODO add your handling code here:
         OrcamentoPDF pdf = new OrcamentoPDF();
-        
+
         LocalDate dataAtual = LocalDate.now();
         DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String dataFormatada = dataAtual.format(formatoData);
-        
+
         LocalTime horaAtual = LocalTime.now();
         DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm:ss");
         String horaFormatada = horaAtual.format(formatoHora);
@@ -723,16 +603,48 @@ public class TelaOrcamento extends javax.swing.JFrame {
         String ano = txtAno.getText();
         String combustivel = txtCombustivel.getText();
         String chassi = txtChassi.getText();
-        Double totalPecas = Double.parseDouble(txtTotalPecas.getText());
-        Double totalServicos = Double.parseDouble(txtTotalServicos.getText());
+        Double totalPecas = Double.parseDouble(txtTotalPecas.getText().replace(".", "").replace(",", "."));
+        Double totalServicos = Double.parseDouble(txtTotalServicos.getText().replace(".", "").replace(",", "."));
         Double valorTotal = totalPecas + totalServicos;
-        pdf.gerarPdf(dataFormatada,horaFormatada,nome,telefone,carro,motor,ano,combustivel,chassi,jTPecas,jTServicos,valorTotal);
+        pdf.gerarPdf(dataFormatada, horaFormatada, nome, telefone, carro, motor, ano, combustivel, chassi, jTPecas, jTServicos, valorTotal);
     }//GEN-LAST:event_btnEmprimirActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnFecharActionPerformed
+
+    private void btnAdicionarPecas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarPecas1ActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel modelo = (DefaultTableModel) jTPecas.getModel();
+
+        String quantidade = JOptionPane.showInputDialog("Informe a quantidade");
+
+        String descricao = txtPecas.getText();
+        int qtd = Integer.parseInt(quantidade);
+        Double valor = Double.parseDouble(txtValorPeca.getText().replace(",", ".")) * qtd;
+
+        Object[] itens = {descricao, qtd, valor};
+        modelo.addRow(itens);
+
+        txtPecas.setText("");
+        txtValorPeca.setText("");
+        precoTotalPecas();
+    }//GEN-LAST:event_btnAdicionarPecas1ActionPerformed
+
+    private void btnAdicionarServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarServicosActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel modelo = (DefaultTableModel) jTServicos.getModel();
+
+        String descricao = txtServicos.getText();
+        Double valor = Double.parseDouble(txtValorServico.getText().replace(",", "."));
+
+        Object[] itens = {descricao, valor};
+        modelo.addRow(itens);
+        precoTotalServicos();
+        txtServicos.setText("");
+        txtValorServico.setText("");
+    }//GEN-LAST:event_btnAdicionarServicosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -752,16 +664,18 @@ public class TelaOrcamento extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdicionarPecas1;
+    private javax.swing.JButton btnAdicionarServicos;
     private javax.swing.JButton btnEmprimir;
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnNovoOrcamento;
-    private javax.swing.JButton btnNovoServico;
     private javax.swing.JButton btnRemoverPeca;
     private javax.swing.JButton btnRemoverServico;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -770,16 +684,12 @@ public class TelaOrcamento extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jListPecas;
-    private javax.swing.JList<String> jListServicos;
     private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
-    private javax.swing.JScrollPane jSPListaPecas;
-    private javax.swing.JScrollPane jSPListaServico;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
@@ -798,6 +708,7 @@ public class TelaOrcamento extends javax.swing.JFrame {
     private javax.swing.JTextField txtTelefone;
     private javax.swing.JTextField txtTotalPecas;
     private javax.swing.JTextField txtTotalServicos;
+    private javax.swing.JTextField txtValorPeca;
     private javax.swing.JTextField txtValorServico;
     // End of variables declaration//GEN-END:variables
 }

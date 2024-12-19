@@ -25,7 +25,7 @@ public class CarroDAO {
 
     public void create(Carro carro) {
         try {
-            stmt = con.prepareStatement("INSERT INTO carro(placa,modelo,montadora,motor,num_valvulas,num_cilindros,proprietario,combustivel) VALUES (?,?,?,?,?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO carro(placa,modelo,montadora,motor,num_valvulas,num_cilindros,proprietario,combustivel,ano,cambio) VALUES (?,?,?,?,?,?,?,?,?,?)");
             stmt.setString(1, carro.getPlaca());
             stmt.setString(2, carro.getModelo());
             stmt.setString(3, carro.getMontadora());
@@ -34,6 +34,8 @@ public class CarroDAO {
             stmt.setInt(6, carro.getNum_cilindros());
             stmt.setString(7, carro.getCpf_proprietario());
             stmt.setString(8, carro.getCobustivel());
+            stmt.setInt(9, carro.getAno());
+            stmt.setString(10, carro.getCambio());
 
             stmt.executeUpdate();
 
@@ -52,7 +54,7 @@ public class CarroDAO {
         Carro carro = new Carro();
 
         try {
-            stmt = con.prepareStatement("SELECT proprietario,modelo,montadora,motor,num_valvulas,num_cilindros,data_manutencao,proprietario,manutencao_agendada,combustivel FROM carro WHERE placa=?");
+            stmt = con.prepareStatement("SELECT proprietario,modelo,montadora,motor,num_valvulas,num_cilindros,data_manutencao,proprietario,manutencao_agendada,combustivel,ano,cambio FROM carro WHERE placa=?");
             stmt.setString(1, placa);
 
             rs = stmt.executeQuery();
@@ -64,9 +66,21 @@ public class CarroDAO {
                 carro.setMotor(rs.getString("motor"));
                 carro.setNum_valvulas(rs.getInt("num_valvulas"));
                 carro.setNum_cilindros(rs.getInt("num_cilindros"));
-                carro.setData_manutencao(rs.getDate("data_manutencao"));
-                carro.setManutencao_agendada(rs.getDate("manutencao_agendada"));
+                Date manutencaoSql = rs.getDate("data_manutencao");
+                if (manutencaoSql != null) {
+                    carro.setData_manutencao(manutencaoSql.toLocalDate());
+                } else {
+                    carro.setData_manutencao(null);
+                }
+                Date agendaSql = rs.getDate("manutencao_agendada");
+                if (agendaSql != null) {
+                    carro.setManutencao_agendada(agendaSql.toLocalDate());
+                } else {
+                    carro.setManutencao_agendada(null);
+                }
                 carro.setCobustivel(rs.getString("combustivel"));
+                carro.setAno(rs.getInt("ano"));
+                carro.setCambio(rs.getString("cambio"));
 
             }
 
@@ -82,7 +96,7 @@ public class CarroDAO {
     public void update(Carro carro) {
 
         try {
-            stmt = con.prepareStatement("UPDATE carro SET modelo=?,montadora=?,motor=?,num_valvulas=?,num_cilindros=?,combustivel=? WHERE placa=?");
+            stmt = con.prepareStatement("UPDATE carro SET modelo=?,montadora=?,motor=?,num_valvulas=?,num_cilindros=?,combustivel=?,ano=?,cambio=? WHERE placa=?");
             stmt.setString(1, carro.getModelo());
             stmt.setString(2, carro.getMontadora());
             stmt.setString(3, carro.getMotor());
@@ -90,8 +104,10 @@ public class CarroDAO {
             stmt.setInt(5, carro.getNum_cilindros());
             stmt.setString(6, carro.getCobustivel());
             stmt.setString(7, carro.getCobustivel());
-            stmt.setString(8, carro.getPlaca());
-            
+            stmt.setInt(8, carro.getAno());
+            stmt.setString(9, carro.getCambio());
+            stmt.setString(10, carro.getPlaca());
+
             stmt.executeUpdate();
 
         } catch (SQLException ex) {
@@ -164,6 +180,7 @@ public class CarroDAO {
                 carro.setMontadora(rs.getString("montadora"));
                 carro.setModelo(rs.getString("modelo"));
                 carro.setCobustivel(rs.getString("combustivel"));
+                carro.setAno(rs.getInt("ano"));
                 carros.add(carro);
             }
 
@@ -183,7 +200,8 @@ public class CarroDAO {
 
         try {
             stmt = con.prepareStatement("UPDATE carro SET manutencao_agendada=? WHERE placa=?");
-            stmt.setDate(1, (Date) carro.getManutencao_agendada());
+            java.sql.Date datasql = java.sql.Date.valueOf(carro.getManutencao_agendada());
+            stmt.setDate(1, datasql);
             stmt.setString(2, carro.getPlaca());
 
             stmt.executeUpdate();
@@ -202,7 +220,8 @@ public class CarroDAO {
 
         try {
             stmt = con.prepareStatement("UPDATE carro SET manutencao_agendada=? WHERE placa=?");
-            stmt.setDate(1, (Date) carro.getManutencao_agendada());
+            java.sql.Date datasql = java.sql.Date.valueOf(carro.getManutencao_agendada());
+            stmt.setDate(1, datasql);
             stmt.setString(2, carro.getPlaca());
 
             stmt.executeUpdate();
@@ -221,7 +240,8 @@ public class CarroDAO {
 
         try {
             stmt = con.prepareStatement("UPDATE carro SET manutencao_agendada=? WHERE placa=?");
-            stmt.setDate(1, (Date) carro.getManutencao_agendada());
+            java.sql.Date datasql = java.sql.Date.valueOf(carro.getManutencao_agendada());
+            stmt.setDate(1, datasql);
             stmt.setString(2, carro.getPlaca());
 
             stmt.executeUpdate();
@@ -240,8 +260,10 @@ public class CarroDAO {
 
         try {
             stmt = con.prepareStatement("UPDATE carro SET manutencao_agendada=?,data_manutencao=? WHERE placa=?");
-            stmt.setDate(1, (Date) carro.getManutencao_agendada());
-            stmt.setDate(2, (Date) carro.getData_manutencao());
+            java.sql.Date dataManutencao = java.sql.Date.valueOf(carro.getData_manutencao());
+            java.sql.Date dataAgendada = java.sql.Date.valueOf(carro.getManutencao_agendada());
+            stmt.setDate(1, dataManutencao);
+            stmt.setDate(2, dataAgendada);
             stmt.setString(3, carro.getPlaca());
 
             stmt.executeUpdate();
@@ -267,7 +289,7 @@ public class CarroDAO {
             while (rs.next()) {
                 Carro carro = new Carro();
                 carro.setPlaca(rs.getString("placa"));
-                carro.setManutencao_agendada(rs.getDate("manutencao_agendada"));
+                carro.setManutencao_agendada(rs.getDate("manutencao_agendada").toLocalDate());
                 lista.add(carro);
             }
         } catch (SQLException ex) {

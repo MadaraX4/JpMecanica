@@ -1,6 +1,7 @@
 package Model.DAO;
 
 import ConnectionFactory.ConexaoBanco;
+import Model.ListaServicos;
 import Model.OsServicos;
 import Model.Servico;
 import java.util.List;
@@ -21,11 +22,11 @@ public class Os_ServicoDAO {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO os_servicos (os_id,servico_id) VALUES (?,?)");
+            stmt = con.prepareStatement("INSERT INTO os_servicos (os_id,descricao,valor) VALUES (?,?,?)");
             for (OsServicos servico : servicos) {
                 stmt.setInt(1, os_id);
-                stmt.setInt(2, servico.getServico_id());
-                //stmt.addBatch();
+                stmt.setString(2, servico.getDescricao());
+                stmt.setDouble(3, servico.getValor());
                 stmt.executeUpdate();
             }
 
@@ -37,26 +38,25 @@ public class Os_ServicoDAO {
         }
     }
 
-    public List<Servico> lista(int osId) {
+    public List<ListaServicos> lista(int osId) {
 
         Connection con = ConexaoBanco.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        List<Servico> listaServico = new ArrayList<>();
+        List<ListaServicos> servicos = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT os_servicos.servico_id,servicos.nome,servicos.preco FROM os_servicos INNER JOIN servicos"
-                    + " on os_servicos.servico_id = servicos.id WHERE os_servicos.os_id=?");
+            stmt = con.prepareStatement("SELECT descricao,valor FROM os_servicos WHERE os_id=?");
+
             stmt.setInt(1, osId);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Servico servicos = new Servico();
-                servicos.setId(rs.getInt("servico_id"));
-                servicos.setNome(rs.getString("nome"));
-                servicos.setPreco(rs.getDouble("preco"));
-                listaServico.add(servicos);
+                ListaServicos lista = new ListaServicos();
+                lista.setDescricao(rs.getString("descricao"));
+                lista.setValor(rs.getDouble("valor"));
+                servicos.add(lista);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Serviços não encontrados!");
@@ -64,34 +64,46 @@ public class Os_ServicoDAO {
         } finally {
             ConexaoBanco.closeConnection(con, stmt, rs);
         }
-        return listaServico;
+        return servicos;
     }
 
-    public List<Servico> pdfLista(int osId) {
+    public List<ListaServicos> pdfLista(int osId) {
 
         Connection con = ConexaoBanco.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        List<Servico> lista = new ArrayList<>();
+        List<ListaServicos> servicos = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT os_servicos.servico_id,servicos.nome,servicos.preco FROM os_servicos INNER JOIN servicos "
-                    + "ON os_servicos.servico_id = servicos.id WHERE os_servicos.os_id=?");
+            stmt = con.prepareStatement("SELECT descricao,valor FROM os_servicos WHERE os_id=?");
             stmt.setInt(1, osId);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Servico servicos = new Servico();
-                servicos.setNome(rs.getString("nome"));
-                servicos.setPreco(rs.getDouble("preco"));
-                lista.add(servicos);
+                ListaServicos lista = new ListaServicos();
+                lista.setDescricao(rs.getString("descricao"));
+                lista.setValor(rs.getDouble("valor"));
+                servicos.add(lista);
             }
         } catch (SQLException ex) {
             System.out.println("Erro: " + ex);
         } finally {
             ConexaoBanco.closeConnection(con, stmt, rs);
         }
-        return lista;
+        return servicos;
+    }
+
+    public void deletar(int osId) {
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt=con.prepareStatement("DELETE FROM os_servicos WHERE os_id=?");
+            stmt.setInt(1, osId);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("ERRO:" + ex);
+        }
     }
 }

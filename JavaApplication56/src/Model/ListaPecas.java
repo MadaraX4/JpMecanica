@@ -1,19 +1,21 @@
 package Model;
 
 public class ListaPecas {
-    private Pecas peca;
+
+    private String descricao;
     private int quantidade;
+    private Double valor;
 
     public ListaPecas() {
-       
+
     }
 
-    public Pecas getPeca() {
-        return peca;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setPeca(Pecas peca) {
-        this.peca = peca;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public int getQuantidade() {
@@ -23,6 +25,13 @@ public class ListaPecas {
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
-    
-    
+
+    public Double getValor() {
+        return valor;
+    }
+
+    public void setValor(Double valor) {
+        this.valor = valor;
+    }
+
 }

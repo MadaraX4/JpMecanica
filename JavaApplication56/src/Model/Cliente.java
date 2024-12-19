@@ -1,6 +1,7 @@
 
 package Model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -11,7 +12,7 @@ public class Cliente {
    private String cpf;
    private String endereco;
    private String email;
-   private Date dataNascimento;
+   private LocalDate dataNascimento;
    private String telefone;
 
     public Cliente() {
@@ -73,11 +74,11 @@ public class Cliente {
         this.email = email;
     }
 
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

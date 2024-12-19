@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -29,10 +30,11 @@ public class ContaDAO {
 
         try {
             stmt = con.prepareStatement("INSERT INTO conta (referencia,tipo,valor,data_vencimento,estatus) VALUES(?,?,?,?,?)");
+            java.sql.Date datasql = java.sql.Date.valueOf(conta.getData_vencimento());
             stmt.setString(1, conta.getReferencia());
             stmt.setString(2, conta.getTipo());
             stmt.setDouble(3, conta.getValor());
-            stmt.setDate(4, (Date) conta.getData_vencimento());
+            stmt.setDate(4, datasql);
             stmt.setString(5, conta.getEstatus());
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Conta cadastrada com sucesso!");
@@ -76,9 +78,9 @@ public class ContaDAO {
                     conta.setReferencia(rs.getString("referencia"));
                     conta.setTipo(rs.getString("tipo"));
                     conta.setValor(valorFormatado);
-                    conta.setData_vencimento(rs.getDate("data_vencimento"));
+                    conta.setData_vencimento(rs.getDate("data_vencimento").toLocalDate());
                     conta.setEstatus(rs.getString("estatus"));
-                    conta.setData_pagamento(rs.getDate("data_pagamento"));
+                    conta.setData_pagamento(rs.getDate("data_pagamento").toLocalDate());
                     conta.setValorPago(rs.getDouble("valorPago"));
 
                     contas.add(conta);
@@ -94,7 +96,7 @@ public class ContaDAO {
                     conta.setReferencia(rs.getString("referencia"));
                     conta.setTipo(rs.getString("tipo"));
                     conta.setValor(valorFormatado);
-                    conta.setData_vencimento(rs.getDate("data_vencimento"));
+                    conta.setData_vencimento(rs.getDate("data_vencimento").toLocalDate());
                     conta.setEstatus(rs.getString("estatus"));
                     conta.setValorPago(rs.getDouble("valorPago"));
 
@@ -119,8 +121,9 @@ public class ContaDAO {
 
         try {
             stmt = con.prepareStatement("UPDATE conta SET referencia =?,data_vencimento=?,tipo=?,valor=? WHERE id=?");
+            java.sql.Date datasql = java.sql.Date.valueOf(conta.getData_vencimento());
             stmt.setString(1, conta.getReferencia());
-            stmt.setDate(2, (Date) conta.getData_vencimento());
+            stmt.setDate(2, datasql);
             stmt.setString(3, conta.getTipo());
             stmt.setDouble(4, conta.getValor());
             stmt.setInt(5, conta.getId());
@@ -157,7 +160,8 @@ public class ContaDAO {
 
         try {
             stmt = con.prepareStatement("UPDATE conta SET data_pagamento =?,estatus=?,valorPago=? WHERE id=?");
-            stmt.setDate(1, (Date) conta.getData_pagamento());
+            java.sql.Date datasql = java.sql.Date.valueOf(conta.getData_pagamento());
+            stmt.setDate(1, datasql);
             stmt.setString(2, conta.getEstatus());
             stmt.setDouble(3, conta.getValorPago());
             stmt.setInt(4, conta.getId());
@@ -229,7 +233,7 @@ public class ContaDAO {
                 Conta conta = new Conta();
                 conta.setReferencia(rs.getString("referencia"));
                 conta.setValor(rs.getDouble("valor"));
-                conta.setData_vencimento(rs.getDate("data_vencimento"));
+                conta.setData_vencimento(rs.getDate("data_vencimento").toLocalDate());
                 Date data = rs.getDate("data_vencimento");
                 
               
@@ -239,14 +243,16 @@ public class ContaDAO {
 
 
                     if (vencimento.isAfter(dataAtual) && vencimento.isBefore(dataAtual.plusDays(5))) {
-                        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-                        String aviso = "A Conta " + conta.getReferencia() + " irá se Vencer em Alguns Dias Com Valor de R$" + conta.getValor() + " Vencimento " + formato.format(conta.getData_vencimento());
+                       DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                        DecimalFormat formatovalor = new DecimalFormat("#,##0.00");
+                        String aviso = "A Conta " + conta.getReferencia() + " irá se Vencer em Alguns Dias Com Valor de R$" + formatovalor.format(conta.getValor()) + " Vencimento " + formato.format(conta.getData_vencimento());
                         String espaco = "----------------------------------------------------------------*----------------------------------------------------------------";
                         temConta = true;
                         lista.add(aviso + "\n" + espaco);
 
                     } else if (vencimento.equals(dataAtual)) {
-                        String aviso = "A Conta " + conta.getReferencia() + " Venceu Hoje Com Valor de R$" + conta.getValor();
+                        DecimalFormat formatovalor = new DecimalFormat("#,##0.00");
+                        String aviso = "A Conta " + conta.getReferencia() + " Venceu Hoje Com Valor de R$" + formatovalor.format(conta.getValor());
                         String espaco = "----------------------------------------------------------------*----------------------------------------------------------------";
                         temConta = true;
                         lista.add(aviso + "\n" + espaco);

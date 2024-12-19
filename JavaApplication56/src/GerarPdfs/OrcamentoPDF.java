@@ -1,9 +1,11 @@
 package GerarPdfs;
 
+import static GerarPdfs.OsPDF.openFile;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
@@ -11,7 +13,15 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Desktop;
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.DecimalFormat;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 public class OrcamentoPDF {
@@ -20,40 +30,58 @@ public class OrcamentoPDF {
 
         Document documento = new Document();
 
-        documento.setMargins(40f, 40f, 40f, 40f);
+        documento.setMargins(40f, 40f, 5f, 5f);
+
+        String cliente = nomeCliente.replaceAll(" ", "_");
 
         try {
-            PdfWriter.getInstance(documento, new FileOutputStream("Orçamento.pdf"));
+
+           String publicUserHome = "C:\\Users\\Public\\Documents";
+            Path documentosPath = Paths.get(publicUserHome, "Orçamentos");
+
+            // Cria a pasta "Orçamentos" se ela não existir
+            if (!Files.exists(documentosPath)) {
+                Files.createDirectories(documentosPath);
+            }
+
+            // Nome do arquivo PDF
+            // Substitua pelo nome do cliente
+            String fileName = "Orçamento_" + cliente + ".pdf";
+            //String caminho = System.getProperty("user.home") + "\\Documents\\Orçamentos\\" + fileName; // Caminho completo do arquivo
+            Path pdfPath = documentosPath.resolve(fileName);
+
+            // Criação do PDF usando iText
+            PdfWriter.getInstance(documento, new FileOutputStream(pdfPath.toFile()));
 
             //abrindo documento
             documento.open();
 
-            BaseFont fonteTexto = BaseFont.createFont("src/Fontes/ARIAL.TTF", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-            Font arial = new Font(fonteTexto);
-
-            BaseFont fonteItalico = BaseFont.createFont("src/Fontes/ARIALI.TTF", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-            Font arialItalico = new Font(fonteItalico);
-
-            Paragraph orcamento = new Paragraph(new Phrase(30, "Orçamento", arial));
+//            BaseFont fonteTexto = BaseFont.createFont("src/Fontes/ARIAL.TTF", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+//            Font arial = new Font(fonteTexto);
+//
+//            BaseFont fonteItalico = BaseFont.createFont("src/Fontes/ARIALI.TTF", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+//            Font arialItalico = new Font(fonteItalico);
+            Font fontePadrao = FontFactory.getFont(FontFactory.TIMES_BOLD,30,Font.BOLD);
+            Paragraph orcamento = new Paragraph(new Phrase(30, "Orçamento",fontePadrao));
             orcamento.setAlignment(Element.ALIGN_CENTER);
 
-            BaseFont fonteTitulo = BaseFont.createFont("src/Fontes/Simply Rounded Bold.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-            Font font = new Font(fonteTitulo, 25f);
+//            BaseFont fonteTitulo = BaseFont.createFont("src/Fontes/Simply Rounded Bold.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+//            Font font = new Font(fonteTitulo, 25f);
+//
+//            BaseFont fonteMarcador = BaseFont.createFont("src/Fontes/ARIALBD.TTF", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+//            Font arialBold = new Font(fonteMarcador);
 
-            BaseFont fonteMarcador = BaseFont.createFont("src/Fontes/ARIALBD.TTF", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-            Font arialBold = new Font(fonteMarcador);
-
-            Paragraph tituloDaOs = new Paragraph(new Phrase(30f, "JP Mecânica e Injeção", font));
+            Paragraph tituloDaOs = new Paragraph(new Phrase(30f, "JP Mecânica e Injeção"));
 
             tituloDaOs.setAlignment(Element.ALIGN_RIGHT);
 
-            Paragraph linhaEmBranco = new Paragraph(new Phrase(15f, "                                                            "));
+            Paragraph linhaEmBranco = new Paragraph(new Phrase(1f, "                                                            "));
 
             PdfPTable imagemSubTitulo = new PdfPTable(2);
             imagemSubTitulo.setWidthPercentage(100);
             imagemSubTitulo.setWidths(new float[]{35, 65});
 
-            Image imgLogo = Image.getInstance("src/img/LOGO-removebg-preview.png");
+            Image imgLogo = Image.getInstance(getClass().getResource("/resources/img/LOGO-removebg-preview.png"));
             imgLogo.scaleToFit(150, 150);
             PdfPCell cellImagem = new PdfPCell(imgLogo);
             cellImagem.setBorder(PdfPCell.NO_BORDER);
@@ -75,35 +103,35 @@ public class OrcamentoPDF {
             imagemSubTitulo.addCell(cellSubtitulo);
 
             Paragraph aviso = new Paragraph();
-            aviso.add(new Chunk("Este Orçamento é valido até 7 dias após a data " + data + " " + hora, arialItalico));
+            aviso.add(new Chunk("Este Orçamento é valido até 7 dias após a data " + data + " " + hora));
 
             Paragraph nome = new Paragraph();
-            nome.add(new Chunk("NOME: ", arialBold));
-            nome.add(new Chunk(nomeCliente, arial));
+            nome.add(new Chunk("NOME: "));
+            nome.add(new Chunk(nomeCliente));
 
             Paragraph telefone = new Paragraph();
-            telefone.add(new Chunk("TELEFONE: ", arialBold));
-            telefone.add(new Chunk(telefoneCliente, arial));
+            telefone.add(new Chunk("TELEFONE: "));
+            telefone.add(new Chunk(telefoneCliente));
 
             Paragraph carro = new Paragraph();
-            carro.add(new Chunk("CARRO: ", arialBold));
-            carro.add(new Chunk(nomeCarro, arial));
+            carro.add(new Chunk("CARRO: "));
+            carro.add(new Chunk(nomeCarro));
             carro.add(new Chunk("        "));
-            carro.add(new Chunk("MOTOR: ", arialBold));
-            carro.add(new Chunk(motor, arial));
+            carro.add(new Chunk("MOTOR: "));
+            carro.add(new Chunk(motor));
 
             Paragraph anoCombustivel = new Paragraph();
-            anoCombustivel.add(new Chunk("ANO: ", arialBold));
-            anoCombustivel.add(new Chunk(ano, arial));
+            anoCombustivel.add(new Chunk("ANO: "));
+            anoCombustivel.add(new Chunk(ano));
             anoCombustivel.add(new Chunk("        "));
-            anoCombustivel.add(new Chunk("COMBUSTIVEL: ", arialBold));
-            anoCombustivel.add(new Chunk(combustivel, arial));
+            anoCombustivel.add(new Chunk("COMBUSTIVEL: "));
+            anoCombustivel.add(new Chunk(combustivel));
 
             Paragraph paragrafoChassi = new Paragraph();
-            paragrafoChassi.add(new Chunk("CHASSI: ", arialBold));
-            paragrafoChassi.add(new Chunk(chassi, arial));
+            paragrafoChassi.add(new Chunk("CHASSI: "));
+            paragrafoChassi.add(new Chunk(chassi));
 
-            Paragraph solicitacao = new Paragraph(30, "SOLIÇITAÇÃO DE ORÇAMENTO", arial);
+            Paragraph solicitacao = new Paragraph(30, "SOLIÇITAÇÃO DE ORÇAMENTO");
             solicitacao.setAlignment(Element.ALIGN_CENTER);
 
             //tabela de peças usadas
@@ -136,7 +164,8 @@ public class OrcamentoPDF {
                 }
             }
 
-            Paragraph valorTotal = new Paragraph(new Phrase(25, "TOTAL= R$ " + total, arialBold));
+            DecimalFormat formatoValor = new DecimalFormat("#,##0.00");
+            Paragraph valorTotal = new Paragraph(new Phrase(25, "TOTAL= R$ " + formatoValor.format(total)));
 
             //adicionando ao documento
             documento.add(orcamento);
@@ -160,13 +189,29 @@ public class OrcamentoPDF {
             documento.add(linhaEmBranco);
             documento.add(valorTotal);
             //abrindo documento windows
-            Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", "start", "Orçamento.pdf"});
-
+          openFile(pdfPath.toFile());
             //fechando edição
             documento.close();
         } catch (Exception e) {
             System.out.println(e);
         }
 
+    }
+    
+      public static void openFile(File file) {
+        if (Desktop.isDesktopSupported()) {
+            try {
+                Desktop desktop = Desktop.getDesktop();
+                if (file.exists()) {
+                    desktop.open(file);  // Abre o arquivo com o programa padrão associado
+                } else {
+                    System.out.println("Erro: Arquivo não encontrado!");
+                }
+            } catch (IOException e) {
+                System.out.println("Erro ao tentar abrir o arquivo: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Abertura de arquivos não é suportada no sistema.");
+        }
     }
 }

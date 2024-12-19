@@ -4,8 +4,8 @@ import Model.DAO.OsDAO;
 import Model.DAO.Os_PecasDAO;
 import Model.DAO.Os_ServicoDAO;
 import Model.ListaPecas;
+import Model.ListaServicos;
 import Model.Os;
-import Model.Servico;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -17,20 +17,21 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.PdfFormField;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.draw.DrawInterface;
+import java.awt.Desktop;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.DecimalFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.concurrent.Phaser;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class OsPDF {
 
@@ -39,29 +40,50 @@ public class OsPDF {
         Document documento = new Document(PageSize.A4);
 
         //margen do documento
-        documento.setMargins(40f, 40f, 40f, 40f);
+        documento.setMargins(40f, 40f, 5f, 5f);
 
         try {
-            PdfWriter.getInstance(documento, new FileOutputStream("Os.pdf"));
+              //Bucando os
+            OsDAO dao = new OsDAO();
+            Os os = dao.Select(idOs);
+            
+            String publicUserHome = "C:\\Users\\Public\\Documents";
+            Path documentosPath = Paths.get(publicUserHome, "Os");
+
+            // Cria a pasta "Orçamentos" se ela não existir
+            if (!Files.exists(documentosPath)) {
+                Files.createDirectories(documentosPath);
+            }
+
+            // Nome do arquivo PDF
+            // Substitua pelo nome do cliente
+            String fileName = "Os" + os.getClienteNome() +".pdf";
+            //String caminho = System.getProperty("user.home") + "\\Documents\\Os\\" + fileName; // Caminho completo do arquivo
+            Path pdfPath = documentosPath.resolve(fileName);
+
+            // Criação do PDF usando iText
+            PdfWriter.getInstance(documento, new FileOutputStream(pdfPath.toFile()));
 
             //abrindo edição
             documento.open();
 
             //Adicionando fonte ao projeto
-            BaseFont fonteTitulo = BaseFont.createFont("src/Fontes/Simply Rounded Bold.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-            Font font = new Font(fonteTitulo, 25f);
+//
+//            BaseFont fonteTitulo = BaseFont.createFont(getClass().getResource("/resources/Fontes/Simply Rounded Bold.ttf").getPath(), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+//            Font font = new Font(fonteTitulo, 25f);
 
-            Paragraph tituloDaOs = new Paragraph(new Phrase(30f, "JP Mecânica e Injeção", font));
+            Font fontePadrao = FontFactory.getFont(FontFactory.TIMES_BOLD,30,Font.BOLD);
+            Paragraph tituloDaOs = new Paragraph(30f, "JP Mecânica e Injeção",fontePadrao);
 
             tituloDaOs.setAlignment(Element.ALIGN_RIGHT);
 
-            Paragraph linhaEmBranco = new Paragraph(new Phrase(15f, "                                                            "));
+            Paragraph linhaEmBranco = new Paragraph(new Phrase(1f, "                                                            "));
 
             PdfPTable imagemSubTitulo = new PdfPTable(2);
             imagemSubTitulo.setWidthPercentage(100);
             imagemSubTitulo.setWidths(new float[]{35, 65});
 
-            Image imgLogo = Image.getInstance("src/img/LOGO-removebg-preview.png");
+            Image imgLogo = Image.getInstance(getClass().getResource("/resources/img/LOGO-removebg-preview.png"));
             imgLogo.scaleToFit(150, 150);
             PdfPCell cellImagem = new PdfPCell(imgLogo);
             cellImagem.setBorder(PdfPCell.NO_BORDER);
@@ -83,10 +105,10 @@ public class OsPDF {
             imagemSubTitulo.addCell(cellSubtitulo);
 
             //CONTATOS
-            Image whatsappIcon = Image.getInstance("src/img/icons8-whatsapp-16.png");
+            Image whatsappIcon = Image.getInstance(getClass().getResource("/resources/img/icons8-whatsapp-16.png"));
             whatsappIcon.scaleToFit(16, 16);
 
-            Image emailIcon = Image.getInstance("src/img/icons8-nova-mensagem-16.png");
+            Image emailIcon = Image.getInstance(getClass().getResource("/resources/img/icons8-nova-mensagem-16.png"));
             emailIcon.scaleToFit(16, 16);
 
             Paragraph contatos = new Paragraph();
@@ -100,29 +122,28 @@ public class OsPDF {
             contatos.add("joaopazdesousa@gmail.com");
             contatos.setAlignment(Element.ALIGN_CENTER);
 
-            //Bucando os
-            OsDAO dao = new OsDAO();
-            Os os = dao.Select(idOs);
+          
 
             //separador
             Paragraph separador = new Paragraph("_____________________________________________________________________________");
 
             //colocando dados da os
-            BaseFont fonteMarcador = BaseFont.createFont("src/Fontes/ARIALBD.TTF", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-            Font arialBold = new Font(fonteMarcador);
 
-            BaseFont fonteTexto = BaseFont.createFont("src/Fontes/ARIAL.TTF", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-            Font arial = new Font(fonteTexto);
+//            BaseFont fonteMarcador = BaseFont.createFont(getClass().getResource("/resources/Fontes/ARIALBD.TTF").getPath(), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+//            Font arialBold = new Font(fonteMarcador);
+//
+//            BaseFont fonteTexto = BaseFont.createFont(getClass().getResource("/resources/Fontes/ARIAL.TTF").getPath(), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+//            Font arial = new Font(fonteTexto);
 
             //Converter data para texto
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY");
+            DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/YYYY");
 
             Paragraph clienteEdata = new Paragraph();
-            Chunk marcadorCliente = new Chunk("Cliente : ", arialBold);
-            Chunk nomeCliente = new Chunk(os.getClienteNome(), arial);
+            Chunk marcadorCliente = new Chunk("Cliente : ");
+            Chunk nomeCliente = new Chunk(os.getClienteNome());
             Chunk espaco = new Chunk("                  ");
-            Chunk marcadorData = new Chunk("Data da OS: ", arialBold);
-            Chunk dataOs = new Chunk(format.format(os.getDataOrdem()), arial);
+            Chunk marcadorData = new Chunk("Data da OS: ");
+            Chunk dataOs = new Chunk(formatoData.format(os.getDataOrdem()));
             clienteEdata.add(marcadorCliente);
             clienteEdata.add(nomeCliente);
             clienteEdata.add(espaco);
@@ -130,19 +151,23 @@ public class OsPDF {
             clienteEdata.add(dataOs);
 
             Paragraph telefone = new Paragraph();
-            Chunk marcadorTelefone = new Chunk("Telefone: ", arialBold);
-            Chunk textoTelefone = new Chunk(os.getTelefone(), arial);
+            Chunk marcadorTelefone = new Chunk("Telefone: ");
+            Chunk textoTelefone = new Chunk(os.getTelefone());
             telefone.add(marcadorTelefone);
             telefone.add(textoTelefone);
 
             Paragraph carro = new Paragraph();
-            Chunk marcadorPlaca = new Chunk("Placa do Véiculo: ", arialBold);
-            Chunk placa = new Chunk(os.getPlacaVeiculo(), arial);
+            Chunk marcadorPlaca = new Chunk("Placa do Véiculo: ");
+            Chunk placa = new Chunk(os.getPlacaVeiculo());
             Chunk espaco2 = new Chunk("        ");
-            Chunk marcadorModelo = new Chunk("Modelo: ", arialBold);
-            Chunk modelo = new Chunk(os.getModelo(), arial);
-            Chunk marcadorCombustivel = new Chunk("Combustivel: ", arialBold);
-            Chunk combustivel = new Chunk(os.getCombustivel(), arial);
+            Chunk marcadorModelo = new Chunk("Modelo: ");
+            Chunk modelo = new Chunk(os.getModelo());
+            Chunk marcadorCombustivel = new Chunk("Combustivel: ");
+            Chunk combustivel = new Chunk(os.getCombustivel());
+            Chunk marcadorAno = new Chunk("ANO:");
+            Chunk ano = new Chunk(String.valueOf(os.getAno()));
+            Chunk marcadorKm = new Chunk("KM:");
+            Chunk km = new Chunk(String.valueOf(os.getKm()));
             carro.add(marcadorPlaca);
             carro.add(placa);
             carro.add(espaco2);
@@ -151,17 +176,23 @@ public class OsPDF {
             carro.add(espaco2);
             carro.add(marcadorCombustivel);
             carro.add(combustivel);
+            carro.add(espaco2);
+            carro.add(marcadorAno);
+            carro.add(ano);
+            carro.add(espaco2);
+            carro.add(marcadorKm);
+            carro.add(km);
 
             Paragraph tecnico = new Paragraph();
-            Chunk marcadortecnico = new Chunk("Tecnico: ", arialBold);
-            Chunk textoTecnico = new Chunk(os.getTecnico(), arial);
+            Chunk marcadortecnico = new Chunk("Tecnico: ");
+            Chunk textoTecnico = new Chunk(os.getTecnico());
             tecnico.add(marcadortecnico);
             tecnico.add(textoTecnico);
 
-            Paragraph id = new Paragraph(new Phrase(25f, "ID da OS = " + os.getId(), arialBold));
+            Paragraph id = new Paragraph(new Phrase(25f, "ID da OS = " + os.getId()));
 
             //tabela de peças a serem usadas
-            Paragraph tituloPecas = new Paragraph(new Phrase(20, "Peças a Serem Usadas", arialBold));
+            Paragraph tituloPecas = new Paragraph(new Phrase(20, "Peças a Serem Usadas"));
             tituloPecas.setAlignment(Element.ALIGN_CENTER);
 
             PdfPTable tabelaPecas = new PdfPTable(3);
@@ -169,11 +200,11 @@ public class OsPDF {
             tabelaPecas.setWidths(new float[]{60, 20, 20});
 
             //celulas da tabela pecas
-            Paragraph nomePecas = new Paragraph("NOME", arialBold);
+            Paragraph nomePecas = new Paragraph("NOME");
             nomePecas.setAlignment(Element.ALIGN_CENTER);
-            Paragraph quantidadePecas = new Paragraph("QUANTIDADE", arialBold);
+            Paragraph quantidadePecas = new Paragraph("QUANTIDADE");
             quantidadePecas.setAlignment(Element.ALIGN_CENTER);
-            Paragraph precoPecas = new Paragraph("PREÇO", arialBold);
+            Paragraph precoPecas = new Paragraph("PREÇO");
             precoPecas.setAlignment(Element.ALIGN_CENTER);
 
             PdfPCell celulaNome = new PdfPCell(nomePecas);
@@ -196,7 +227,8 @@ public class OsPDF {
             List<ListaPecas> lista = pecasDao.pdfOs_pecas(idOs);
 
             for (ListaPecas itens : lista) {
-                PdfPCell nome = new PdfPCell(new Paragraph(itens.getPeca().getNome()));
+                DecimalFormat formatoValor = new DecimalFormat("#,##0.00");
+                PdfPCell nome = new PdfPCell(new Paragraph(itens.getDescricao()));
                 nome.setBorderWidth(2);
                 nome.setBorderColor(BaseColor.YELLOW);
                 tabelaPecas.addCell(nome);
@@ -204,14 +236,14 @@ public class OsPDF {
                 quantidade.setBorderWidth(2);
                 quantidade.setBorderColor(BaseColor.YELLOW);
                 tabelaPecas.addCell(quantidade);
-                PdfPCell preco = new PdfPCell(new Paragraph(String.valueOf(itens.getQuantidade() * itens.getPeca().getPreco_venda())));
+                PdfPCell preco = new PdfPCell(new Paragraph(String.valueOf(formatoValor.format(itens.getValor()))));
                 preco.setBorderWidth(2);
                 preco.setBorderColor(BaseColor.YELLOW);
                 tabelaPecas.addCell(preco);
             }
 
             //adicionando servicos
-            Paragraph tituloServicos = new Paragraph(20, "Serviços a Serem Efetuados", arialBold);
+            Paragraph tituloServicos = new Paragraph(20, "Serviços a Serem Efetuados");
             tituloServicos.setAlignment(Element.ALIGN_CENTER);
 
             PdfPTable tabelaServicos = new PdfPTable(2);
@@ -219,9 +251,9 @@ public class OsPDF {
             tabelaServicos.setWidths(new float[]{60, 20});
 
             //celas de serviços
-            Paragraph nomeServicos = new Paragraph("NOME", arialBold);
+            Paragraph nomeServicos = new Paragraph("NOME");
             nomeServicos.setAlignment(Element.ALIGN_CENTER);
-            Paragraph valorServicos = new Paragraph("VALOR", arialBold);
+            Paragraph valorServicos = new Paragraph("VALOR");
             valorServicos.setAlignment(Element.ALIGN_CENTER);
 
             PdfPCell celulaNomeServico = new PdfPCell(nomeServicos);
@@ -236,30 +268,32 @@ public class OsPDF {
             tabelaServicos.addCell(celulaValorServico);
 
             Os_ServicoDAO servicoDao = new Os_ServicoDAO();
-            List<Servico> listaServico = servicoDao.pdfLista(idOs);
+            List<ListaServicos> listaServico = servicoDao.pdfLista(idOs);
 
-            for (Servico item : listaServico) {
-                PdfPCell celulaNomeS = new PdfPCell(new Paragraph(item.getNome()));
+            for (ListaServicos item : listaServico) {
+                DecimalFormat formatoValor = new DecimalFormat("#,##0.00");
+                PdfPCell celulaNomeS = new PdfPCell(new Paragraph(item.getDescricao()));
                 celulaNomeS.setBorderWidth(2);
                 celulaNomeS.setBorderColor(new BaseColor(100, 149, 237));
                 tabelaServicos.addCell(celulaNomeS);
-                PdfPCell celulaValorS = new PdfPCell(new Paragraph(String.valueOf(item.getPreco())));
+                PdfPCell celulaValorS = new PdfPCell(new Paragraph(String.valueOf(formatoValor.format(item.getValor()))));
                 celulaValorS.setBorderWidth(2);
                 celulaValorS.setBorderColor(new BaseColor(100, 149, 237));
                 tabelaServicos.addCell(celulaValorS);
             }
 
+            DecimalFormat formatoValor = new DecimalFormat("#,##0.00");
             Paragraph total = new Paragraph(25);
-            Chunk marcadorTotal = new Chunk("TOTAL: ", arialBold);
-            Chunk valorTotal = new Chunk(String.valueOf(os.getValor()), arial);
+            Chunk marcadorTotal = new Chunk("TOTAL: ");
+            Chunk valorTotal = new Chunk(String.valueOf(formatoValor.format(os.getValor())));
             total.add(marcadorTotal);
             total.add(valorTotal);
 
             //metodo de pagamento
-            Paragraph pagamento = new Paragraph(new Phrase(25, "FORMA DE PAGAMENTO:__________________________", arialBold));
+            Paragraph pagamento = new Paragraph(new Phrase(25, "FORMA DE PAGAMENTO:__________________________"));
 
-            Paragraph assinaturaCliente = new Paragraph(new Phrase(20, "Cliente:____________________________________________________", arial));
-            Paragraph assinaturaJpMecanica = new Paragraph(new Phrase(20, "JP MECÂNICA:____________________________________________________", arial));
+            Paragraph assinaturaCliente = new Paragraph(20, "Cliente:____________________________________________________");
+            Paragraph assinaturaJpMecanica = new Paragraph(20, "JP MECÂNICA:____________________________________________________");
 
             //adicionar item ao documento
             documento.add(id);
@@ -295,20 +329,39 @@ public class OsPDF {
             documento.add(assinaturaJpMecanica);
 
             //abrindo documento windows
-            Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", "start", "Os.pdf"});
+            openFile(pdfPath.toFile());
             //abrindo no linux
             //Runtime.getRuntime().exec(new String[]{"xdg-open", "Os.pdf"});
-
             //fechando edição
             documento.close();
 
         } catch (FileNotFoundException ex) {
             System.out.println(ex);
+            JOptionPane.showMessageDialog(null, ex);
         } catch (DocumentException ex) {
             System.out.println(ex);
+            JOptionPane.showMessageDialog(null, ex);
         } catch (IOException ex) {
             System.out.println(ex);
+            JOptionPane.showMessageDialog(null, ex);
         }
 
+    }
+
+    public static void openFile(File file) {
+        if (Desktop.isDesktopSupported()) {
+            try {
+                Desktop desktop = Desktop.getDesktop();
+                if (file.exists()) {
+                    desktop.open(file);  // Abre o arquivo com o programa padrão associado
+                } else {
+                    System.out.println("Erro: Arquivo não encontrado!");
+                }
+            } catch (IOException e) {
+                System.out.println("Erro ao tentar abrir o arquivo: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Abertura de arquivos não é suportada no sistema.");
+        }
     }
 }

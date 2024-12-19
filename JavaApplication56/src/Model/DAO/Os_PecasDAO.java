@@ -26,12 +26,13 @@ public class Os_PecasDAO {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO os_pecas (os_id,id_pecas,quantidade) VALUES (?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO os_pecas (os_id,descricao,quantidade,valor) VALUES (?,?,?,?)");
 
-            for (OsPecas peca : pecasOs) {
+            for (OsPecas pecas : pecasOs) {
                 stmt.setInt(1, os_id);
-                stmt.setInt(2, peca.getId_pecas());
-                stmt.setInt(3, peca.getQuantidade());
+                stmt.setString(2, pecas.getDescricao());
+                stmt.setInt(3, pecas.getQuantidade());
+                stmt.setDouble(4, pecas.getValor());
                 stmt.executeUpdate();
             }
 
@@ -51,19 +52,16 @@ public class Os_PecasDAO {
         List<ListaPecas> listaPecas = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT os_pecas.id_pecas,pecas.nome,pecas.preco_venda,os_pecas.quantidade FROM os_pecas "
-                    + "INNER JOIN pecas ON os_pecas.id_pecas=pecas.id WHERE os_pecas.os_id=?");
+            stmt = con.prepareStatement("SELECT os_pecas.descricao,os_pecas.quantidade,os_pecas.valor FROM os_pecas WHERE os_id=?");
+
             stmt.setInt(1, osId);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Pecas peca = new Pecas();
                 ListaPecas lista = new ListaPecas();
-                peca.setId(rs.getInt("id_pecas"));
-                peca.setNome(rs.getString("nome"));
-                peca.setPreco_venda(rs.getDouble("preco_venda"));
-                lista.setPeca(peca);
+                lista.setDescricao(rs.getString("descricao"));
                 lista.setQuantidade(rs.getInt("quantidade"));
+                lista.setValor(rs.getDouble("valor"));
                 listaPecas.add(lista);
             }
 
@@ -80,29 +78,40 @@ public class Os_PecasDAO {
         Connection con = ConexaoBanco.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        
-         List<ListaPecas> listaPecas = new ArrayList<>();
+
+        List<ListaPecas> listaPecas = new ArrayList<>();
         try {
-            stmt=con.prepareStatement("SELECT pecas.nome,pecas.preco_venda,os_pecas.quantidade FROM os_pecas "
-                    + "INNER JOIN pecas ON os_pecas.id_pecas = pecas.id WHERE os_pecas.os_id=?");
+            stmt = con.prepareStatement("SELECT os_pecas.descricao,os_pecas.quantidade,os_pecas.valor FROM os_pecas WHERE os_id=?");
             stmt.setInt(1, osId);
-            rs=stmt.executeQuery();
-            
-            while (rs.next()) {                
-                Pecas pecas = new Pecas();
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
                 ListaPecas lista = new ListaPecas();
-                pecas.setNome(rs.getString("nome"));
-                pecas.setPreco_venda(rs.getDouble("preco_venda"));
-                lista.setPeca(pecas);
+                lista.setDescricao(rs.getString("descricao"));
                 lista.setQuantidade(rs.getInt("quantidade"));
+                lista.setValor(rs.getDouble("valor"));
                 listaPecas.add(lista);
             }
         } catch (SQLException ex) {
             System.out.println("erro: " + ex);
-        }finally{
-        ConexaoBanco.closeConnection(con, stmt, rs);
+        } finally {
+            ConexaoBanco.closeConnection(con, stmt, rs);
         }
-        
+
         return listaPecas;
+    }
+
+    public void deletar(int osId) {
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = con.prepareStatement("DELETE FROM os_pecas WHERE os_id=?");
+            stmt.setInt(1, osId);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("ERRO:" + ex);
+        }
+
     }
 }

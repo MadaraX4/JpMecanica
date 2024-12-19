@@ -14,6 +14,8 @@ import javax.swing.text.AbstractDocument;
 import Estilo.BotaoRedondo;
 import java.awt.AWTEvent;
 import java.awt.Toolkit;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -77,13 +79,14 @@ public class CadastroMecanico extends javax.swing.JFrame {
         txtDataNascimento.setValue(null);
     }
 
-    public Date dataMysql(String data) {
-        String[] dataFormatada = txtDataNascimento.getText().split("-");
-
-        Date dataMysql = new Date(Integer.parseInt(dataFormatada[0]), Integer.parseInt(dataFormatada[1]), Integer.parseInt(dataFormatada[2]));
-
-        return dataMysql;
-    }
+     public LocalDate dataMysql(String data) {
+        
+    // Define o formato esperado: ano-mês-dia
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    
+    // Converte a string no formato "dd-MM-yyyy" para LocalDate
+    return LocalDate.parse(data, formatter);
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -198,12 +201,11 @@ public class CadastroMecanico extends javax.swing.JFrame {
         jLabel9.setText("Data de Nascimento");
 
         try {
-            txtDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-####")));
+            txtDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
         txtDataNascimento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtDataNascimento.setText("  -  -");
         txtDataNascimento.setToolTipText("");
         txtDataNascimento.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
@@ -397,7 +399,7 @@ public class CadastroMecanico extends javax.swing.JFrame {
         mecanico.setNome(txtNome.getText());
         mecanico.setReferencia(txtReferencia.getText());
         mecanico.setRg(txtRg.getText());
-        mecanico.setData_nascimento(dataMysql(txtDataNascimento.getText()));
+        mecanico.setData_nascimento(dataMysql(txtDataNascimento.getText().replace("/", "-")));
         mecanico.setTelefone(txtTelefone.getText());
 
         dao.create(mecanico);
@@ -415,11 +417,11 @@ public class CadastroMecanico extends javax.swing.JFrame {
         try {
             Mecanico mecanico = dao.select(cpf);
 
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-            String dataFormatada = sdf.format(mecanico.getData_nascimento());
+            DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+           
 
             txtCategoria.setText(mecanico.getCategoria());
-            txtDataNascimento.setText(dataFormatada);
+            txtDataNascimento.setText(formater.format(mecanico.getData_nascimento()));
             txtEmail.setText(mecanico.getEmail());
             txtEndereco.setText(mecanico.getEndereco());
             txtNome.setText(mecanico.getNome());
@@ -447,7 +449,7 @@ public class CadastroMecanico extends javax.swing.JFrame {
 
         mecanico.setTelefone(txtTelefone.getText());
         mecanico.setCpf(txtCpf.getText());
-        mecanico.setData_nascimento(dataMysql(txtDataNascimento.getText()));
+        mecanico.setData_nascimento(dataMysql(txtDataNascimento.getText().replace("/", "-")));
         mecanico.setEmail(txtEmail.getText());
         mecanico.setEndereco(txtEndereco.getText());
         mecanico.setNome(txtNome.getText());

@@ -6,6 +6,7 @@ package View;
 
 import ConnectionFactory.ConexaoBanco;
 import Model.Atualizador;
+import Model.DAO.CaixaDAO;
 import Model.DAO.ContaDAO;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Toolkit;
@@ -26,20 +27,23 @@ import javax.swing.Timer;
  */
 public class Loading extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Loading
-     */
+    CaixaDAO novoCaixa = new CaixaDAO();
+    boolean verificaCaixa = novoCaixa.verificaCaixa();
+    Double valor = novoCaixa.select();
+
     public Loading() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
         Atualizador atualizador = new Atualizador();
-        atualizador.verificaAtualizacao();
+        //atualizador.verificaAtualizacao();
         statusConexao();
         Timer timer = new Timer(1000, e -> dataAtual());
         timer.start();
         dataAtual();
 
     }
+    
+    
 
     private void statusConexao() {
         try {
@@ -196,7 +200,7 @@ public class Loading extends javax.swing.JFrame {
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (Exception ex) {
-            System.err.println("Failed to initialize LaF");
+            System.err.println("Failed to initialize LaF" + ex);
         }
 
         Loading loading = new Loading();
@@ -209,6 +213,18 @@ public class Loading extends javax.swing.JFrame {
                 loading.porcento.setText(Integer.toString(i) + "%");
             }
             loading.dispose();
+
+//            if (verificaCaixa == false && valor != 0) {
+//                String novoValor = JOptionPane.showInputDialog(null, "Informe Seu Caixa Atual!\n não use virgula ou ponto para separa os numeros");
+//                if (novoValor.matches("-?\\d+(\\.\\d+)?")) {
+//                    Double caixa = Double.parseDouble(novoValor);
+//                    novoCaixa.create(caixa);
+//                } else {
+//                    String valor2 = JOptionPane.showInputDialog("DIGITE APENAS NÚMEROS!");
+//                    Double caixa = Double.parseDouble(valor2);
+//                    novoCaixa.create(caixa);
+//                }
+//            }
 
             TelaNotificacoes notificacoes = new TelaNotificacoes();
             notificacoes.setVisible(true);

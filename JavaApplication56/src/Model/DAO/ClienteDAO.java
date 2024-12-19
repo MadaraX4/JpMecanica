@@ -25,11 +25,12 @@ public class ClienteDAO {
 
         try {
             stmt = con.prepareStatement("INSERT INTO clientes (nome,rg,cpf,email,dataNascimento,telefone,endereco)VALUES(?,?,?,?,?,?,?)");
+            java.sql.Date dataMysql = java.sql.Date.valueOf(cliente.getDataNascimento());
             stmt.setString(1, cliente.getNome());
             stmt.setString(2, cliente.getRg());
             stmt.setString(3, cliente.getCpf());
             stmt.setString(4, cliente.getEmail());
-            stmt.setDate(5, (Date) cliente.getDataNascimento());
+            stmt.setDate(5, dataMysql);
             stmt.setString(6, cliente.getTelefone());
             stmt.setString(7, cliente.getEndereco());
 
@@ -62,7 +63,7 @@ public class ClienteDAO {
                 clienteBusca.setNome(rs.getString("nome"));
                 clienteBusca.setRg(rs.getString("rg"));
                 clienteBusca.setEmail(rs.getString("email"));
-                clienteBusca.setDataNascimento(rs.getDate("dataNascimento"));
+                clienteBusca.setDataNascimento(rs.getDate("dataNascimento").toLocalDate());
                 clienteBusca.setTelefone(rs.getString("telefone"));
                 clienteBusca.setEndereco(rs.getString("endereco"));
 
@@ -99,8 +100,12 @@ public class ClienteDAO {
                 listaCarro.setPlaca(rs.getString("placa"));
                 listaCarro.setModelo(rs.getString("modelo"));
                 listaCarro.setMontadora(rs.getString("montadora"));
-                listaCarro.setData_manutencao(rs.getDate("data_manutencao"));
-
+                if(rs.getDate("data_manutencao") != null){
+                listaCarro.setData_manutencao(rs.getDate("data_manutencao").toLocalDate());
+                }else{
+                listaCarro.setData_manutencao(null);
+                }
+                
                 carros.add(listaCarro);
 
             }
@@ -142,10 +147,11 @@ public class ClienteDAO {
 
         try {
             stmt = con.prepareStatement("UPDATE clientes set nome=?, rg=?, email=?, dataNascimento=?, telefone=?, endereco=? WHERE cpf=? ");
+            java.sql.Date datasql = java.sql.Date.valueOf(cliente.getDataNascimento());
             stmt.setString(1, cliente.getNome());
             stmt.setString(2, cliente.getRg());
             stmt.setString(3, cliente.getEmail());
-            stmt.setDate(4, (Date) cliente.getDataNascimento());
+            stmt.setDate(4, (datasql));
             stmt.setString(5, cliente.getTelefone());
             stmt.setString(6, cliente.getEndereco());
             stmt.setString(7, cliente.getCpf());

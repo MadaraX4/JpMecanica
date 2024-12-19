@@ -4,6 +4,7 @@ import Estilo.BordaCantoArredondado;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.UIManager;
 import Estilo.TextoMaisculo;
+import Model.DAO.CaixaDAO;
 import Model.DAO.FluxoDeCaixaDAO;
 import Model.DAO.ItensVendaDAO;
 import Model.DAO.PecasDAO;
@@ -406,9 +407,13 @@ public class TelaVenda extends javax.swing.JFrame {
         venda.setData(dataAtual);
         venda.setHora(horaAtual);
         venda.setValor(Double.parseDouble(txtValorTotal.getText().replace(",", ".")));
-
+        
+        Double recebido=0.0;
+        
         String dinheiro = JOptionPane.showInputDialog(null, "INFORME O VALOR RECEBIDO DO CLIENTE");
-        double recebido = Double.parseDouble(dinheiro.replace(",", "."));
+        if(dinheiro != null){
+        recebido = Double.parseDouble(dinheiro.replace(",", "."));
+        }
         String[] opcoes = {"Dinheiro", "Crédito", "Débito"};
         JComboBox<String> comboBox = new JComboBox<>(opcoes);
 
@@ -458,7 +463,9 @@ public class TelaVenda extends javax.swing.JFrame {
         fluxo.setValorSaida(0.0);
         
         FluxoDeCaixaDAO daoFluxo = new FluxoDeCaixaDAO();
+        CaixaDAO novoCaixa = new CaixaDAO();
         daoFluxo.inserir(fluxo);
+        novoCaixa.soma(fluxo.getValorEntrada());
         
     }//GEN-LAST:event_btnFinalizarVendaActionPerformed
 

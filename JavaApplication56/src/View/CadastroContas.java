@@ -10,6 +10,7 @@ import Model.DAO.ContaDAO;
 import Estilo.BordaCantoArredondado;
 import Estilo.BotaoRedondo;
 import Estilo.TextoMaisculo;
+import Model.DAO.CaixaDAO;
 import Model.DAO.FluxoDeCaixaDAO;
 import Model.FluxoDeCaixa;
 import Style.table.Cabecalho;
@@ -27,6 +28,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.AbstractTableModel;
@@ -90,18 +92,18 @@ public final class CadastroContas extends javax.swing.JFrame {
         txtDataVencimento.setBorder(bad);
         txtTipo.setBorder(bad);
         txtValor.setBorder(bad);
-        
+
         textoMaiusculo();
-        
+
     }
-    
-    public void textoMaiusculo(){
-    
-    ((AbstractDocument) txtReferencia.getDocument()).setDocumentFilter(new TextoMaisculo());
-    ((AbstractDocument) txtDataVencimento.getDocument()).setDocumentFilter(new TextoMaisculo());
-    ((AbstractDocument) txtTipo.getDocument()).setDocumentFilter(new TextoMaisculo());
-    ((AbstractDocument) txtValor.getDocument()).setDocumentFilter(new TextoMaisculo());
-    
+
+    public void textoMaiusculo() {
+
+        ((AbstractDocument) txtReferencia.getDocument()).setDocumentFilter(new TextoMaisculo());
+        ((AbstractDocument) txtDataVencimento.getDocument()).setDocumentFilter(new TextoMaisculo());
+        ((AbstractDocument) txtTipo.getDocument()).setDocumentFilter(new TextoMaisculo());
+        ((AbstractDocument) txtValor.getDocument()).setDocumentFilter(new TextoMaisculo());
+
     }
 
     public void formatarTabela() {
@@ -124,17 +126,13 @@ public final class CadastroContas extends javax.swing.JFrame {
 
     }
 
-    private java.sql.Date dataMysql(String dataString) {
-        SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-        java.util.Date data = null;
+    public LocalDate dataMysql(String data) {
 
-        try {
-            data = formato.parse(dataString);
-        } catch (ParseException e) {
-            e.printStackTrace(); // Trate o erro adequadamente
-        }
+        // Define o formato esperado: ano-mês-dia
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-        return new java.sql.Date(data.getTime());
+        // Converte a string no formato "dd-MM-yyyy" para LocalDate
+        return LocalDate.parse(data, formatter);
     }
 
     public void limparCampos() {
@@ -150,7 +148,6 @@ public final class CadastroContas extends javax.swing.JFrame {
     public void readJTAble() {
 
         List<Conta> listaConta = dao.read();
-      
 
         for (Conta conta : listaConta) {
 
@@ -222,7 +219,7 @@ public final class CadastroContas extends javax.swing.JFrame {
         jLabel4.setText("Data de Vencimento");
 
         try {
-            txtDataVencimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-####")));
+            txtDataVencimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -395,10 +392,10 @@ public final class CadastroContas extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -413,9 +410,7 @@ public final class CadastroContas extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -436,6 +431,10 @@ public final class CadastroContas extends javax.swing.JFrame {
         jlEstatus.setForeground(Color.BLACK);
         jlId.setText("ID da Conta");
         jlId.setForeground(Color.BLACK);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        btnMarcarComoPago.setEnabled(false);
+        btnCadastrar.setEnabled(true);
 
     }//GEN-LAST:event_btnNovaContaActionPerformed
 
@@ -444,7 +443,7 @@ public final class CadastroContas extends javax.swing.JFrame {
 
         conta.setReferencia(txtReferencia.getText());
         conta.setTipo(txtTipo.getText());
-        conta.setData_vencimento(dataMysql(txtDataVencimento.getText()));
+        conta.setData_vencimento(dataMysql(txtDataVencimento.getText().replace("/", "-")));
         conta.setValor(Double.parseDouble(txtValor.getText().replace(",", ".")));
         conta.setEstatus("PENDENTE");
 
@@ -461,8 +460,7 @@ public final class CadastroContas extends javax.swing.JFrame {
         int index = jtContas.getSelectedRow();
 
         conta = dao.read().get(index);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        String dataFormatada = sdf.format(conta.getData_vencimento());
+        DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
         Double valorDouble = conta.getValor();
@@ -472,10 +470,10 @@ public final class CadastroContas extends javax.swing.JFrame {
         jlId.setForeground(Color.red);
         txtReferencia.setText(conta.getReferencia());
         txtTipo.setText(conta.getTipo());
-        txtDataVencimento.setText(dataFormatada);
+        txtDataVencimento.setText(formater.format(conta.getData_vencimento()));
         txtValor.setText(valorFormatado);
         jlEstatus.setText(conta.getEstatus());
-        
+
         if ("PENDENTE".equals(conta.getEstatus())) {
             jlEstatus.setForeground(Color.BLUE);
         } else if (conta.getEstatus().equals("PAGO")) {
@@ -529,7 +527,7 @@ public final class CadastroContas extends javax.swing.JFrame {
         conta.setId(Integer.parseInt(jlId.getText()));
         conta.setReferencia(txtReferencia.getText());
         conta.setTipo(txtTipo.getText());
-        conta.setData_vencimento(dataMysql(txtDataVencimento.getText()));
+        conta.setData_vencimento(dataMysql(txtDataVencimento.getText().replace("/", "-")));
         try {
             conta.setValor(Double.parseDouble(txtValor.getText().replace(",", ".")));
         } catch (NumberFormatException e) {
@@ -565,22 +563,22 @@ public final class CadastroContas extends javax.swing.JFrame {
 
         Conta conta = new Conta();
         ContaDAO dao = new ContaDAO();
-        
+        CaixaDAO novoCaixa = new CaixaDAO();
+
         FluxoDeCaixaDAO daoFluxo = new FluxoDeCaixaDAO();
         FluxoDeCaixa fluxo = new FluxoDeCaixa();
 
-        Date dataLocal = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        String dataString = sdf.format(dataLocal);
-        
-        String valorPago = JOptionPane.showInputDialog("Informe o valor Pago!");
+        LocalDate dataLocal = LocalDate.now();
+        DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
+        String valorPago = JOptionPane.showInputDialog("Informe o valor Pago!");
+        String valor = valorPago.replace(",", ".");
         conta.setId(Integer.parseInt(jlId.getText()));
         conta.setReferencia(txtReferencia.getText());
-        conta.setData_pagamento(dataMysql(dataString));
+        conta.setData_pagamento(dataLocal);
         conta.setEstatus("PAGO");
-        conta.setValorPago(Double.parseDouble(valorPago.replace(",", ".")));
-        
+        conta.setValorPago(Double.parseDouble(valor));
+
         fluxo.setDescricao(conta.getReferencia());
         fluxo.setDataOperacao(LocalDate.now());
         fluxo.setHoraOperacao(LocalTime.now());
@@ -597,12 +595,14 @@ public final class CadastroContas extends javax.swing.JFrame {
         if (confirm == JOptionPane.YES_OPTION) {
             if (jtContas.getSelectedRow() != -1) {
                 modelo.setValueAt(jlEstatus.getText(), jtContas.getSelectedRow(), 4);
-                modelo.setValueAt(dataString, jtContas.getSelectedRow(), 5);
-                modelo.setValueAt(valorPago, jtContas.getSelectedRow(),6 );
+                modelo.setValueAt(formater.format(dataLocal), jtContas.getSelectedRow(), 5);
+                modelo.setValueAt(valorPago, jtContas.getSelectedRow(), 6);
 
                 dao.updatePagamento(conta);
                 daoFluxo.inserir(fluxo);
+                novoCaixa.subtracao(Double.parseDouble(valor));
                 JOptionPane.showMessageDialog(null, "Estatus atualizado com sucesso!");
+
                 limparCampos();
 
                 btnExcluir.setEnabled(false);
@@ -610,8 +610,6 @@ public final class CadastroContas extends javax.swing.JFrame {
                 btnMarcarComoPago.setEnabled(false);
                 btnCadastrar.setEnabled(true);
                 btnMarcarComoPago.setEnabled(false);
-                System.out.println(dataString);
-                System.out.println(dataLocal);
 
             } else {
                 JOptionPane.showMessageDialog(null, "Selecione uma conta!");

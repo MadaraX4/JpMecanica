@@ -1,6 +1,7 @@
 package Model;
 
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Carro {
@@ -12,19 +13,22 @@ public class Carro {
     private String motor;
     private int num_valvulas;
     private int num_cilindros;
-    private Date data_manutencao;
-    private Date manutencao_agendada;
+    private LocalDate data_manutencao;
+    private LocalDate manutencao_agendada;
     private String cobustivel;
+    private int ano;
+    private String cambio;
+    
 
     public Carro() {
        
     }
 
-    public Date getManutencao_agendada() {
+    public LocalDate getManutencao_agendada() {
         return manutencao_agendada;
     }
 
-    public void setManutencao_agendada(Date manutencao_agendada) {
+    public void setManutencao_agendada(LocalDate manutencao_agendada) {
         this.manutencao_agendada = manutencao_agendada;
     }
 
@@ -84,11 +88,11 @@ public class Carro {
         this.num_cilindros = num_cilindros;
     }
 
-    public Date getData_manutencao() {
+    public LocalDate getData_manutencao() {
         return data_manutencao;
     }
 
-    public void setData_manutencao(Date data_manutencao) {
+    public void setData_manutencao(LocalDate data_manutencao) {
         this.data_manutencao = data_manutencao;
     }
 
@@ -99,6 +103,24 @@ public class Carro {
     public void setCobustivel(String cobustivel) {
         this.cobustivel = cobustivel;
     }
+
+    public int getAno() {
+        return ano;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+
+    public String getCambio() {
+        return cambio;
+    }
+
+    public void setCambio(String cambio) {
+        this.cambio = cambio;
+    }
+    
+    
     
 
 }

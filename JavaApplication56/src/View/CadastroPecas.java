@@ -374,8 +374,8 @@ public class CadastroPecas extends javax.swing.JFrame {
         peca.setCod_identificacao(txtCod_identificacao.getText());
         peca.setFornecedor(txtFornecedor.getText());
         peca.setNome(txtNome.getText());
-        peca.setPreco_compra(Double.parseDouble(txtPrecoCompra.getText()));
-        peca.setPreco_venda(Double.parseDouble(txtPrecoVenda.getText()));
+        peca.setPreco_compra(Double.parseDouble(txtPrecoCompra.getText().replace(",", ".")));
+        peca.setPreco_venda(Double.parseDouble(txtPrecoVenda.getText().replace(",", ".")));
         peca.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
         peca.setReferencia(txtReferencia.getText());
 

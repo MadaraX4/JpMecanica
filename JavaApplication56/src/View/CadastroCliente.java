@@ -19,6 +19,8 @@ import Estilo.TextoMaisculo;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.swing.UIManager;
 import javax.swing.text.AbstractDocument;
 
@@ -36,7 +38,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
 
         DefaultTableModel modelo = (DefaultTableModel) jtCarros.getModel();
-      
+
         modelo.setRowCount(0);
 
         jScrollPane3.getViewport().setBackground(new java.awt.Color(255, 255, 204));
@@ -97,9 +99,8 @@ public class CadastroCliente extends javax.swing.JFrame {
             objeto[1] = c.getModelo();
             objeto[2] = c.getMontadora();
             if (c.getData_manutencao() != null) {
-                SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-                String dataString = formato.format(c.getData_manutencao());
-                objeto[3] = dataString;
+               DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                objeto[3] = formater.format(c.getData_manutencao());
             } else {
                 objeto[3] = c.getData_manutencao();
             }
@@ -109,12 +110,13 @@ public class CadastroCliente extends javax.swing.JFrame {
         }
     }
 
-    public Date dataMysql(String data) {
-        String[] dataFormatada = txtDataNascimento.getText().split("-");
+    public LocalDate dataMysql(String data) {
 
-        Date dataMysql = new Date(Integer.parseInt(dataFormatada[0]), Integer.parseInt(dataFormatada[1]), Integer.parseInt(dataFormatada[2]));
+        // Define o formato esperado: ano-mês-dia
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-        return dataMysql;
+        // Converte a string no formato "dd-MM-yyyy" para LocalDate
+        return LocalDate.parse(data, formatter);
     }
 
     /**
@@ -280,7 +282,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         txtRg.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         try {
-            txtDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-####")));
+            txtDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -455,7 +457,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         cliente.setNome(txtNome.getText());
         cliente.setCpf(txtCpf.getText());
         cliente.setRg(txtRg.getText());
-        cliente.setDataNascimento(dataMysql(txtDataNascimento.getText()));
+        cliente.setDataNascimento(dataMysql(txtDataNascimento.getText().replace("/", "-")));
         cliente.setEmail(txtEmail.getText());
         cliente.setEndereco(txtEndereco.getText());
         cliente.setTelefone(txtTelefone.getText());
@@ -480,12 +482,12 @@ public class CadastroCliente extends javax.swing.JFrame {
 
             } else {
                 Cliente cliente = dao.select(cpf);
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-                String formattedDate = sdf.format(cliente.getDataNascimento());
+                DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
                 txtNome.setText(cliente.getNome());
                 txtRg.setText(cliente.getRg());
                 txtEmail.setText(cliente.getEmail());
-                txtDataNascimento.setText(formattedDate);
+                txtDataNascimento.setText(formater.format(cliente.getDataNascimento()));
                 txtTelefone.setText(cliente.getTelefone());
                 txtEndereco.setText(cliente.getEndereco());
                 txtCpf.setEditable(false);
@@ -514,7 +516,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         cliente.setNome(txtNome.getText());
         cliente.setRg(txtRg.getText());
         cliente.setEmail(txtEmail.getText());
-        cliente.setDataNascimento(dataMysql(txtDataNascimento.getText()));
+        cliente.setDataNascimento(dataMysql(txtDataNascimento.getText().replace("/", "-")));
         cliente.setEndereco(txtEndereco.getText());
         cliente.setTelefone(txtTelefone.getText());
         cliente.setCpf(txtCpf.getText());
