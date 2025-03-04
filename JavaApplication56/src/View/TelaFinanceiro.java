@@ -56,6 +56,7 @@ public class TelaFinanceiro extends javax.swing.JFrame {
 
         txtValorEmCaixa.setEditable(false);
         valorEmCaixa();
+        
     }
 
     private void valorEmCaixa() {

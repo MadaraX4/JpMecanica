@@ -116,7 +116,7 @@ public class OsPDF {
             Chunk iconeEmail = new Chunk(emailIcon, 0, -5);
             contatos.add(iconChunk);
             contatos.add(" ");
-            contatos.add(" (19) 99411-67012");
+            contatos.add(" (19) 99416-7012");
             contatos.add("                   ");
             contatos.add(iconeEmail);
             contatos.add("joaopazdesousa@gmail.com");
