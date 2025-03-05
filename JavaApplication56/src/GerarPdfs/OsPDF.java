@@ -43,10 +43,10 @@ public class OsPDF {
         documento.setMargins(40f, 40f, 5f, 5f);
 
         try {
-              //Bucando os
+            //Bucando os
             OsDAO dao = new OsDAO();
             Os os = dao.Select(idOs);
-            
+
             String publicUserHome = "C:\\Users\\Public\\Documents";
             Path documentosPath = Paths.get(publicUserHome, "Os");
 
@@ -57,7 +57,7 @@ public class OsPDF {
 
             // Nome do arquivo PDF
             // Substitua pelo nome do cliente
-            String fileName = "Os" + os.getClienteNome() +".pdf";
+            String fileName = "Os" + os.getClienteNome() + ".pdf";
             //String caminho = System.getProperty("user.home") + "\\Documents\\Os\\" + fileName; // Caminho completo do arquivo
             Path pdfPath = documentosPath.resolve(fileName);
 
@@ -71,9 +71,8 @@ public class OsPDF {
 //
 //            BaseFont fonteTitulo = BaseFont.createFont(getClass().getResource("/resources/Fontes/Simply Rounded Bold.ttf").getPath(), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 //            Font font = new Font(fonteTitulo, 25f);
-
-            Font fontePadrao = FontFactory.getFont(FontFactory.TIMES_BOLD,30,Font.BOLD);
-            Paragraph tituloDaOs = new Paragraph(30f, "JP Mecânica e Injeção",fontePadrao);
+            Font fontePadrao = FontFactory.getFont(FontFactory.TIMES_BOLD, 30, Font.BOLD);
+            Paragraph tituloDaOs = new Paragraph(30f, "JP Mecânica e Injeção", fontePadrao);
 
             tituloDaOs.setAlignment(Element.ALIGN_RIGHT);
 
@@ -119,22 +118,18 @@ public class OsPDF {
             contatos.add(" (19) 99416-7012");
             contatos.add("                   ");
             contatos.add(iconeEmail);
-            contatos.add("joaopazdesousa@gmail.com");
+            contatos.add(" joaopazdesousa@gmail.com");
             contatos.setAlignment(Element.ALIGN_CENTER);
-
-          
 
             //separador
             Paragraph separador = new Paragraph("_____________________________________________________________________________");
 
             //colocando dados da os
-
 //            BaseFont fonteMarcador = BaseFont.createFont(getClass().getResource("/resources/Fontes/ARIALBD.TTF").getPath(), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 //            Font arialBold = new Font(fonteMarcador);
 //
 //            BaseFont fonteTexto = BaseFont.createFont(getClass().getResource("/resources/Fontes/ARIAL.TTF").getPath(), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 //            Font arial = new Font(fonteTexto);
-
             //Converter data para texto
             DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/YYYY");
 
@@ -226,8 +221,10 @@ public class OsPDF {
             Os_PecasDAO pecasDao = new Os_PecasDAO();
             List<ListaPecas> lista = pecasDao.pdfOs_pecas(idOs);
 
+            double totalPecas = 0.0;
+               DecimalFormat formatoValor = new DecimalFormat("#,##0.00");
             for (ListaPecas itens : lista) {
-                DecimalFormat formatoValor = new DecimalFormat("#,##0.00");
+             
                 PdfPCell nome = new PdfPCell(new Paragraph(itens.getDescricao()));
                 nome.setBorderWidth(2);
                 nome.setBorderColor(BaseColor.YELLOW);
@@ -240,11 +237,30 @@ public class OsPDF {
                 preco.setBorderWidth(2);
                 preco.setBorderColor(BaseColor.YELLOW);
                 tabelaPecas.addCell(preco);
+                double precoPeca = itens.getValor();
+                totalPecas += precoPeca;
             }
 
+            PdfPCell totalCell = new PdfPCell(new Paragraph("Total"));
+            totalCell.setColspan(2); // Se você quiser que o total ocupe duas colunas
+            totalCell.setBorderWidth(2);
+            totalCell.setBorderColor(BaseColor.YELLOW);
+            tabelaPecas.addCell(totalCell);
+
+            PdfPCell precoTotalCell = new PdfPCell(new Paragraph(formatoValor.format(totalPecas)));
+            precoTotalCell.setBorderWidth(2);
+            precoTotalCell.setBorderColor(BaseColor.YELLOW);
+            tabelaPecas.addCell(precoTotalCell);
+
             //adicionando servicos
-            Paragraph tituloServicos = new Paragraph(20, "Serviços a Serem Efetuados");
-            tituloServicos.setAlignment(Element.ALIGN_CENTER);
+            Paragraph tituloServicos;
+            if (os.getStatus().equals("ANALISE")) {
+                tituloServicos = new Paragraph(20, "Serviços a Serem Efetuados");
+                tituloServicos.setAlignment(Element.ALIGN_CENTER);
+            } else {
+                tituloServicos = new Paragraph(20, "Serviços executados");
+                tituloServicos.setAlignment(Element.ALIGN_CENTER);
+            }
 
             PdfPTable tabelaServicos = new PdfPTable(2);
             tabelaServicos.setWidthPercentage(80);
@@ -271,7 +287,7 @@ public class OsPDF {
             List<ListaServicos> listaServico = servicoDao.pdfLista(idOs);
 
             for (ListaServicos item : listaServico) {
-                DecimalFormat formatoValor = new DecimalFormat("#,##0.00");
+                //DecimalFormat formatoValor = new DecimalFormat("#,##0.00");
                 PdfPCell celulaNomeS = new PdfPCell(new Paragraph(item.getDescricao()));
                 celulaNomeS.setBorderWidth(2);
                 celulaNomeS.setBorderColor(new BaseColor(100, 149, 237));
@@ -282,7 +298,7 @@ public class OsPDF {
                 tabelaServicos.addCell(celulaValorS);
             }
 
-            DecimalFormat formatoValor = new DecimalFormat("#,##0.00");
+            //DecimalFormat formatoValor = new DecimalFormat("#,##0.00");
             Paragraph total = new Paragraph(25);
             Chunk marcadorTotal = new Chunk("TOTAL: ");
             Chunk valorTotal = new Chunk(String.valueOf(formatoValor.format(os.getValor())));

@@ -261,5 +261,31 @@ public class ClienteDAO {
 
         return aniversariantes;
     }
+    
+    public int numClientes(){
+        
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        int numClientes = 0;
+        
+        String sql = "SELECT COUNT(*) AS numero_de_pessoas FROM clientes";
+        
+        try {
+            stmt = con.prepareCall(sql);
+            rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                numClientes = rs.getInt("numero_de_pessoas");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+        ConexaoBanco.closeConnection(con, stmt, rs);
+        }
+        
+        return numClientes;
+    }
 
 }

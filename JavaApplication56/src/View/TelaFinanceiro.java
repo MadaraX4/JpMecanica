@@ -14,6 +14,7 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import Estilo.BotaoRedondo;
+import GerarPdfs.CaixaPdf;
 import Model.DAO.CaixaDAO;
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -56,7 +57,7 @@ public class TelaFinanceiro extends javax.swing.JFrame {
 
         txtValorEmCaixa.setEditable(false);
         valorEmCaixa();
-        
+
     }
 
     private void valorEmCaixa() {
@@ -118,7 +119,7 @@ public class TelaFinanceiro extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) jTFluxoDeCaixa.getModel();
         FluxoDeCaixaDAO dao = new FluxoDeCaixaDAO();
 
-        List<FluxoDeCaixa> lista = dao.fluxoPorMes(mes,ano);
+        List<FluxoDeCaixa> lista = dao.fluxoPorMes(mes, ano);
         modelo.setNumRows(0);
 
         for (FluxoDeCaixa fluxoDeCaixa : lista) {
@@ -213,6 +214,7 @@ public class TelaFinanceiro extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtValorEmCaixa = new javax.swing.JTextField();
+        jButton1 = new BotaoRedondo();
         jCbMes = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -339,6 +341,16 @@ public class TelaFinanceiro extends javax.swing.JFrame {
         txtValorEmCaixa.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtValorEmCaixa.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPanel3.add(txtValorEmCaixa, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 230, 30));
+
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/impressora.png"))); // NOI18N
+        jButton1.setText("Emprimir Relatorio");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 0, 230, 50));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 640, 1010, 50));
 
@@ -557,67 +569,86 @@ public class TelaFinanceiro extends javax.swing.JFrame {
         FluxoDeCaixaDAO dao = new FluxoDeCaixaDAO();
         if (mesEscolhido.equals("JANEIRO")) {
             mes = 1;
-            FluxoMes(mes,anoAtual);
+            FluxoMes(mes, anoAtual);
             totalEntrada();
             totalSaida();
         } else if (mesEscolhido.equals("FEVEREIRO")) {
             mes = 2;
-            FluxoMes(mes,anoAtual);
+            FluxoMes(mes, anoAtual);
             totalEntrada();
             totalSaida();
         } else if (mesEscolhido.equals("MARÇO")) {
             mes = 3;
-            FluxoMes(mes,anoAtual);
+            FluxoMes(mes, anoAtual);
             totalEntrada();
             totalSaida();
         } else if (mesEscolhido.equals("ABRIL")) {
             mes = 4;
-            FluxoMes(mes,anoAtual);
+            FluxoMes(mes, anoAtual);
             totalEntrada();
             totalSaida();
         } else if (mesEscolhido.equals("MAIO")) {
             mes = 5;
-            FluxoMes(mes,anoAtual);
+            FluxoMes(mes, anoAtual);
             totalEntrada();
             totalSaida();
         } else if (mesEscolhido.equals("JUNHO")) {
             mes = 6;
-            FluxoMes(mes,anoAtual);
+            FluxoMes(mes, anoAtual);
             totalEntrada();
             totalSaida();
         } else if (mesEscolhido.equals("JULHO")) {
             mes = 7;
-            FluxoMes(mes,anoAtual);
+            FluxoMes(mes, anoAtual);
             totalEntrada();
             totalSaida();
         } else if (mesEscolhido.equals("AGOSTO")) {
             mes = 8;
-            FluxoMes(mes,anoAtual);
+            FluxoMes(mes, anoAtual);
             totalEntrada();
             totalSaida();
         } else if (mesEscolhido.equals("SETEMBRO")) {
             mes = 9;
-            FluxoMes(mes,anoAtual);
+            FluxoMes(mes, anoAtual);
             totalEntrada();
             totalSaida();
         } else if (mesEscolhido.equals("OUTUBRO")) {
             mes = 10;
-            FluxoMes(mes,anoAtual);
+            FluxoMes(mes, anoAtual);
             totalEntrada();
             totalSaida();
         } else if (mesEscolhido.equals("NOVEMBRO")) {
             mes = 11;
-            FluxoMes(mes,anoAtual);
+            FluxoMes(mes, anoAtual);
             totalEntrada();
             totalSaida();
         } else if (mesEscolhido.equals("DEZEMBRO")) {
             mes = 12;
-            int anoPassado = anoAtual -1;
-            FluxoMes(mes,anoPassado);
+            int anoPassado = anoAtual - 1;
+            FluxoMes(mes, anoPassado);
             totalEntrada();
             totalSaida();
         }
     }//GEN-LAST:event_jCbMesActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        CaixaPdf pdf = new CaixaPdf();
+        int anoAtual = LocalDate.now().getYear();
+        int mes;
+        String[] meses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+            "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
+        JComboBox<String> comboBoxMes = new JComboBox<>(meses);
+        int resultado = JOptionPane.showConfirmDialog(null, comboBoxMes, "Selecione o Mês", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (resultado == 0) {
+            int mesSelecionado = comboBoxMes.getSelectedIndex() + 1; // O índice começa de 0, então somamos 1
+            pdf.gerarPdf(mesSelecionado, anoAtual);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleção cancelada.");
+        }
+
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -639,6 +670,7 @@ public class TelaFinanceiro extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDeletar;
     private javax.swing.JButton btnSair;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jCbMes;
     private javax.swing.JLabel jLabel1;
