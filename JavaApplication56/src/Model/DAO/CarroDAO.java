@@ -2,11 +2,15 @@ package Model.DAO;
 
 import ConnectionFactory.ConexaoBanco;
 import Model.Carro;
+import Model.CarroCliente;
+import Model.Cliente;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -193,21 +197,27 @@ public class CarroDAO {
         return carros;
     }
 
-    public void agendarManutencao(Carro carro) {
+    public void agendarManutencao(String placa, int dia, int mes) {
 
         Connection con = ConexaoBanco.getConnection();
         PreparedStatement stmt = null;
 
         try {
             stmt = con.prepareStatement("UPDATE carro SET manutencao_agendada=? WHERE placa=?");
-            java.sql.Date datasql = java.sql.Date.valueOf(carro.getManutencao_agendada());
+            int ano = LocalDate.now().getYear();
+            LocalDate data = LocalDate.of(ano,mes,dia);
+            java.sql.Date datasql = java.sql.Date.valueOf(data);
             stmt.setDate(1, datasql);
-            stmt.setString(2, carro.getPlaca());
+            stmt.setString(2, placa);
 
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Manutenção Agendada com Sucesso!");
         } catch (SQLException ex) {
             System.out.println("ERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Erro ao Agendar Manutenção!");
+        } catch(java.time.DateTimeException te){
+            te.printStackTrace();
+            JOptionPane.showMessageDialog(null, "informe uma Data Valida!");
         } finally {
             ConexaoBanco.closeConnection(con, stmt);
         }
@@ -275,22 +285,27 @@ public class CarroDAO {
         }
     }
 
-    public List<Carro> listaManutencao() {
+    public List<CarroCliente> listaManutencao(Date data) {
         Connection con = ConexaoBanco.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        List<Carro> lista = new ArrayList<>();
+        List<CarroCliente> lista = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT placa,manutencao_agendada FROM carro WHERE manutencao_agendada IS NOT NULL ORDER BY ABS(DATEDIFF(manutencao_agendada, CURRENT_DATE))");
+            stmt = con.prepareStatement("SELECT clientes.nome,carro.modelo,carro.placa,carro.manutencao_agendada FROM clientes INNER JOIN carro ON carro.proprietario=clientes.cpf WHERE carro.manutencao_agendada=? ");
+            stmt.setDate(1, data);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Carro carro = new Carro();
+                Cliente cliente = new Cliente();
+                cliente.setNome(rs.getString("nome"));
+                carro.setModelo(rs.getString("modelo"));
                 carro.setPlaca(rs.getString("placa"));
                 carro.setManutencao_agendada(rs.getDate("manutencao_agendada").toLocalDate());
-                lista.add(carro);
+                CarroCliente listaManutencao = new CarroCliente(cliente, carro);
+                lista.add(listaManutencao);
             }
         } catch (SQLException ex) {
             System.out.println("ERRO: " + ex);

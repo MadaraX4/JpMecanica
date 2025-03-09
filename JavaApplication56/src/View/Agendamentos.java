@@ -1,20 +1,19 @@
 package View;
 
-import Estilo.PainelCalendario;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.UIManager;
 import Estilo.PainelCalendario;
 import Estilo.BotaoRedondo;
+import Model.DAO.CarroDAO;
+import javax.swing.JOptionPane;
 
 public class Agendamentos extends javax.swing.JFrame {
-   
-    
+
     public Agendamentos() {
         initComponents();
-       
+
     }
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -25,9 +24,10 @@ public class Agendamentos extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtPlaca = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         btnAgendar = new BotaoRedondo();
-        jpCalendar = new PainelCalendario();
+        jcbDia = new javax.swing.JComboBox<>();
+        jcbMes = new javax.swing.JComboBox<>();
+        jpCalendar = new PainelCalendario(jtAgendamentos);
         jpTabela = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtAgendamentos = new javax.swing.JTable();
@@ -56,22 +56,24 @@ public class Agendamentos extends javax.swing.JFrame {
         jLabel2.setText("Placa");
 
         txtPlaca.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPlaca.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Data Da Manutenção");
 
-        try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jFormattedTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jFormattedTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
         btnAgendar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnAgendar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/calendario.png"))); // NOI18N
         btnAgendar.setText("Agendar");
+        btnAgendar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgendarActionPerformed(evt);
+            }
+        });
+
+        jcbDia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DIA", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+
+        jcbMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mês", "JANEIRO", "FEVEREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO", "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "NOVEMBRO", "DEZEMBRO" }));
 
         javax.swing.GroupLayout jpDadosLayout = new javax.swing.GroupLayout(jpDados);
         jpDados.setLayout(jpDadosLayout);
@@ -80,20 +82,24 @@ public class Agendamentos extends javax.swing.JFrame {
             .addGroup(jpDadosLayout.createSequentialGroup()
                 .addGroup(jpDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpDadosLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
                         .addGroup(jpDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jpDadosLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(15, 15, 15)
+                                .addComponent(jLabel3))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpDadosLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(6, 6, 6)
+                        .addGroup(jpDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jpDadosLayout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jcbDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jcbMes, 0, 1, Short.MAX_VALUE))
+                            .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jpDadosLayout.createSequentialGroup()
                         .addGap(96, 96, 96)
                         .addComponent(btnAgendar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         jpDadosLayout.setVerticalGroup(
             jpDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,13 +111,14 @@ public class Agendamentos extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jpDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAgendar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jpDados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 290, 150));
+        jPanel1.add(jpDados, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 330, 150));
 
         jpCalendar.setBackground(new java.awt.Color(153, 204, 255));
         jPanel1.add(jpCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, 430, 220));
@@ -183,6 +190,17 @@ public class Agendamentos extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAgendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarActionPerformed
+        CarroDAO dao = new CarroDAO();
+        int dia = jcbDia.getSelectedIndex();
+        int mes = jcbMes.getSelectedIndex();
+        if (!txtPlaca.getText().isEmpty()) {
+            dao.agendarManutencao(txtPlaca.getText().toUpperCase(), dia, mes);
+        } else {
+            JOptionPane.showMessageDialog(null, "Digite uma placa!");
+        }
+    }//GEN-LAST:event_btnAgendarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -206,12 +224,13 @@ public class Agendamentos extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> jcbDia;
+    private javax.swing.JComboBox<String> jcbMes;
     private javax.swing.JPanel jpCalendar;
     private javax.swing.JPanel jpDados;
     private javax.swing.JPanel jpTabela;
