@@ -223,16 +223,16 @@ public class CarroDAO {
         }
     }
 
-    public void alterarManutencao(Carro carro) {
+    public void alterarManutencao(String placa,LocalDate data) {
 
         Connection con = ConexaoBanco.getConnection();
         PreparedStatement stmt = null;
 
         try {
             stmt = con.prepareStatement("UPDATE carro SET manutencao_agendada=? WHERE placa=?");
-            java.sql.Date datasql = java.sql.Date.valueOf(carro.getManutencao_agendada());
+            java.sql.Date datasql = java.sql.Date.valueOf(data);
             stmt.setDate(1, datasql);
-            stmt.setString(2, carro.getPlaca());
+            stmt.setString(2, placa);
 
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Data Alterada com Sucesso!");
@@ -243,16 +243,14 @@ public class CarroDAO {
         }
     }
 
-    public void cancelarManutencao(Carro carro) {
+    public void cancelarManutencao(String placa) {
 
         Connection con = ConexaoBanco.getConnection();
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("UPDATE carro SET manutencao_agendada=? WHERE placa=?");
-            java.sql.Date datasql = java.sql.Date.valueOf(carro.getManutencao_agendada());
-            stmt.setDate(1, datasql);
-            stmt.setString(2, carro.getPlaca());
+            stmt = con.prepareStatement("UPDATE carro SET manutencao_agendada=NULL WHERE placa=?");
+            stmt.setString(1, placa);
 
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Manutenção Cancelada com Sucesso!");
@@ -263,18 +261,17 @@ public class CarroDAO {
         }
     }
 
-    public void finalizarManutencao(Carro carro) {
+    public void finalizarManutencao(String placa,LocalDate data) {
 
         Connection con = ConexaoBanco.getConnection();
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("UPDATE carro SET manutencao_agendada=?,data_manutencao=? WHERE placa=?");
-            java.sql.Date dataManutencao = java.sql.Date.valueOf(carro.getData_manutencao());
-            java.sql.Date dataAgendada = java.sql.Date.valueOf(carro.getManutencao_agendada());
-            stmt.setDate(1, dataManutencao);
-            stmt.setDate(2, dataAgendada);
-            stmt.setString(3, carro.getPlaca());
+            stmt = con.prepareStatement("UPDATE carro SET manutencao_agendada=NULL,data_manutencao=? WHERE placa=?");
+            
+            java.sql.Date dataAgendada = java.sql.Date.valueOf(data);
+            stmt.setDate(1, dataAgendada);
+            stmt.setString(2, placa);
 
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Manutenção Finalizada Com Sucesso!");

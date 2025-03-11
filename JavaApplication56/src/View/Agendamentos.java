@@ -5,15 +5,29 @@ import javax.swing.UIManager;
 import Estilo.PainelCalendario;
 import Estilo.BotaoRedondo;
 import Model.DAO.CarroDAO;
+import Style.table.Render;
+import java.awt.Toolkit;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class Agendamentos extends javax.swing.JFrame {
-
+    
     public Agendamentos() {
         initComponents();
-
+        setResizable(false);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/48x48.png")));
+        setLocationRelativeTo(null);
+        
+        jtAgendamentos.getColumnModel().getColumn(0).setPreferredWidth(250);
+        Render render = new Render();
+        for (int i = 0; i < jtAgendamentos.getColumnCount(); i++) {
+            jtAgendamentos.getColumnModel().getColumn(i).setCellRenderer(render);
+        }
+        
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -27,13 +41,13 @@ public class Agendamentos extends javax.swing.JFrame {
         btnAgendar = new BotaoRedondo();
         jcbDia = new javax.swing.JComboBox<>();
         jcbMes = new javax.swing.JComboBox<>();
-        jpCalendar = new PainelCalendario(jtAgendamentos);
         jpTabela = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtAgendamentos = new javax.swing.JTable();
-        jButton1 = new BotaoRedondo();
-        jButton2 = new BotaoRedondo();
-        jButton3 = new BotaoRedondo();
+        btnFinalizar = new BotaoRedondo();
+        btnRemarcar = new BotaoRedondo();
+        btnCancelar = new BotaoRedondo();
+        jpCalendar = new PainelCalendario(jtAgendamentos);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agendamentos");
@@ -120,11 +134,9 @@ public class Agendamentos extends javax.swing.JFrame {
 
         jPanel1.add(jpDados, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 330, 150));
 
-        jpCalendar.setBackground(new java.awt.Color(153, 204, 255));
-        jPanel1.add(jpCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, 430, 220));
-
         jpTabela.setBackground(new java.awt.Color(255, 255, 204));
 
+        jtAgendamentos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jtAgendamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -143,14 +155,29 @@ public class Agendamentos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jtAgendamentos);
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setText("Finaliar Agendamento");
+        btnFinalizar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnFinalizar.setText("Finaliar Agendamento");
+        btnFinalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinalizarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setText("Remarcar Agendamento");
+        btnRemarcar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnRemarcar.setText("Remarcar Agendamento");
+        btnRemarcar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemarcarActionPerformed(evt);
+            }
+        });
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton3.setText("Cancelar Agendamento");
+        btnCancelar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCancelar.setText("Cancelar Agendamento");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpTabelaLayout = new javax.swing.GroupLayout(jpTabela);
         jpTabela.setLayout(jpTabelaLayout);
@@ -162,11 +189,11 @@ public class Agendamentos extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(jpTabelaLayout.createSequentialGroup()
                 .addGap(46, 46, 46)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRemarcar, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47))
         );
         jpTabelaLayout.setVerticalGroup(
@@ -174,15 +201,18 @@ public class Agendamentos extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpTabelaLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jpTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnFinalizar)
+                    .addComponent(btnRemarcar)
+                    .addComponent(btnCancelar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         jPanel1.add(jpTabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 780, 290));
+
+        jpCalendar.setBackground(new java.awt.Color(153, 204, 255));
+        jPanel1.add(jpCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, 430, 220));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
 
@@ -201,11 +231,65 @@ public class Agendamentos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAgendarActionPerformed
 
+    private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel) jtAgendamentos.getModel();
+        
+        CarroDAO dao = new CarroDAO();
+        int linha = jtAgendamentos.getSelectedRow();
+        LocalDate data;
+        String placa;
+        DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        if (linha != -1) {
+            String dataS = (String) jtAgendamentos.getValueAt(linha, 3);
+            data = LocalDate.parse(dataS.replace("/", "-"), formater);
+            placa = (String) jtAgendamentos.getValueAt(linha, 2);
+            dao.finalizarManutencao(placa, data);
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum Agendamento selecionado!");
+        }
+    }//GEN-LAST:event_btnFinalizarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel) jtAgendamentos.getModel();
+        
+        CarroDAO dao = new CarroDAO();
+        int linha = jtAgendamentos.getSelectedRow();
+        String placa;
+        if (linha != -1) {
+            placa = (String) jtAgendamentos.getValueAt(linha, 2);
+            dao.cancelarManutencao(placa);
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum Agendamento selecionado!");
+        }
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnRemarcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemarcarActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel) jtAgendamentos.getModel();
+        
+        CarroDAO dao = new CarroDAO();
+        int linha = jtAgendamentos.getSelectedRow();
+        String placa;
+        if (linha != -1) {
+            placa = (String) jtAgendamentos.getValueAt(linha, 2);
+            String inputData = JOptionPane.showInputDialog("Ensira a nova data no formato\n (dd/MM/yyyy)");
+            DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            if (!inputData.isEmpty()) {
+                LocalDate data = LocalDate.parse(inputData.replace("/", "-"), formater);
+                dao.alterarManutencao(placa, data);
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhuma data enserida!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum Agendamento selecionado!");
+        }
+    }//GEN-LAST:event_btnRemarcarActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-
+        
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (Exception ex) {
@@ -221,9 +305,9 @@ public class Agendamentos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgendar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnFinalizar;
+    private javax.swing.JButton btnRemarcar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
