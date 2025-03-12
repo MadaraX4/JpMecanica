@@ -310,7 +310,19 @@ public class OsPDF {
 
             Paragraph assinaturaCliente = new Paragraph(20, "Cliente:____________________________________________________");
             Paragraph assinaturaJpMecanica = new Paragraph(20, "JP MECÂNICA:____________________________________________________");
-
+            
+            Paragraph paragraphGarantia = new Paragraph();
+            Chunk marcadorGarantia = new Chunk("Garantia: ");
+            Chunk garantia = new Chunk(String.valueOf(os.getGarantia()) + " Dias");
+            paragraphGarantia.add(marcadorGarantia);
+            paragraphGarantia.add(garantia);
+            
+             Paragraph paragraphDescricao = new Paragraph();
+            Chunk marcadorDescricao = new Chunk("Descrição: ");
+            Chunk descricao = new Chunk(os.getDescricao());
+            paragraphDescricao.add(marcadorDescricao);
+            paragraphDescricao.add(descricao);
+            
             //adicionar item ao documento
             documento.add(id);
             documento.add(tituloDaOs);
@@ -335,7 +347,9 @@ public class OsPDF {
             documento.add(linhaEmBranco);
             documento.add(tabelaServicos);
             documento.add(linhaEmBranco);
+            documento.add(paragraphDescricao);
             documento.add(separador);
+            documento.add(paragraphGarantia);
             documento.add(total);
             documento.add(linhaEmBranco);
             documento.add(pagamento);
