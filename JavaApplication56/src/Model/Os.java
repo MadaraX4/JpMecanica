@@ -21,6 +21,7 @@ public class Os {
     private String combustivel;
     private Double km;
     private int ano;
+    private long garantia;
 
     public Os() {
       
@@ -144,6 +145,14 @@ public class Os {
 
     public void setAno(int ano) {
         this.ano = ano;
+    }
+
+    public long getGarantia() {
+        return garantia;
+    }
+
+    public void setGarantia(long garantia) {
+        this.garantia = garantia;
     }
     
     

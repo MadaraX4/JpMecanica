@@ -119,6 +119,7 @@ public class CadastroOs extends javax.swing.JFrame {
         txtAno.setBorder(bad);
         txtKm.setBorder(bad);
         txtvalorPecas.setBorder(bad);
+        txtGarantia.setBorder(bad);
     }
 
     public void precoTotalPecas() {
@@ -190,7 +191,6 @@ public class CadastroOs extends javax.swing.JFrame {
         jlEstatusOs = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         txtTecnico = new javax.swing.JTextField();
-        jSeparator5 = new javax.swing.JSeparator();
         lblId = new javax.swing.JLabel();
         jlDataOs = new javax.swing.JLabel();
         jScrollPaneAddClientes = new javax.swing.JScrollPane();
@@ -208,6 +208,10 @@ public class CadastroOs extends javax.swing.JFrame {
         txtAno = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         txtKm = new javax.swing.JTextField();
+        lblGarantia = new javax.swing.JLabel();
+        txtGarantia = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        jSeparator6 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
         jScrollPaneServicos = new javax.swing.JScrollPane();
         JtPecas = new javax.swing.JTable();
@@ -310,17 +314,17 @@ public class CadastroOs extends javax.swing.JFrame {
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/lupa (2).png"))); // NOI18N
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 30, 30));
-        jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 377, 390, 10));
+        jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 367, 390, 10));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(51, 51, 51));
         jLabel9.setText("Peças e Serviços");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, -1, -1));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Serviço");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, -1, -1));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, -1, -1));
 
         txtNomeServico.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtNomeServico.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -328,21 +332,21 @@ public class CadastroOs extends javax.swing.JFrame {
                 txtNomeServicoKeyReleased(evt);
             }
         });
-        jPanel2.add(txtNomeServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 390, 310, -1));
+        jPanel2.add(txtNomeServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 380, 310, -1));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Valor do serviço");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, -1, -1));
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, -1, -1));
 
         txtValorServico.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jPanel2.add(txtValorServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 430, 90, -1));
-        jPanel2.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 390, 10));
+        jPanel2.add(txtValorServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 420, 90, -1));
+        jPanel2.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 390, 10));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Adicionar peças");
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, -1, -1));
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, -1, -1));
 
         txtPeca.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtPeca.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -350,7 +354,7 @@ public class CadastroOs extends javax.swing.JFrame {
                 txtPecaKeyReleased(evt);
             }
         });
-        jPanel2.add(txtPeca, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 550, 380, -1));
+        jPanel2.add(txtPeca, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 540, 380, -1));
 
         jlEstatusOs.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
         jlEstatusOs.setForeground(new java.awt.Color(255, 0, 51));
@@ -360,11 +364,10 @@ public class CadastroOs extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("Tecnico");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, -1, -1));
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, -1, -1));
 
         txtTecnico.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jPanel2.add(txtTecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 480, 310, -1));
-        jPanel2.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 400, 10));
+        jPanel2.add(txtTecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 470, 310, -1));
 
         lblId.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblId.setForeground(new java.awt.Color(0, 0, 0));
@@ -419,10 +422,10 @@ public class CadastroOs extends javax.swing.JFrame {
         jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(0, 0, 0));
         jLabel18.setText("Valor da Peça");
-        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 590, -1, -1));
+        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 580, -1, -1));
 
         txtvalorPecas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jPanel2.add(txtvalorPecas, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 590, 70, -1));
+        jPanel2.add(txtvalorPecas, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 580, 70, -1));
 
         btnAdaPecas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAdaPecas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/adicao.png"))); // NOI18N
@@ -432,7 +435,7 @@ public class CadastroOs extends javax.swing.JFrame {
                 btnAdaPecasActionPerformed(evt);
             }
         });
-        jPanel2.add(btnAdaPecas, new org.netbeans.lib.awtextra.AbsoluteConstraints(255, 590, 140, -1));
+        jPanel2.add(btnAdaPecas, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 580, 140, -1));
 
         btnAddServico.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAddServico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/adicao.png"))); // NOI18N
@@ -442,7 +445,7 @@ public class CadastroOs extends javax.swing.JFrame {
                 btnAddServicoActionPerformed(evt);
             }
         });
-        jPanel2.add(btnAddServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 430, 140, -1));
+        jPanel2.add(btnAddServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 420, 140, -1));
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(0, 0, 0));
@@ -460,7 +463,22 @@ public class CadastroOs extends javax.swing.JFrame {
         txtKm.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jPanel2.add(txtKm, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, 100, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 410, 630));
+        lblGarantia.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblGarantia.setForeground(new java.awt.Color(0, 0, 0));
+        lblGarantia.setText("Garantia");
+        jPanel2.add(lblGarantia, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 620, -1, -1));
+
+        txtGarantia.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtGarantia.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel2.add(txtGarantia, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 620, -1, 29));
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel21.setText("Dias");
+        jPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 620, -1, -1));
+        jPanel2.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 400, 10));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 410, 660));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 204));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -540,7 +558,7 @@ public class CadastroOs extends javax.swing.JFrame {
                 btnCadastrarOrdemActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCadastrarOrdem, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 650, 210, 40));
+        jPanel1.add(btnCadastrarOrdem, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 680, 210, 40));
 
         btnBurcar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnBurcar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/browser_427831.png"))); // NOI18N
@@ -550,7 +568,7 @@ public class CadastroOs extends javax.swing.JFrame {
                 btnBurcarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBurcar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 650, 180, 40));
+        jPanel1.add(btnBurcar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 680, 180, 40));
 
         btnDeletar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bin.png"))); // NOI18N
@@ -560,7 +578,7 @@ public class CadastroOs extends javax.swing.JFrame {
                 btnDeletarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnDeletar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 650, 190, 40));
+        jPanel1.add(btnDeletar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 680, 190, 40));
 
         btnImprimir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/impressora.png"))); // NOI18N
@@ -580,7 +598,7 @@ public class CadastroOs extends javax.swing.JFrame {
                 btnSairActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 650, 120, -1));
+        jPanel1.add(btnSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 680, 120, -1));
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 204));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -636,9 +654,9 @@ public class CadastroOs extends javax.swing.JFrame {
                 btnAlterarOsActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAlterarOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 650, 200, -1));
+        jPanel1.add(btnAlterarOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 680, 200, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 700));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 730));
 
         pack();
         setLocationRelativeTo(null);
@@ -797,6 +815,7 @@ public class CadastroOs extends javax.swing.JFrame {
         os.setCombustivel(txtCombustivel.getText());
         os.setAno(Integer.parseInt(txtAno.getText()));
         os.setKm(Double.parseDouble(txtKm.getText().replace(",", ".")));
+        os.setGarantia(Long.parseLong(txtGarantia.getText()));
 
         int id_os = dao.salvarOs(os);
         if (id_os > 0) {
@@ -886,6 +905,7 @@ public class CadastroOs extends javax.swing.JFrame {
                 jlOsId.setText(String.valueOf(os.getId()));
                 txtAno.setText(Integer.toString(os.getAno()));
                 txtKm.setText(Double.toString(os.getKm()));
+                txtGarantia.setText(Long.toString(os.getGarantia()));
                 selectTablePecas(idOs);
                 precoTotalPecas();
 
@@ -1079,6 +1099,7 @@ public class CadastroOs extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1101,18 +1122,20 @@ public class CadastroOs extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JTable jTServicos;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel jlDataOs;
     private javax.swing.JLabel jlEstatusOs;
     private javax.swing.JLabel jlOsId;
+    private javax.swing.JLabel lblGarantia;
     private javax.swing.JLabel lblId;
     private javax.swing.JList<String> listaPlacas;
     private javax.swing.JScrollPane scrollPanelistaServicos;
     private javax.swing.JTextField txtAno;
     private javax.swing.JTextField txtCombustivel;
     private javax.swing.JTextArea txtDescricao;
+    private javax.swing.JTextField txtGarantia;
     private javax.swing.JTextField txtKm;
     private javax.swing.JTextField txtModelo;
     private javax.swing.JTextField txtMontadora;

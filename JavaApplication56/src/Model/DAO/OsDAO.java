@@ -19,7 +19,7 @@ public class OsDAO {
         Connection con = ConexaoBanco.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        String sql = "INSERT INTO os (clienteNome,telefone,placaVeiculo,montadora,modelo,dataDaOrdem,valor,tecnico,descricao,estatus,combustivel,km,ano) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO os (clienteNome,telefone,placaVeiculo,montadora,modelo,dataDaOrdem,valor,tecnico,descricao,estatus,combustivel,km,ano,garantia) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         int id_os = 0;
 
@@ -41,6 +41,7 @@ public class OsDAO {
             stmt.setString(11, os.getCombustivel());
             stmt.setDouble(12, os.getKm());
             stmt.setInt(13, os.getAno());
+            stmt.setLong(14, os.getGarantia());
             stmt.executeUpdate();
 
             rs = stmt.getGeneratedKeys();
@@ -63,7 +64,7 @@ public class OsDAO {
         Os os = new Os();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM os WHERE id=?");
+            stmt = con.prepareStatement("SELECT id,clienteNome,telefone,placaVeiculo,montadora,modelo,dataDaOrdem,valor,tecnico,descricao,estatus,combustivel,km,ano,garantia FROM os WHERE id=?");
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
 
@@ -82,6 +83,7 @@ public class OsDAO {
                 os.setCombustivel(rs.getString("combustivel"));
                 os.setKm(rs.getDouble("km"));
                 os.setAno(rs.getInt("ano"));
+                os.setGarantia(rs.getLong("garantia"));
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Os não encontrada!\n" + ex);
