@@ -5,10 +5,7 @@ import Estilo.BordaCantoArredondado;
 import Model.Carro;
 import Model.DAO.CarroDAO;
 import com.formdev.flatlaf.FlatLightLaf;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import Estilo.BotaoRedondo;
 import Estilo.TextoMaisculo;
@@ -298,6 +295,7 @@ public class CadastroCarro extends javax.swing.JFrame {
 
         jblDtAgendada.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jblDtAgendada.setForeground(new java.awt.Color(255, 0, 0));
+        jblDtAgendada.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -309,10 +307,10 @@ public class CadastroCarro extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(jblDtManutencao, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 184, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jblDtAgendada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(39, 39, 39))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addComponent(jblDtAgendada, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -437,7 +435,7 @@ public class CadastroCarro extends javax.swing.JFrame {
                 txtMotor.setText(carro.getMotor());
                 txtValvula.setText(Integer.toString(carro.getNum_valvulas()));
                 txtCilindro.setText(Integer.toString(carro.getNum_cilindros()));
-                //jblDtAgendada.setText(agendaFormatada);
+                jblDtAgendada.setText(null);
                 jblDtManutencao.setText(formater.format(carro.getData_manutencao()));
                 txtCombustivel.setText(carro.getCobustivel());
                 txtAno.setText(Integer.toString(carro.getAno()));
@@ -471,6 +469,30 @@ public class CadastroCarro extends javax.swing.JFrame {
                 btnDeletar.setEnabled(true);
                 txtPlaca.setEditable(false);
                 btnBuscar.setEnabled(false);
+                
+            } else if(carro.getData_manutencao() == null && carro.getManutencao_agendada() != null){
+            DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+                txtCpfProprietario.setText(carro.getCpf_proprietario());
+                txtModelo.setText(carro.getModelo());
+                txtMontadora.setText(carro.getMontadora());
+                txtMotor.setText(carro.getMotor());
+                txtValvula.setText(Integer.toString(carro.getNum_valvulas()));
+                txtCilindro.setText(Integer.toString(carro.getNum_cilindros()));
+                jblDtAgendada.setText(formater.format(carro.getManutencao_agendada()));
+                jblDtManutencao.setText(null);
+                txtCombustivel.setText(carro.getCobustivel());
+                txtAno.setText(Integer.toString(carro.getAno()));
+                txtCambio.setText(carro.getCambio());
+                txtPlaca.setEditable(false);
+
+                btnCadastrar.setEnabled(false);
+                btnAlterar.setEnabled(true);
+                btnDeletar.setEnabled(true);
+                txtPlaca.setEditable(false);
+                btnBuscar.setEnabled(false);
+            
+            
             } else {
 
                 txtCpfProprietario.setText(carro.getCpf_proprietario());

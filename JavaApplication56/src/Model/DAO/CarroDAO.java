@@ -70,15 +70,19 @@ public class CarroDAO {
                 carro.setMotor(rs.getString("motor"));
                 carro.setNum_valvulas(rs.getInt("num_valvulas"));
                 carro.setNum_cilindros(rs.getInt("num_cilindros"));
-                Date manutencaoSql = rs.getDate("data_manutencao");
-                if (manutencaoSql != null) {
-                    carro.setData_manutencao(manutencaoSql.toLocalDate());
+                
+                //Date manutencaoSql = rs.getDate("data_manutencao");
+                
+                if (rs.getDate("data_manutencao") != null) {
+                    carro.setData_manutencao(rs.getDate("data_manutencao").toLocalDate());
                 } else {
                     carro.setData_manutencao(null);
                 }
+                
                 Date agendaSql = rs.getDate("manutencao_agendada");
-                if (agendaSql != null) {
-                    carro.setManutencao_agendada(agendaSql.toLocalDate());
+                
+                if (rs.getDate("manutencao_agendada") != null) {
+                    carro.setManutencao_agendada(rs.getDate("manutencao_agendada").toLocalDate());
                 } else {
                     carro.setManutencao_agendada(null);
                 }
