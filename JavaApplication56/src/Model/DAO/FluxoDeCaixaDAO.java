@@ -177,5 +177,58 @@ public class FluxoDeCaixaDAO {
         }
     }
     
+
+  public double somaEntrada(int mes, int ano){
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        double totalEntrada = 0;
+        
+        String sql = "SELECT sum(valorEntrada) FROM fluxodecaixa WHERE MONTH(dataOperacao) = ? AND YEAR(dataOperacao) = ?";
+        
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, mes);
+            stmt.setInt(2, ano);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {                
+                totalEntrada = rs.getDouble(1);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(FluxoDeCaixaDAO.class.getName()).log(Level.SEVERE,null,e);
+        } finally {
+            ConexaoBanco.closeConnection(con, stmt, rs);
+        }
+        
+        return totalEntrada;
+    }
+    public double somaSaida(int mes, int ano){
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        double totalSaida = 0;
+        
+        String sql = "SELECT sum(valorSaida) FROM fluxodecaixa WHERE MONTH(dataOperacao) = ? AND YEAR(dataOperacao) = ?";
+        
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, mes);
+            stmt.setInt(2, ano);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {                
+                totalSaida = rs.getDouble(1);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(FluxoDeCaixaDAO.class.getName()).log(Level.SEVERE,null,e);
+        } finally {
+            ConexaoBanco.closeConnection(con, stmt, rs);
+        }
+        
+        return totalSaida;
+    }
     
 }

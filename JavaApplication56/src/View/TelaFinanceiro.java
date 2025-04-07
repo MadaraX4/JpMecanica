@@ -21,6 +21,8 @@ import java.awt.Toolkit;
 import java.time.LocalDate;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerListModel;
 
 /**
  *
@@ -215,6 +217,8 @@ public class TelaFinanceiro extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtValorEmCaixa = new javax.swing.JTextField();
         jButton1 = new BotaoRedondo();
+        btnUltimosMeses = new BotaoRedondo();
+        btnAnual = new BotaoRedondo();
         jCbMes = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -351,6 +355,26 @@ public class TelaFinanceiro extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 0, 230, 50));
+
+        btnUltimosMeses.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnUltimosMeses.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/grafico-preditivo.png"))); // NOI18N
+        btnUltimosMeses.setText("6 meses");
+        btnUltimosMeses.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUltimosMesesActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnUltimosMeses, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 170, 40));
+
+        btnAnual.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnAnual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/grafico-preditivo.png"))); // NOI18N
+        btnAnual.setText("Anual");
+        btnAnual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnualActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnAnual, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 170, 40));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 640, 1010, 50));
 
@@ -650,6 +674,19 @@ public class TelaFinanceiro extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnUltimosMesesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimosMesesActionPerformed
+        // TODO add your handling code here:
+        Graficos6meses g = new Graficos6meses();
+        g.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnUltimosMesesActionPerformed
+
+    private void btnAnualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnualActionPerformed
+        GraficoAnual g = new GraficoAnual();
+        g.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAnualActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -668,8 +705,10 @@ public class TelaFinanceiro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAnual;
     private javax.swing.JButton btnDeletar;
     private javax.swing.JButton btnSair;
+    private javax.swing.JButton btnUltimosMeses;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jCbMes;

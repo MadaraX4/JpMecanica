@@ -196,16 +196,70 @@ public class OsDAO {
     public void delete(int osId) {
         Connection con = ConexaoBanco.getConnection();
         PreparedStatement stmt = null;
-        
+
         try {
             stmt = con.prepareStatement("DELETE FROM os WHERE id=?");
             stmt.setInt(1, osId);
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Os Deletada com sucesso!");
         } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(null, "ERRO: " + ex);
-        }finally{
-        ConexaoBanco.closeConnection(con, stmt);
+            JOptionPane.showMessageDialog(null, "ERRO: " + ex);
+        } finally {
+            ConexaoBanco.closeConnection(con, stmt);
         }
     }
+
+    public int carrosNoMes(int mes, int ano) {
+
+        Connection con = ConexaoBanco.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        int nCarros = 0;
+        String sql = "SELECT count(id) AS numeroDeCarros FROM os WHERE month(dataDaOrdem) = ? AND year(dataDaOrdem) = ?";
+
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, mes);
+            stmt.setInt(2, ano);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                nCarros = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(OsDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            ConexaoBanco.closeConnection(con, stmt, rs);
+        }
+        return nCarros;
+    }
+    
+    public int carrosNoAno(int mes,int ano){
+    
+    Connection con = ConexaoBanco.getConnection();
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    
+    int nCarros = 0;
+    String sql = "SELECT count(id) AS numeroDeCarros FROM os WHERE month(dataDaOrdem) = ? AND year(dataDaOrdem) = ?";
+    
+        try {
+           stmt = con.prepareStatement(sql);
+           stmt.setInt(1, mes);
+           stmt.setInt(2, ano);
+           rs = stmt.executeQuery();
+           
+            while (rs.next()) {                
+                nCarros = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(OsDAO.class.getName()).log(Level.SEVERE,null,e);
+        } finally {
+            ConexaoBanco.closeConnection(con, stmt, rs);
+        }
+        
+        return nCarros;
+    }
+
 }
